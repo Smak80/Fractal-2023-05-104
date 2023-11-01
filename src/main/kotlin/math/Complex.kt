@@ -27,6 +27,7 @@ class Complex(var re: Double = 0.0, var im: Double = 0.0) {
         val re1 = re
         re = re * other.re - im * other.im
         im = re1 * other.im + im * other.re
+        //re = r
     }
 
     operator fun div(other: Complex) = Complex((re * other.re + im * other.im) / other.abs2(), (im * other.re - re * other.im) / other.abs2())
