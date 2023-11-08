@@ -9,7 +9,10 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 
-class FractalPainter(val fractal: AlgebraicFractal) : Painter {
+class FractalPainter(
+    val fractal: AlgebraicFractal,
+    val colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
+) : Painter {
     var plane: Plane? = null
     override var width: Int
         get() = plane?.width?.toInt() ?: 0
@@ -23,8 +26,8 @@ class FractalPainter(val fractal: AlgebraicFractal) : Painter {
             for (i in 0..width)
                 for (j in 0..height) {
                     val x = Complex(Converter.xScr2Crt(i.toFloat(), plane), Converter.yScr2Crt(j.toFloat(), plane))
-                    if (fractal.isInSet(x))
-                        scope.drawRect(Color.Black, Offset(i.toFloat(), j.toFloat()), Size(1f,1f))
+
+                        scope.drawRect(colorFunc(fractal.isInSet(x)), Offset(i.toFloat(), j.toFloat()), Size(1f,1f))
 
 
 
