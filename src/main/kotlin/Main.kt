@@ -86,7 +86,10 @@ fun DrawingPanel(
 
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "Множество Мандельброта"
+    ) {
         App()
     }
 }

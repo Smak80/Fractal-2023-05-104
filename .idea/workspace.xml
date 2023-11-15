@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Выделение мышкой">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +91,7 @@
       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.desktop">
+  <component name="RunManager" selected="Kotlin.MainKt">
     <configuration name="fractalComposable-2023 [compileKotlin]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -128,8 +123,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
         <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
       </list>
     </recent_temporary>
   </component>
