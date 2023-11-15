@@ -25,24 +25,34 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
+    var img = BufferedImage(
+        1,
+        1,
+        BufferedImage.TYPE_INT_ARGB,
+    )
+    var refresh = true
+
     override fun paint(scope: DrawScope) {
-        val img = BufferedImage(
-            scope.size.width.toInt(),
-            scope.size.height.toInt(),
-            BufferedImage.TYPE_INT_ARGB,
-        )
-        plane?.let { plane ->
-            for (i in 0..<width)
-                for (j in 0..<height) {
-                    val x = Complex(
-                        Converter.xScr2Crt(i.toFloat(), plane),
-                        Converter.yScr2Crt(j.toFloat(), plane)
-                    )
-                    img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
-                    //scope.drawRect(colorFunc(fractal.isInSet(x)), Offset(i.toFloat(), j.toFloat()), Size(1f,1f))
-                }
-            scope.drawImage(img.toComposeImageBitmap())
+        if (refresh) {
+            refresh = false
+            img = BufferedImage(
+                scope.size.width.toInt(),
+                scope.size.height.toInt(),
+                BufferedImage.TYPE_INT_ARGB,
+            )
+            plane?.let { plane ->
+                for (i in 0..<width)
+                    for (j in 0..<height) {
+                        val x = Complex(
+                            Converter.xScr2Crt(i.toFloat(), plane),
+                            Converter.yScr2Crt(j.toFloat(), plane)
+                        )
+                        img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
+                        //scope.drawRect(colorFunc(fractal.isInSet(x)), Offset(i.toFloat(), j.toFloat()), Size(1f,1f))
+                    }
+            }
         }
+        scope.drawImage(img.toComposeImageBitmap())
     }
 
 }

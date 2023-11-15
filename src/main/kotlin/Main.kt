@@ -6,6 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,11 @@ fun App() {
     }}
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme {
-        DrawingPanel(fp)
+        DrawingPanel(fp){size ->
+            fp.width = size.width.toInt()
+            fp.height = size.height.toInt()
+            fp.refresh = true
+        }
         SelectionPanel{
             fp.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
@@ -44,6 +49,7 @@ fun App() {
                 plane.xMax = xMax
                 plane.yMin = yMin
                 plane.yMax = yMax
+                fp.refresh = true
             }
         }
     }
@@ -75,11 +81,13 @@ fun SelectionPanel(
 
 @Composable
 fun DrawingPanel(
-    fp: Painter
+    fp: Painter,
+    onResize: (Size)-> Unit = {},
 ) {
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
-        fp.width = size.width.toInt()
-        fp.height = size.height.toInt()
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
+            onResize(size)
+
         fp.paint(this)
     }
 }
