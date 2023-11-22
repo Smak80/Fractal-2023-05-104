@@ -12,6 +12,7 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 import java.awt.image.BufferedImage
+import kotlin.concurrent.thread
 
 class FractalPainter(
     val fractal: AlgebraicFractal,
@@ -41,15 +42,19 @@ class FractalPainter(
                 BufferedImage.TYPE_INT_ARGB,
             )
             plane?.let { plane ->
-                for (i in 0..<width)
-                    for (j in 0..<height) {
-                        val x = Complex(
-                            Converter.xScr2Crt(i.toFloat(), plane),
-                            Converter.yScr2Crt(j.toFloat(), plane)
-                        )
-                        img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
-                        //scope.drawRect(colorFunc(fractal.isInSet(x)), Offset(i.toFloat(), j.toFloat()), Size(1f,1f))
+                val tc = Runtime.getRuntime().availableProcessors()
+                List(tc) { t ->
+                    thread {
+                        for (i in t..<width step tc)
+                            for (j in 0..<height) {
+                                val x = Complex(
+                                    Converter.xScr2Crt(i.toFloat(), plane),
+                                    Converter.yScr2Crt(j.toFloat(), plane)
+                                )
+                                img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
+                            }
                     }
+                }.forEach { it.join() }
             }
         }
         scope.drawImage(img.toComposeImageBitmap())
