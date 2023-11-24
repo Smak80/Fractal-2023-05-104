@@ -2,32 +2,32 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.input.key.Key.Companion.R
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import controls.DrawingPanel
+import controls.SelectionPanel
+import controls.mainFractalWindow
 import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
-import java.awt.FileDialog
 import kotlin.math.*
 
-fun test(){
-
-}
 @Composable
 @Preview
-fun App() {
+fun App(){
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -38,82 +38,50 @@ fun App() {
         }
     }}
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
-    MaterialTheme {
-        DrawingPanel(fp){size ->
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
-            fp.refresh = true
-        }
-        SelectionPanel{
-            fp.plane?.let{ plane ->
-                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
-                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                plane.xMin = xMin
-                plane.xMax = xMax
-                plane.yMin = yMin
-                plane.yMax = yMax
-                fp.refresh = true
-            }
-        }
+    MaterialTheme{
+        Scaffold(
+            topBar = {
+                // TopAppBar содержит компоненты AppBar, такие как IconButton и Text
+                TopAppBar(
+                    title = {
+                        Text(text = "SDsfasdasdasd")
+                    },
+                    navigationIcon = {
+                        // NavigationIcon представляет значок для кнопки навигации
+                        IconButton(
+                            onClick = {
+                                // Обработка события нажатия на кнопку навигации
+                            }
+                        ) {
+                        }
+                    },
+                    actions = {
+                        // Список действий, расположенных справа от заголовка
+                        IconButton(
+                            onClick = {
+                                // Обработка события нажатия на первую кнопку
+                            }
+                        ) {
+                        }
+                        IconButton(
+                            onClick = {
+                                // Обработка события нажатия на вторую кнопку
+                            }
+                        ) {
+                        }
+                    }
+                )
+            },
+            content = {
+                mainFractalWindow(fp)
+            },
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun SelectionPanel(
-    onSelected: (SelectionRect)->Unit
-) {
-    var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}
-    val fd = remember {
-        FileDialog(
-            ComposeWindow(),
-            "Открыть файл",
-            FileDialog.LOAD
-        )}
-    var showW2 by remember { mutableStateOf(false) }
-    if (showW2){
-        Window(
-            onCloseRequest = { showW2 = false },
-            title = "Второе окно"
-        ){
-            App()
-        }
-    }
-    Canvas(Modifier.fillMaxSize().padding(8.dp).pointerInput(Unit){
-        detectDragGestures(
-            onDragStart = {
-                rect = SelectionRect(it)
-            },
-            onDrag = {
-                rect.addPoint(it)
-            },
-            onDragEnd = {
-                onSelected(rect)
-                rect = SelectionRect(Offset.Zero)
-            },
-            matcher = PointerMatcher.Primary)
-    }.clickable {
-        //fd.isVisible = true
-        showW2 = true
-    }){
-        drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
-    }
-}
 
-@Composable
-fun DrawingPanel(
-    fp: Painter,
-    onResize: (Size)-> Unit = {},
-) {
-    Canvas(Modifier.fillMaxSize().padding(8.dp)) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
-            onResize(size)
 
-        fp.paint(this)
-    }
-}
 
 fun main() = application {
     Window(
@@ -123,3 +91,4 @@ fun main() = application {
         App()
     }
 }
+
