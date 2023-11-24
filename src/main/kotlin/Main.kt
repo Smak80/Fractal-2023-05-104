@@ -22,6 +22,9 @@ import math.fractals.Mandelbrot
 import java.awt.FileDialog
 import kotlin.math.*
 
+fun test(){
+
+}
 @Composable
 @Preview
 fun App() {
