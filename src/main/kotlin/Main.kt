@@ -1,26 +1,26 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.outlined.Done
+import androidx.compose.material.icons.twotone.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.input.key.Key.Companion.R
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import controls.DrawingPanel
-import controls.SelectionPanel
+import controls.dropdownMenuIcon
+import controls.fileMenu
 import controls.mainFractalWindow
 import drawing.FractalPainter
-import drawing.Painter
-import drawing.SelectionRect
-import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import kotlin.math.*
@@ -28,6 +28,7 @@ import kotlin.math.*
 @Composable
 @Preview
 fun App(){
+    var isMenuExpanded by remember { mutableStateOf(false) }
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -41,34 +42,91 @@ fun App(){
     MaterialTheme{
         Scaffold(
             topBar = {
-                // TopAppBar содержит компоненты AppBar, такие как IconButton и Text
                 TopAppBar(
                     title = {
-                        Text(text = "SDsfasdasdasd")
+                        Text(text = "Множество Мондельброта")
                     },
                     navigationIcon = {
-                        // NavigationIcon представляет значок для кнопки навигации
                         IconButton(
-                            onClick = {
-                                // Обработка события нажатия на кнопку навигации
-                            }
+                            onClick = { isMenuExpanded = true }
                         ) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Меню")
+                            if (isMenuExpanded) {
+                                DropdownMenu(
+                                    expanded = isMenuExpanded,
+                                    onDismissRequest = { isMenuExpanded = false },
+                                    modifier = Modifier.padding(8.dp)
+                                ) {
+                                    // Add menu items here
+                                    DropdownMenuItem(onClick = {
+                                        // Handle menu item click
+                                        isMenuExpanded = false
+                                    }) {
+                                        Text("Menu Item 1")
+                                    }
+
+                                    DropdownMenuItem(onClick = {
+                                        // Handle menu item click
+                                        isMenuExpanded = false
+                                    }) {
+                                        Text("Menu Item 2")
+                                    }
+                                }
+                            }
                         }
                     },
                     actions = {
-                        // Список действий, расположенных справа от заголовка
+                        //Кнопка Назад
                         IconButton(
                             onClick = {
-                                // Обработка события нажатия на первую кнопку
+                                TODO()
                             }
                         ) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Назад")
                         }
-                        IconButton(
-                            onClick = {
-                                // Обработка события нажатия на вторую кнопку
-                            }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        //Кнопка создания видео
+                        Button(
+                            onClick = { TODO("") },
+                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
                         ) {
+                            Text("Создать Видео")
                         }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        //Выбор Цветовой Схемы
+                        dropdownMenuIcon(
+                            mapOf(
+                                "Желта Сине Бюрюзовая" to { println("ssdasdasfafsafd") },
+                                "Синяя" to { println("sda") }
+                            ),
+                        )
+
+                        // Checkbox для динамических итераций
+                        var isChecked by remember { mutableStateOf(false) }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(end = 8.dp)
+                        ) {
+                            Checkbox(
+                                checked = isChecked,
+                                onCheckedChange = { isChecked = it },
+                                modifier = Modifier.padding(start = 8.dp)
+                            )
+                            Text(
+                                text = buildAnnotatedString {
+                                    withStyle(style = SpanStyle(fontSize = 12.sp)) {
+                                        append("Динамические\n")
+                                        append("итерации")
+                                    }
+                                }
+                            )
+                        }
+
+
                     }
                 )
             },
