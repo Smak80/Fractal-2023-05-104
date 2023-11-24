@@ -20,6 +20,9 @@ import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import kotlin.math.*
 
+fun test(){
+
+}
 @Composable
 @Preview
 fun App() {
