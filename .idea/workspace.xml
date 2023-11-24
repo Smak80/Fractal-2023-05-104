@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Разделил Меню и Фрактал">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/DropDownMenuIcon.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/FileButton.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -146,7 +147,7 @@
       <updated>1698826435830</updated>
       <workItem from="1700824953119" duration="1611000" />
       <workItem from="1700826969182" duration="2115000" />
-      <workItem from="1700836806421" duration="2070000" />
+      <workItem from="1700836806421" duration="12339000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -204,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700827082711</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Разделил Меню и Фрактал">
+      <option name="closed" value="true" />
+      <created>1700838916029</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700838916029</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,22 +237,8 @@
     <MESSAGE value="Выделение мышкой" />
     <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt</url>
-          <line>22</line>
-          <properties method="mainFractalWindow">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Разделил Меню и Фрактал" />
+    <option name="LAST_COMMIT_MESSAGE" value="Разделил Меню и Фрактал" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
