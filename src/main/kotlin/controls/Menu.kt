@@ -17,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
 @Composable
 fun menu(
@@ -32,7 +34,6 @@ fun menu(
 
 ){
     var isMenuExpanded by remember { mutableStateOf(false) }
-    var isDialogVisible by rememberSaveable { mutableStateOf(false) }
     TopAppBar(
         title = {
             Text(text = "Множество Мондельброта")
@@ -84,7 +85,6 @@ fun menu(
                     )
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-
                 //Для Вызова Окна с Видео
                 Row(
                     modifier = Modifier
@@ -97,13 +97,19 @@ fun menu(
                     Button(
                         modifier =  Modifier.
                         padding(start = 16.dp),
-                        onClick = showVideoDialog,
+                        onClick = {showVideoDialogBoolean = true},
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text("Создать Видео")
-                    }
-                    if (showVideoDialogBoolean) {
-
+                        if (showVideoDialogBoolean) {
+                            // Диалоговое окно
+                            Dialog(
+                                onDismissRequest = { showVideoDialogBoolean = false },
+                                properties = DialogProperties(dismissOnClickOutside = true))
+                            {
+                                workWithVideoDialog()
+                            }
+                        }
                     }
                     Spacer(modifier = Modifier.width(5.dp))
                     IconButton(
