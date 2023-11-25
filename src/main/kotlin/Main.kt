@@ -1,25 +1,24 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.outlined.Done
-import androidx.compose.material.icons.twotone.ArrowBack
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
+import androidx.compose.ui.window.*
 import controls.dropdownMenuIcon
-import controls.fileMenu
 import controls.mainFractalWindow
+import controls.showSaveDialog
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
@@ -28,7 +27,6 @@ import kotlin.math.*
 @Composable
 @Preview
 fun App(){
-    var isMenuExpanded by remember { mutableStateOf(false) }
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -47,6 +45,8 @@ fun App(){
                         Text(text = "Множество Мондельброта")
                     },
                     navigationIcon = {
+                        var isMenuExpanded by remember { mutableStateOf(false) }
+                        val dialogState = rememberDialogState()
                         IconButton(
                             onClick = { isMenuExpanded = true }
                         ) {
@@ -54,25 +54,19 @@ fun App(){
                                 imageVector = Icons.Default.Menu,
                                 contentDescription = "Меню")
                             if (isMenuExpanded) {
+                                // Выпадающий список
                                 DropdownMenu(
                                     expanded = isMenuExpanded,
-                                    onDismissRequest = { isMenuExpanded = false },
-                                    modifier = Modifier.padding(8.dp)
+                                    onDismissRequest = { isMenuExpanded = false }
                                 ) {
-                                    // Add menu items here
-                                    DropdownMenuItem(onClick = {
-                                        // Handle menu item click
-                                        isMenuExpanded = false
-                                    }) {
-                                        Text("Menu Item 1")
-                                    }
-
-                                    DropdownMenuItem(onClick = {
-                                        // Handle menu item click
-                                        isMenuExpanded = false
-                                    }) {
-                                        Text("Menu Item 2")
-                                    }
+                                    showSaveDialog("Cохранить",
+                                        {
+                                            println("image")
+                                            isMenuExpanded = false
+                                        }, {
+                                            println("fractal")
+                                            isMenuExpanded  = false
+                                        })
                                 }
                             }
                         }
@@ -85,8 +79,9 @@ fun App(){
                             }
                         ) {
                             Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Назад")
+                                Icons.Default.ArrowBack,
+                                "Назад"
+                            )
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                         //Кнопка создания видео
@@ -149,4 +144,3 @@ fun main() = application {
         App()
     }
 }
-
