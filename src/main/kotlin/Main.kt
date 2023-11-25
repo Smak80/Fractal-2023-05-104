@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
 import controls.dropdownMenuIcon
 import controls.mainFractalWindow
+import controls.menu
 import controls.showSaveDialog
 import drawing.FractalPainter
 import drawing.convertation.Plane
@@ -38,87 +39,20 @@ fun App(){
         Scaffold(
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
-                var isMenuExpanded by remember { mutableStateOf(false) }
-                TopAppBar(
-                    title = {
-                        Text(text = "Множество Мондельброта")
-                    },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { isMenuExpanded = true }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = "Меню")
-                            if (isMenuExpanded) {
-                                // Выпадающий список
-                                DropdownMenu(
-                                    expanded = isMenuExpanded,
-                                    onDismissRequest = { isMenuExpanded = false }
-                                ) {
-                                    showSaveDialog("Cохранить",
-                                        {
-                                            println("image")
-                                            isMenuExpanded = false
-                                        }, {
-                                            println("fractal")
-                                            isMenuExpanded  = false
-                                        })
-                                    DropdownMenuItem(
-                                        onClick = {TODO()}
-                                    ){
-                                        Text("Открыть")
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    actions = {
-                        Row {
-                            //Кнопка Назад
-                            IconButton(
-                                onClick = {
-                                    TODO()
-                                }
-                            ) {
-                                Icon(
-                                    Icons.Default.ArrowBack,
-                                    "Назад"
-                                )
-                            }
-                            Spacer(modifier = Modifier.width(10.dp))
-                            //Кнопка создания видео
-                            Button(
-                                onClick = { TODO("") },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
-                            ) {
-                                Text("Создать Видео")
-                            }
-                            Spacer(modifier = Modifier.width(10.dp))
-                            //Выбор Цветовой Схемы
-                            dropdownMenuIcon(
-                                mapOf(
-                                    "Желта Сине Бюрюзовая" to { println("ssdasdasfafsafd") },
-                                    "Синяя" to { println("sda") }
-                                ),
-                            )
-                            // Checkbox для динамических итераций
-                            Checkbox(
-                                checked = dynamicIterationsCheck,
-                                onCheckedChange = { dynamicIterationsCheck = it },
-                                modifier = Modifier.padding(start = 8.dp)
-                            )
-                            Text(
-                                modifier = Modifier.padding(end = 8.dp),
-                                text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold)) {
-                                        append("Динамические\n")
-                                        append("     итерации")
-                                    }
-                                }
-                            )
-                        }
-                    }
+                menu(
+
+                    saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
+                    saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
+                    openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
+                    back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
+                    showVideoDialog = { TODO("ДЛЯ ОТКРЫТИЯ ОКНА С НАСТРОЙКАМИ ДЛЯ РАБОТЫ С ВИДЕО")},
+                    //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
+                    //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
+                    themesMap = mapOf(),
+                    //Это Boolean значение для динамических итераций, Переключатель True/False. Тут менять ничего не нужно.
+                    //Нужно просто реализовать логику изменения
+                    dynamicIterationsCheck,
+                    {dynamicIterationsCheck = it}
                 )
             },
             content = {
