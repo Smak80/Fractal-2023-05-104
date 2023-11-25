@@ -9,19 +9,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 
 @Composable
 fun menu(
@@ -39,12 +33,9 @@ fun menu(
     var isMenuExpanded by remember { mutableStateOf(false) }
     TopAppBar(
         title = {
-            Text(
-                modifier = Modifier,
-                textAlign = TextAlign.Center,
-                text = "Множество Мондельброта"
-            )
+            Text(text = "Множество Мондельброта")
         },
+
         navigationIcon = {
             IconButton(
                 onClick = { isMenuExpanded = true }
@@ -65,8 +56,6 @@ fun menu(
                             }, {
                                 saveFractal()
                                 isMenuExpanded  = false
-                            },{
-                                isMenuExpanded = false
                             })
                         DropdownMenuItem(
                             onClick = openF
@@ -78,23 +67,19 @@ fun menu(
             }
         },
         actions = {
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 2.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            )
-            {
+            Row {
                 //Кнопка Назад
                 IconButton(
-                    onClick = back
+                    onClick = {
+                        back()
+                    }
                 ) {
                     Icon(
                         Icons.Default.ArrowBack,
                         "Назад"
                     )
                 }
-                //Для Вызова Окна с Видео
+                Spacer(modifier = Modifier.width(10.dp))
                 Row(
                     modifier = Modifier
                         .background(
@@ -102,24 +87,13 @@ fun menu(
                             shape = RoundedCornerShape(50.dp)
                         )
                 ) {
-                    var showVideoDialogBoolean by remember { mutableStateOf(false) }
                     Button(
-                        modifier = Modifier.padding(start = 16.dp),
-                        onClick = { showVideoDialogBoolean = true },
+                        modifier =  Modifier.
+                        padding(start = 16.dp),
+                        onClick = showVideoDialog,
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text("Создать Видео")
-                        if (showVideoDialogBoolean) {
-                            // Диалоговое окно
-                            Dialog(
-                                onDismissRequest = { showVideoDialogBoolean = false },
-                                properties = DialogProperties(dismissOnClickOutside = true)
-                            ) {
-                                workWithVideoDialog {
-                                    showVideoDialogBoolean = false
-                                }
-                            }
-                        }
                     }
                     Spacer(modifier = Modifier.width(5.dp))
                     IconButton(
@@ -131,30 +105,27 @@ fun menu(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.width(10.dp))
                 //Выбор Цветовой Схемы
                 dropdownMenuIcon(
                     themesMap,
                 )
                 // Checkbox для динамических итераций
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Checkbox(
-                        checked = dynamicIterationsCheck,
-                        onCheckedChange = dynamicIterationsCheckChange,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-                    Text(
-                        text = "D. итерации",
-                        style = MaterialTheme.typography.body1.copy(
-                            fontSize = 18.sp,
-                            color = Color.White
-                        )
-                    )
-                }
+                Checkbox(
+                    checked = dynamicIterationsCheck,
+                    onCheckedChange = dynamicIterationsCheckChange,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+                Text(
+                    modifier = Modifier.padding(end = 8.dp),
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold)) {
+                            append("Динамические\n")
+                            append("     итерации")
+                        }
+                    }
+                )
             }
-        },
-        modifier = Modifier.height(65.dp)
+        }
     )
 }

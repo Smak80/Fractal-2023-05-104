@@ -1,22 +1,29 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
+import androidx.compose.ui.zIndex
+import controls.dropdownMenuIcon
 import controls.mainFractalWindow
 import controls.menu
+import controls.showSaveDialog
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
-import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.log2
-import kotlin.math.sin
+import kotlin.math.*
 
 @Composable
 @Preview
@@ -35,49 +42,41 @@ fun App(){
         Scaffold(
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
-                var isVideoDialogVisible by remember { mutableStateOf(false) }
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
                     saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
                     openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
-                    showVideoDialog = {},
+                    showVideoDialog = { TODO("ДЛЯ ОТКРЫТИЯ ОКНА С НАСТРОЙКАМИ ДЛЯ РАБОТЫ С ВИДЕО")},
                     addFrames = {TODO("Добавления Кадров к Экскурсии")},
                     //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
                     //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
                     themesMap = mapOf(),
                     //Это Boolean значение для динамических итераций, Переключатель True/False. Тут менять ничего не нужно.
                     //Нужно просто реализовать логику изменения
-                    dynamicIterationsCheck = dynamicIterationsCheck,
-                    dynamicIterationsCheckChange =  {dynamicIterationsCheck = it},
+                    dynamicIterationsCheck,
+                    {dynamicIterationsCheck = it},
                 )
             },
-            modifier = Modifier.fillMaxSize()){
-            Box(
-                Modifier.fillMaxSize()
-            ){
-                mainFractalWindow(fp)
-            }
-        }
+            content = {
+                Row{
+                    Box(
+                    ){
+                        mainFractalWindow(fp)
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
+
 
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Множество Мандельброта",
-        state = rememberWindowState(
-            width = 800.dp,
-            height = 600.dp,
-            placement = WindowPlacement.Floating,
-            position = WindowPosition(100.dp, 100.dp),
-            isMinimized = false
-        ),
+        title = "Множество Мандельброта"
     ) {
         App()
     }
-}
-
-fun testBranch(){
-    println("Test Branch")
 }
