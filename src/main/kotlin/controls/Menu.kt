@@ -58,6 +58,8 @@ fun menu(
                             }, {
                                 saveFractal()
                                 isMenuExpanded  = false
+                            },{
+                                isMenuExpanded = false
                             })
                         DropdownMenuItem(
                             onClick = openF
