@@ -1,11 +1,11 @@
 package controls
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
@@ -24,6 +24,7 @@ fun menu(
     openF: ()->Unit,
     back: ()->Unit,
     showVideoDialog: ()->Unit,
+    addFrames: ()->Unit,
     themesMap: Map<String,()->Unit>,
     dynamicIterationsCheck: Boolean,
     dynamicIterationsCheckChange: (Boolean)->Unit
@@ -79,12 +80,30 @@ fun menu(
                     )
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-                //Кнопка создания видео
-                Button(
-                    onClick = showVideoDialog,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
+                Row(
+                    modifier = Modifier
+                        .background(
+                            color = MaterialTheme.colors.secondaryVariant,
+                            shape = RoundedCornerShape(50.dp)
+                        )
                 ) {
-                    Text("Создать Видео")
+                    Button(
+                        modifier =  Modifier.
+                        padding(start = 16.dp),
+                        onClick = showVideoDialog,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                    ) {
+                        Text("Создать Видео")
+                    }
+                    Spacer(modifier = Modifier.width(5.dp))
+                    IconButton(
+                        onClick = addFrames
+                    ) {
+                        Icon(
+                            Icons.Default.Add,
+                            "Добавить Кадр"
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 //Выбор Цветовой Схемы

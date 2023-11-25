@@ -22,12 +22,12 @@ import drawing.convertation.Converter
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
     Box(){
-        DrawingPanel(fp){size ->
+        drawingPanel(fp){ size ->
             fp.width = size.width.toInt()
             fp.height = size.height.toInt()
             fp.refresh = true
         }
-        SelectionPanel{
+        selectionPanel{
             fp.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
@@ -45,7 +45,7 @@ fun mainFractalWindow(fp:FractalPainter){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SelectionPanel(
+fun selectionPanel(
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }
@@ -68,7 +68,7 @@ fun SelectionPanel(
 }
 
 @Composable
-fun DrawingPanel(
+fun drawingPanel(
     fp: Painter,
     onResize: (Size)-> Unit = {},
 ) {

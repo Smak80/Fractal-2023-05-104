@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="getBack">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/ShowSaveDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/ShowSaveDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +91,7 @@
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/KotlinProjects/MandelbrotSet",
+    "last_opened_file_path": "D:/KotlinProjects",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -155,6 +157,9 @@
       <workItem from="1700824953119" duration="1611000" />
       <workItem from="1700826969182" duration="2115000" />
       <workItem from="1700836806421" duration="13362000" />
+      <workItem from="1700925104912" duration="240000" />
+      <workItem from="1700925348075" duration="899000" />
+      <workItem from="1700926255875" duration="8862000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -252,7 +257,31 @@
       <option name="project" value="LOCAL" />
       <updated>1700907315462</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Инкапсулировал Меню, чтобы ребятам было проще ориентироваться">
+      <option name="closed" value="true" />
+      <created>1700909297307</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1700909297308</updated>
+    </task>
+    <task id="LOCAL-00014" summary="getBack">
+      <option name="closed" value="true" />
+      <created>1700925469089</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1700925469089</updated>
+    </task>
+    <task id="LOCAL-00015" summary="getBack">
+      <option name="closed" value="true" />
+      <created>1700926192448</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1700926192448</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +336,9 @@
     <MESSAGE value="Сделал Разные Controls в Меню." />
     <MESSAGE value="Добавил Возможность сохранения и Диалоговое Окно" />
     <MESSAGE value="Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню" />
+    <MESSAGE value="Инкапсулировал Меню, чтобы ребятам было проще ориентироваться" />
+    <MESSAGE value="getBack" />
+    <option name="LAST_COMMIT_MESSAGE" value="getBack" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -50,7 +50,7 @@ fun showSaveDialog(text:String, imageSave:()->Unit, fractalSave:()->Unit){
                     Row(
                         modifier = Modifier.run {
                             fillMaxWidth()
-                                .padding(horizontal = 10.dp, vertical = 5.dp )
+                            .padding(horizontal = 10.dp, vertical = 5.dp )
                         },
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
