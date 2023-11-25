@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -31,6 +32,7 @@ fun menu(
 
 ){
     var isMenuExpanded by remember { mutableStateOf(false) }
+    var isDialogVisible by rememberSaveable { mutableStateOf(false) }
     TopAppBar(
         title = {
             Text(text = "Множество Мондельброта")
@@ -80,6 +82,8 @@ fun menu(
                     )
                 }
                 Spacer(modifier = Modifier.width(10.dp))
+
+                //Для Вызова Окна с Видео
                 Row(
                     modifier = Modifier
                         .background(
@@ -87,6 +91,7 @@ fun menu(
                             shape = RoundedCornerShape(50.dp)
                         )
                 ) {
+                    var showVideoDialogBoolean by remember { mutableStateOf(false) }
                     Button(
                         modifier =  Modifier.
                         padding(start = 16.dp),
@@ -94,6 +99,9 @@ fun menu(
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
                     ) {
                         Text("Создать Видео")
+                    }
+                    if (showVideoDialogBoolean) {
+
                     }
                     Spacer(modifier = Modifier.width(5.dp))
                     IconButton(
@@ -116,6 +124,7 @@ fun menu(
                     onCheckedChange = dynamicIterationsCheckChange,
                     modifier = Modifier.padding(start = 8.dp)
                 )
+
                 Text(
                     modifier = Modifier.padding(end = 8.dp),
                     text = buildAnnotatedString {
