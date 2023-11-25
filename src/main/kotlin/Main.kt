@@ -1,17 +1,14 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,13 +37,13 @@ fun App(){
     MaterialTheme{
         Scaffold(
             topBar = {
+                var dynamicIterationsCheck by remember { mutableStateOf(false) }
+                var isMenuExpanded by remember { mutableStateOf(false) }
                 TopAppBar(
                     title = {
                         Text(text = "Множество Мондельброта")
                     },
                     navigationIcon = {
-                        var isMenuExpanded by remember { mutableStateOf(false) }
-                        val dialogState = rememberDialogState()
                         IconButton(
                             onClick = { isMenuExpanded = true }
                         ) {
@@ -67,61 +64,60 @@ fun App(){
                                             println("fractal")
                                             isMenuExpanded  = false
                                         })
+                                    DropdownMenuItem(
+                                        onClick = {TODO()}
+                                    ){
+                                        Text("Открыть")
+                                    }
                                 }
                             }
                         }
                     },
                     actions = {
-                        //Кнопка Назад
-                        IconButton(
-                            onClick = {
-                                TODO()
+                        Row {
+                            //Кнопка Назад
+                            IconButton(
+                                onClick = {
+                                    TODO()
+                                }
+                            ) {
+                                Icon(
+                                    Icons.Default.ArrowBack,
+                                    "Назад"
+                                )
                             }
-                        ) {
-                            Icon(
-                                Icons.Default.ArrowBack,
-                                "Назад"
+                            Spacer(modifier = Modifier.width(10.dp))
+                            //Кнопка создания видео
+                            Button(
+                                onClick = { TODO("") },
+                                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
+                            ) {
+                                Text("Создать Видео")
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+                            //Выбор Цветовой Схемы
+                            dropdownMenuIcon(
+                                mapOf(
+                                    "Желта Сине Бюрюзовая" to { println("ssdasdasfafsafd") },
+                                    "Синяя" to { println("sda") }
+                                ),
                             )
-                        }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        //Кнопка создания видео
-                        Button(
-                            onClick = { TODO("") },
-                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondaryVariant)
-                        ) {
-                            Text("Создать Видео")
-                        }
-                        Spacer(modifier = Modifier.width(16.dp))
-                        //Выбор Цветовой Схемы
-                        dropdownMenuIcon(
-                            mapOf(
-                                "Желта Сине Бюрюзовая" to { println("ssdasdasfafsafd") },
-                                "Синяя" to { println("sda") }
-                            ),
-                        )
-
-                        // Checkbox для динамических итераций
-                        var isChecked by remember { mutableStateOf(false) }
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(end = 8.dp)
-                        ) {
+                            // Checkbox для динамических итераций
                             Checkbox(
-                                checked = isChecked,
-                                onCheckedChange = { isChecked = it },
+                                checked = dynamicIterationsCheck,
+                                onCheckedChange = { dynamicIterationsCheck = it },
                                 modifier = Modifier.padding(start = 8.dp)
                             )
                             Text(
+                                modifier = Modifier.padding(end = 8.dp),
                                 text = buildAnnotatedString {
-                                    withStyle(style = SpanStyle(fontSize = 12.sp)) {
+                                    withStyle(style = SpanStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold)) {
                                         append("Динамические\n")
-                                        append("итерации")
+                                        append("     итерации")
                                     }
                                 }
                             )
                         }
-
-
                     }
                 )
             },

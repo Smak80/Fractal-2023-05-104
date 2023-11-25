@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Сделал Разные Controls в Меню.">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/ShowSaveDialog.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Добавил Возможность сохранения и Диалоговое Окно">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/DropDownMenuIcon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/DropDownMenuIcon.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,7 @@
         <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -237,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700855605517</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Добавил Возможность сохранения и Диалоговое Окно">
+      <option name="closed" value="true" />
+      <created>1700905707198</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700905707199</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,7 +296,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="Разделил Меню и Фрактал" />
     <MESSAGE value="Сделал Разные Controls в Меню." />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделал Разные Controls в Меню." />
+    <MESSAGE value="Добавил Возможность сохранения и Диалоговое Окно" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил Возможность сохранения и Диалоговое Окно" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
