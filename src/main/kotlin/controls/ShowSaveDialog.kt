@@ -21,90 +21,96 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
     var isDialogVisible by remember { mutableStateOf(false) }
 
     // Добавленная кнопка для открытия диалогового окна
-    DropdownMenuItem(onClick = { isDialogVisible = true }) {
+    DropdownMenuItem(
+        onClick = {
+            isDialogVisible = true
+        }
+    ) {
         Text(text)
     }
 
     // Диалоговое окно
     if (isDialogVisible) {
         Dialog(
-            onDismissRequest = { isDialogVisible = false },
-            properties = DialogProperties(dismissOnClickOutside = false),
-            content = {
-                Column(
+            onDismissRequest = {
+                isDialogVisible = false
+                close()
+            },
+            properties = DialogProperties(dismissOnClickOutside = true)
+        )
+        {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+                    .background(MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
-                        .background(MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .padding(horizontal = 10.dp, vertical = 2.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
+                    // Текст в диалоговом окне
+                    Text(
+                        "Как вы хотите сохранить файл?",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.weight(1f)
+                    )
+                    //Закрытие
+                    IconButton(
+                        onClick = {
+                            close()
+                            isDialogVisible = false
+                        },
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp,vertical = 2.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                            .padding(horizontal = 8.dp)
                     ) {
-                        // Текст в диалоговом окне
-                        Text(
-                            "Как вы хотите сохранить файл?",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .weight(1f)
+                        Icon(
+                            Icons.Default.Close,
+                            "Закрыть"
                         )
-                        //Закрытие
-                        IconButton(
-                            onClick = {
-                                close()
-                                isDialogVisible = false
-                            },
-                            modifier = Modifier
-                                .padding(horizontal = 8.dp)
-                        ) {
-                            Icon(
-                                Icons.Default.Close,
-                                "Закрыть"
-                            )
-                        }
                     }
+                }
 
-                    // Кнопки в строку
-                    Row(
+                // Кнопки в строку
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 2.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Кнопка "Изображение"
+                    Button(
+                        onClick = {
+                            imageSave()
+                            isDialogVisible = false
+                        },
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp, vertical = 2.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                            .weight(1f)
+                            .padding(horizontal = 8.dp)
                     ) {
-                        // Кнопка "Изображение"
-                        Button(
-                            onClick = {
-                                imageSave()
-                                isDialogVisible = false
-                            },
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = 8.dp)
-                        ) {
-                            Text("Изображение")
-                        }
-                        // Кнопка "Фрактал"
-                        Button(
-                            onClick = {
-                                fractalSave()
-                                isDialogVisible = false
-                            },
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = 8.dp)
-                        ) {
-                            Text("Фрактал")
-                        }
+                        Text("Изображение")
+                    }
+                    // Кнопка "Фрактал"
+                    Button(
+                        onClick = {
+                            fractalSave()
+                            isDialogVisible = false
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 8.dp)
+                    ) {
+                        Text("Фрактал")
                     }
                 }
             }
-        )
+        }
     }
 }
