@@ -16,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
 import androidx.compose.ui.zIndex
-import controls.dropdownMenuIcon
-import controls.mainFractalWindow
-import controls.menu
-import controls.showSaveDialog
+import controls.*
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
@@ -42,20 +39,23 @@ fun App(){
         Scaffold(
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
+                var isVideoDialogVisible by remember { mutableStateOf(false) }
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
                     saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
                     openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
-                    showVideoDialog = { TODO("ДЛЯ ОТКРЫТИЯ ОКНА С НАСТРОЙКАМИ ДЛЯ РАБОТЫ С ВИДЕО")},
+                    showVideoDialog = {
+
+                                      },
                     addFrames = {TODO("Добавления Кадров к Экскурсии")},
                     //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
                     //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
                     themesMap = mapOf(),
                     //Это Boolean значение для динамических итераций, Переключатель True/False. Тут менять ничего не нужно.
                     //Нужно просто реализовать логику изменения
-                    dynamicIterationsCheck,
-                    {dynamicIterationsCheck = it},
+                    dynamicIterationsCheck = dynamicIterationsCheck,
+                    dynamicIterationsCheckChange =  {dynamicIterationsCheck = it},
                 )
             },
             content = {
