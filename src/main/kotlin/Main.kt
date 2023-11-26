@@ -59,11 +59,10 @@ fun App(){
                 )
             },
             modifier = Modifier.fillMaxSize()){
-            Row{
-                Box(
-                ){
-                    mainFractalWindow(fp)
-                }
+            Box(
+                Modifier.fillMaxSize()
+            ){
+                mainFractalWindow(fp)
             }
         }
     }
