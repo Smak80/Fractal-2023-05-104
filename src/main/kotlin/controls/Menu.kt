@@ -115,7 +115,9 @@ fun menu(
                                 onDismissRequest = { showVideoDialogBoolean = false },
                                 properties = DialogProperties(dismissOnClickOutside = true)
                             ) {
-                                workWithVideoDialog()
+                                workWithVideoDialog {
+                                    showVideoDialogBoolean = false
+                                }
                             }
                         }
                     }
