@@ -12,6 +12,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
@@ -56,16 +58,14 @@ fun App(){
                     dynamicIterationsCheckChange =  {dynamicIterationsCheck = it},
                 )
             },
-            content = {
-                Row{
-                    Box(
-                    ){
-                        mainFractalWindow(fp)
-                    }
+            modifier = Modifier.fillMaxSize()){
+            Row{
+                Box(
+                ){
+                    mainFractalWindow(fp)
                 }
-            },
-            modifier = Modifier.fillMaxSize()
-        )
+            }
+        }
     }
 }
 
@@ -73,7 +73,14 @@ fun App(){
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Множество Мандельброта"
+        title = "Множество Мандельброта",
+        state = rememberWindowState(
+            width = 800.dp,
+            height = 600.dp,
+            placement = WindowPlacement.Floating,
+            position = WindowPosition(100.dp, 100.dp),
+            isMinimized = false
+        ),
     ) {
         App()
     }
