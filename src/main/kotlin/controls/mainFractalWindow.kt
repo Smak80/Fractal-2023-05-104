@@ -21,24 +21,22 @@ import drawing.convertation.Converter
 
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
-    Box(){
-        drawingPanel(fp){ size ->
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
+    drawingPanel(fp){ size ->
+        fp.width = size.width.toInt()
+        fp.height = size.height.toInt()
+        fp.refresh = true
+    }
+    selectionPanel{
+        fp.plane?.let{ plane ->
+            val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+            val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+            val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+            val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+            plane.xMin = xMin
+            plane.xMax = xMax
+            plane.yMin = yMin
+            plane.yMax = yMax
             fp.refresh = true
-        }
-        selectionPanel{
-            fp.plane?.let{ plane ->
-                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
-                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                plane.xMin = xMin
-                plane.xMax = xMax
-                plane.yMin = yMin
-                plane.yMax = yMax
-                fp.refresh = true
-            }
         }
     }
 }
@@ -49,7 +47,7 @@ fun selectionPanel(
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }
-    Canvas(Modifier.fillMaxSize().padding(8.dp).pointerInput(Unit){
+    Canvas(Modifier.fillMaxSize().pointerInput(Unit){
         detectDragGestures(
             onDragStart = {
                 rect = SelectionRect(it)
@@ -72,7 +70,7 @@ fun drawingPanel(
     fp: Painter,
     onResize: (Size)-> Unit = {},
 ) {
-    Canvas(Modifier.fillMaxSize().padding(8.dp)) {
+    Canvas(Modifier.fillMaxSize()) {
         if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
             onResize(size)
 
