@@ -12,6 +12,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
@@ -45,9 +47,7 @@ fun App(){
                     saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
                     openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
-                    showVideoDialog = {
-
-                                      },
+                    showVideoDialog = {},
                     addFrames = {TODO("Добавления Кадров к Экскурсии")},
                     //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
                     //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
@@ -58,16 +58,13 @@ fun App(){
                     dynamicIterationsCheckChange =  {dynamicIterationsCheck = it},
                 )
             },
-            content = {
-                Row{
-                    Box(
-                    ){
-                        mainFractalWindow(fp)
-                    }
-                }
-            },
-            modifier = Modifier.fillMaxSize()
-        )
+            modifier = Modifier.fillMaxSize()){
+            Box(
+                Modifier.fillMaxSize()
+            ){
+                mainFractalWindow(fp)
+            }
+        }
     }
 }
 
@@ -75,7 +72,14 @@ fun App(){
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Множество Мандельброта"
+        title = "Множество Мандельброта",
+        state = rememberWindowState(
+            width = 800.dp,
+            height = 600.dp,
+            placement = WindowPlacement.Floating,
+            position = WindowPosition(100.dp, 100.dp),
+            isMinimized = false
+        ),
     ) {
         App()
     }
