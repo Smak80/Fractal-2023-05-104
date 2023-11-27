@@ -1,9 +1,6 @@
 package drawing
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -12,6 +9,8 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
 import kotlin.concurrent.thread
 
 class FractalPainter(
@@ -41,6 +40,7 @@ class FractalPainter(
                 scope.size.height.toInt(),
                 BufferedImage.TYPE_INT_ARGB,
             )
+
             plane?.let { plane ->
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
@@ -58,6 +58,16 @@ class FractalPainter(
             }
         }
         scope.drawImage(img.toComposeImageBitmap())
-    }
+        val file = File("screenshot2.png")
+        ImageIO.write(img, "png", file)
+        val bufferedImage:BufferedImage  = ImageIO.read(File("screenshot2.png"));
+        val newBufferedImage = BufferedImage(
+            bufferedImage.width,
+            bufferedImage.height, BufferedImage.TYPE_INT_RGB
+        )
+        newBufferedImage.createGraphics().drawImage(bufferedImage, 0, 0, java.awt.Color.WHITE, null);
+        ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
 
-}
+
+    }
+   }
