@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Добавил сохранение пропорций в Жюлиа.">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Кешированная картинка">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/Julia.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,17 +30,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -48,35 +40,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
-        <option value="Kotlin Script" />
-        <option value="Kotlin Object" />
-        <option value="Kotlin File" />
       </list>
     </option>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/Task_D_Fractal_Functions_and_Coloring" />
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="5156bdbd2236b3c665cdb867f3d90ba15315087d" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Smak80&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="b27be8d8-b3ce-4928-96fa-f63cf56f4026" />
-        <option name="url" value="https://github.com/MBMustafin/Fractal_Team2.git" />
+        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
+        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -95,34 +78,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/repositories&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/ajrat/Downloads/Telegram Desktop/Graphics",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.48081535",
+    "settings.editor.selected.configurable": "project.kotlinCompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\repositories\Fractal_Team2_TaskD\src\main\kotlin\drawing\colors" />
-    </key>
-    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="math.fractals" />
-    </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="math.fractals.notMandelbrotFractals" />
+      <recent name="drawing" />
     </key>
   </component>
   <component name="RunManager" selected="Kotlin.MainKt">
@@ -145,7 +119,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -159,9 +133,6 @@
       <list>
         <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
-        <item itemvalue="Kotlin.MainKt" />
-        <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
-        <item itemvalue="Kotlin.MainKt" />
       </list>
     </recent_temporary>
   </component>
@@ -214,163 +185,8 @@
       <option name="project" value="LOCAL" />
       <updated>1700055800048</updated>
     </task>
-    <task id="LOCAL-00006" summary="Создана ветка для решения задачи А">
-      <option name="closed" value="true" />
-      <created>1701190923425</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1701190923425</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями.">
-      <option name="closed" value="true" />
-      <created>1701194331941</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1701194331942</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются">
-      <option name="closed" value="true" />
-      <created>1701199843924</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1701199843924</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Версия с пары">
-      <option name="closed" value="true" />
-      <created>1701247150392</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1701247150392</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Версия со второй пары">
-      <option name="closed" value="true" />
-      <created>1701264231550</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1701264231550</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением">
-      <option name="closed" value="true" />
-      <created>1701444130436</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1701444130437</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Пол работы сделано, но можно было бы и лучше. Разобраться с окном">
-      <option name="closed" value="true" />
-      <created>1701448061595</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1701448061595</updated>
-    </task>
-    <task id="LOCAL-00013" summary="добавил поддержку разных цветов и фракталов">
-      <option name="closed" value="true" />
-      <created>1701900683428</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1701900683428</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Обновляется цвет, но не работает масштабирование, и наоборот">
-      <option name="closed" value="true" />
-      <created>1701950212447</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1701950212447</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается">
-      <option name="closed" value="true" />
-      <created>1701977505471</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1701977505471</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Корректно работает смена цвета фрактала. Функции фрактала не подкручены">
-      <option name="closed" value="true" />
-      <created>1702026584434</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1702026584434</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно.">
-      <option name="closed" value="true" />
-      <created>1702029071341</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1702029071341</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Теперь все работает корректно и относительно быстро">
-      <option name="closed" value="true" />
-      <created>1702043005593</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1702043005593</updated>
-    </task>
-    <task id="LOCAL-00019" summary="что-то еще">
-      <option name="closed" value="true" />
-      <created>1702146248309</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1702146248309</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
-      <option name="closed" value="true" />
-      <created>1702151622060</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1702151622060</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
-      <option name="closed" value="true" />
-      <created>1702151958153</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1702151958153</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Множество Жюлиа отображается корректно.">
-      <option name="closed" value="true" />
-      <created>1702154685470</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1702154685470</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Добавил сохранение пропорций в Жюлиа.">
-      <option name="closed" value="true" />
-      <created>1702154982692</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1702154982692</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="6" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Complex.kt" />
@@ -378,25 +194,7 @@
     <MESSAGE value="Фрактал раскрашеный" />
     <MESSAGE value="Выделение мышкой" />
     <MESSAGE value="Кешированная картинка" />
-    <MESSAGE value="Создана ветка для решения задачи А" />
-    <MESSAGE value="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями." />
-    <MESSAGE value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
-    <MESSAGE value="Версия с пары" />
-    <MESSAGE value="Версия со второй пары" />
-    <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
-    <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
-    <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
-    <MESSAGE value="добавил поддержку разных цветов и фракталов" />
-    <MESSAGE value="Обновляется цвет, но не работает масштабирование, и наоборот" />
-    <MESSAGE value="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается" />
-    <MESSAGE value="Корректно работает смена цвета фрактала. Функции фрактала не подкручены" />
-    <MESSAGE value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
-    <MESSAGE value="Теперь все работает корректно и относительно быстро" />
-    <MESSAGE value="что-то еще" />
-    <MESSAGE value="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку" />
-    <MESSAGE value="Множество Жюлиа отображается корректно." />
-    <MESSAGE value="Добавил сохранение пропорций в Жюлиа." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил сохранение пропорций в Жюлиа." />
+    <option name="LAST_COMMIT_MESSAGE" value="Кешированная картинка" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -10,6 +10,8 @@ import math.Complex
 import math.fractals.AlgebraicFractal
 import math.fractals.Fractal
 import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
@@ -76,6 +78,7 @@ class FractalPainter(
                 scope.size.height.toInt(),
                 BufferedImage.TYPE_INT_ARGB,
             )
+
             plane?.let { plane ->
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
@@ -94,6 +97,16 @@ class FractalPainter(
         }
 
         scope.drawImage(img.toComposeImageBitmap())
-    }
+        val file = File("screenshot2.png")
+        ImageIO.write(img, "png", file)
+        val bufferedImage:BufferedImage  = ImageIO.read(File("screenshot2.png"));
+        val newBufferedImage = BufferedImage(
+            bufferedImage.width,
+            bufferedImage.height, BufferedImage.TYPE_INT_RGB
+        )
+        newBufferedImage.createGraphics().drawImage(bufferedImage, 0, 0, java.awt.Color.WHITE, null);
+        ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
 
-}
+
+    }
+   }
