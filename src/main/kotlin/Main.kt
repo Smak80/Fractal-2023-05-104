@@ -23,6 +23,8 @@ import kotlin.math.*
 @Composable
 @Preview
 fun App() {
+
+    // инициализация объекта fp
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -33,6 +35,8 @@ fun App() {
         }
     }}
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+
+
     MaterialTheme {
         DrawingPanel(fp){size ->
             fp.width = size.width.toInt()
@@ -81,13 +85,37 @@ fun SelectionPanel(
 
 @Composable
 fun DrawingPanel(
-    fp: Painter,
+    fp: FractalPainter,
     onResize: (Size)-> Unit = {},
 ) {
+    val lastXmin = remember { mutableStateOf(fp.plane!!.xMin) }
+    val lastXmax = remember { mutableStateOf(fp.plane!!.xMax) }
+    val lastYmin = remember { mutableStateOf(fp.plane!!.yMin) }
+    val lastYmax = remember { mutableStateOf(fp.plane!!.yMax) }
+    val lastWidth = remember { mutableStateOf(fp.width) }
+    val lastHeight = remember { mutableStateOf(fp.height) }
+
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ) {
             onResize(size)
 
+            val deltaX = (lastXmax.value - lastXmin.value) * ((fp.width / lastWidth.value) - 1) / 2
+            val deltaY = (lastYmax.value - lastYmin.value) * ((fp.height / lastHeight.value) - 1) / 2
+
+            fp.plane!!.xMin = lastXmin.value - deltaX
+            fp.plane!!.xMin = lastXmax.value + deltaX
+
+            fp.plane!!.yMin = lastYmin.value - deltaY
+            fp.plane!!.yMax = lastYmax.value + deltaY
+
+            lastXmin.value = fp.plane!!.xMin
+            lastXmax.value = fp.plane!!.xMax
+            lastYmin.value = fp.plane!!.yMin
+            lastYmax.value = fp.plane!!.yMax
+            lastWidth.value = fp.width
+            lastHeight.value = fp.height
+
+        }
         fp.paint(this)
     }
 }
