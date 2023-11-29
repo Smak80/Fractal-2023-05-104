@@ -67,6 +67,7 @@ fun selectionPanel(
 
 @Composable
 fun drawingPanel(
+
     fp: Painter,
     onResize: (Size)-> Unit = {},
 ) {

@@ -69,7 +69,9 @@ fun menu(
                                 isMenuExpanded = false
                             })
                         DropdownMenuItem(
-                            onClick = openF
+                            onClick = {
+                                isMenuExpanded = false
+                                openF()}
                         ){
                             Text("Открыть")
                         }
