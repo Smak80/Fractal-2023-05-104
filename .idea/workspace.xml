@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="изменила selectionPanel, чтобы получать точку, нужную для множества Жулиа">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/VideoMaker.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2023_5_53__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2023_5_53__Changes_.xml" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="эксперементировал с диалоговыми окнами">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/WorkWithVideoDialog.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
@@ -172,7 +169,7 @@
       <workItem from="1701121778290" duration="1502000" />
       <workItem from="1701220097678" duration="322000" />
       <workItem from="1701220423329" duration="1013000" />
-      <workItem from="1701249194212" duration="9109000" />
+      <workItem from="1701249194212" duration="16326000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -350,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701008183711</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="эксперементировал с диалоговыми окнами">
+      <option name="closed" value="true" />
+      <created>1701282221285</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1701282221285</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -413,7 +418,8 @@
     <MESSAGE value="Попытался как-то улучшить меню и интерфейс в целом" />
     <MESSAGE value="создала Класс JuliaSet" />
     <MESSAGE value="изменила selectionPanel, чтобы получать точку, нужную для множества Жулиа" />
-    <option name="LAST_COMMIT_MESSAGE" value="изменила selectionPanel, чтобы получать точку, нужную для множества Жулиа" />
+    <MESSAGE value="эксперементировал с диалоговыми окнами" />
+    <option name="LAST_COMMIT_MESSAGE" value="эксперементировал с диалоговыми окнами" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

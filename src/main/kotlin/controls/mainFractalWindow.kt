@@ -67,14 +67,12 @@ fun selectionPanel(
 
 @Composable
 fun drawingPanel(
-
     fp: Painter,
     onResize: (Size)-> Unit = {},
 ) {
     Canvas(Modifier.fillMaxSize()) {
         if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
             onResize(size)
-
         fp.paint(this)
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import java.awt.image.BufferedImage
 
 @Composable
 fun menu(
@@ -30,13 +32,15 @@ fun menu(
     openF: ()->Unit,
     back: ()->Unit,
     showVideoDialog: ()->Unit,
-    addFrames: ()->Unit,
+    addFrames: BufferedImage,
     themesMap: Map<String,()->Unit>,
     dynamicIterationsCheck: Boolean,
     dynamicIterationsCheckChange: (Boolean)->Unit
 
 ){
     var isMenuExpanded by remember { mutableStateOf(false) }
+    val list = remember { SnapshotStateList<BufferedImage>() }
+
     TopAppBar(
         title = {
             Text(
@@ -117,15 +121,19 @@ fun menu(
                                 onDismissRequest = { showVideoDialogBoolean = false },
                                 properties = DialogProperties(dismissOnClickOutside = true)
                             ) {
-                                workWithVideoDialog {
-                                    showVideoDialogBoolean = false
-                                }
+                                workWithVideoDialog(list) { showVideoDialogBoolean = false }
                             }
                         }
                     }
                     Spacer(modifier = Modifier.width(5.dp))
                     IconButton(
-                        onClick = addFrames
+                        onClick = {
+                            list.add(addFrames)
+                            if(list.size > 0){
+                                println(list[0].width)
+                                println(list[0].height)
+                            }
+                        }
                     ) {
                         Icon(
                             Icons.Default.Add,
