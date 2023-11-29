@@ -21,6 +21,7 @@ import kotlin.math.sin
 @Composable
 @Preview
 fun App(){
+
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -39,7 +40,10 @@ fun App(){
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
                     saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
-                    openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
+                    openF = {
+                            FractalDataFileSaver.sd.isVisible
+                            FractalDataFileSaver.saveFile(FractalData(1.0,1.0,1.0,1.0,1))
+                            },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
                     addFrames = {TODO("Добавления Кадров к Экскурсии")},
