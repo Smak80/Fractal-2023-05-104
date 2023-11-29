@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
@@ -13,14 +14,40 @@ import controls.menu
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
+import java.awt.FileDialog
+import java.io.File
+import java.io.FileOutputStream
+import java.io.ObjectOutputStream
+import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
 import kotlin.math.sin
 
+fun openFileDialog(window: ComposeWindow, title: String, allowedExtensions: List<String>, allowMultiSelection: Boolean = true): Set<File> {
+    return FileDialog(window, title, FileDialog.LOAD).apply {
+        isMultipleMode = allowMultiSelection
+
+        file = allowedExtensions.joinToString(";") { "*$it" } // e.g. '*.jpg'
+
+        setFilenameFilter { _, name ->
+            allowedExtensions.any {
+                name.endsWith(it)
+            }
+        }
+
+        isVisible = true
+    }.files.toSet()
+}
+
+
 @Composable
 @Preview
 fun App(){
+
+    var sd = remember {
+        FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE)
+    }
 
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
@@ -31,6 +58,8 @@ fun App(){
             Color(r, g, b)
         }
     }}
+
+
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
         Scaffold(
@@ -39,10 +68,18 @@ fun App(){
                 var isVideoDialogVisible by remember { mutableStateOf(false) }
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
-                    saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
+                    saveFractal = {
+                        sd.isVisible = true
+                        val selectedFile = sd.file
+                        val filePath = sd.directory + selectedFile
+                        fp.plane?.let{
+                            val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
+                            FractalDataFileSaver.saveFractalDataToFile(fractalData,filePath)
+                        }
+                    },
                     openF = {
-                            FractalDataFileSaver.sd.isVisible
-                            FractalDataFileSaver.saveFile(FractalData(1.0,1.0,1.0,1.0,1))
+                        val a = openFileDialog(ComposeWindow(),"Загрузить Фрактал",listOf(".fractal",))
+                        println(a)
                             },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
