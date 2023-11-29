@@ -116,7 +116,9 @@ fun DrawingPanel(
 
             val deltaX = 0.5*(lastXmax.value - lastXmin.value) * ((size.width / lastWidth.value) - 1)
             val deltaY = 0.5*(lastYmax.value - lastYmin.value) * ((size.height / lastHeight.value) - 1)
+            fp.plane?.let{
 
+            }
             fp.plane!!.xMin -= deltaX
             fp.plane!!.xMax += deltaX
 
