@@ -26,6 +26,32 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
+    private val deltaX: Double
+        get(){
+            plane?.let {
+                field =
+            }
+        }
+
+    private val deltaY: Double
+        get(){
+            plane?.let {
+                field =
+            }
+        }
+
+    private val xMin: Double
+        get() = (plane?.xMin ?: 0.0) - deltaX
+
+    private val xMax: Double
+        get() = (plane?.xMax ?: 0.0) + deltaX
+
+    private val yMin: Double
+        get() = (plane?.yMin ?: 0.0) - deltaY
+    private val yMax: Double
+        get() = (plane?.yMax ?: 0.0) + deltaY
+
+
     var img = BufferedImage(
         1,
         1,
@@ -44,10 +70,10 @@ class FractalPainter(
             plane?.let { plane ->
 
 
-                println("X : [ ${plane.xMin}; ${plane.xMax}]")
-                println("Y : [ ${plane.yMin}; ${plane.yMax}]")
-                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
-                println("Пропорция фрактала: ${(plane.xMax-plane.xMin)/ (plane.yMax-plane.yMin)} ; Отношение ширины окна к высоте :${scope.size.width / scope.size.height}")
+//                println("X : [ ${plane.xMin}; ${plane.xMax}]")
+//                println("Y : [ ${plane.yMin}; ${plane.yMax}]")
+//                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
+//                println("Пропорция фрактала: ${(plane.xMax-plane.xMin)/ (plane.yMax-plane.yMin)} ; Отношение ширины окна к высоте :${scope.size.width / scope.size.height}")
 
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
