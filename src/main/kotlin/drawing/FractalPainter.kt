@@ -1,9 +1,6 @@
 package drawing
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -26,22 +23,26 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
-    private val deltaX: Double
-        get(){
+    private var deltaX: Double = 0.0
+        set(scopeWidth) {
             plane?.let {
-                field =
+                field = 0.5*(xMax - xMin) * ((scopeWidth / width) - 1)
             }
         }
 
-    private val deltaY: Double
-        get(){
+
+    private var deltaY: Double = 0.0
+        set(scopeHeight) {
             plane?.let {
-                field =
+                field = 0.5*(yMax - yMin) * ((scopeHeight / height) - 1)
             }
         }
 
-    private val xMin: Double
+    private var xMin: Double = -2.0
         get() = (plane?.xMin ?: 0.0) - deltaX
+        set(deltaX) {
+            field = (plane?.xMin ?: 0.0) - deltaX
+        }
 
     private val xMax: Double
         get() = (plane?.xMax ?: 0.0) + deltaX
