@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Версия с пары">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701199843924</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Версия с пары">
+      <option name="closed" value="true" />
+      <created>1701247150392</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701247150392</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,7 +237,8 @@
     <MESSAGE value="Создана ветка для решения задачи А" />
     <MESSAGE value="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями." />
     <MESSAGE value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
-    <option name="LAST_COMMIT_MESSAGE" value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
+    <MESSAGE value="Версия с пары" />
+    <option name="LAST_COMMIT_MESSAGE" value="Версия с пары" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
