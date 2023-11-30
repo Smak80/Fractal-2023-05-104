@@ -1,13 +1,4 @@
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.awt.ComposeWindow
-import androidx.compose.ui.window.DialogState
-import java.awt.FileDialog
 import java.io.*
-import java.util.*
-import javax.swing.JFileChooser
-import javax.swing.JOptionPane
-import javax.swing.filechooser.FileNameExtensionFilter
 
 object FractalDataFileSaver{
     fun saveFractalDataToFile(fractalData: FractalData, filePath: String) {
@@ -24,5 +15,26 @@ object FractalDataFileSaver{
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    fun readFractalDataFromFile(filePath: String): FractalData? {
+        var fractalData: FractalData? = null
+
+        try {
+            println(filePath)
+            val fileInputStream = FileInputStream(filePath)
+            val objectInputStream = ObjectInputStream(fileInputStream)
+
+            fractalData = objectInputStream.readObject() as? FractalData
+
+            objectInputStream.close()
+            fileInputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        }
+
+        return fractalData
     }
 }

@@ -16,8 +16,6 @@ import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import java.awt.FileDialog
 import java.io.File
-import java.io.FileOutputStream
-import java.io.ObjectOutputStream
 import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.cos
@@ -35,7 +33,6 @@ fun openFileDialog(window: ComposeWindow, title: String, allowedExtensions: List
                 name.endsWith(it)
             }
         }
-
         isVisible = true
     }.files.toSet()
 }
@@ -45,9 +42,20 @@ fun openFileDialog(window: ComposeWindow, title: String, allowedExtensions: List
 @Preview
 fun App(){
 
-    var sd = remember {
-        FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE)
-    }
+    val fileDialogSaver = remember {  FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE).apply {
+        isMultipleMode = false
+        setFilenameFilter { _, filename ->
+            val extension = File(filename).extension.lowercase(Locale.getDefault())
+            extension == "fractal"
+        }
+    }}
+    val fileDialogLoader = remember {  FileDialog(ComposeWindow(), "Открыть фрактал", FileDialog.LOAD).apply {
+        isMultipleMode = false
+        setFilenameFilter { _, filename ->
+            val extension = File(filename).extension.lowercase(Locale.getDefault())
+            extension == "fractal"
+        }
+    }}
 
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
@@ -59,7 +67,6 @@ fun App(){
         }
     }}
 
-
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
         Scaffold(
@@ -69,18 +76,21 @@ fun App(){
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
                     saveFractal = {
-                        sd.isVisible = true
-                        val selectedFile = sd.file
-                        val filePath = sd.directory + selectedFile
+                        fileDialogSaver.isVisible = true
+                        val selectedFile = fileDialogSaver.file
+                        val filePath = fileDialogSaver.directory + selectedFile
                         fp.plane?.let{
                             val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
                             FractalDataFileSaver.saveFractalDataToFile(fractalData,filePath)
                         }
                     },
-                    openF = {
-                        val a = openFileDialog(ComposeWindow(),"Загрузить Фрактал",listOf(".fractal",))
-                        println(a)
-                            },
+                    openFractal = {
+                        fileDialogLoader.isVisible = true
+                        val selectedFile = fileDialogLoader.file
+                        val filePath = fileDialogLoader.directory + selectedFile
+                        val resData = FractalDataFileSaver.readFractalDataFromFile(filePath)
+                        println(resData?.xMax ?: "null")
+                    },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
                     addFrames = {TODO("Добавления Кадров к Экскурсии")},
