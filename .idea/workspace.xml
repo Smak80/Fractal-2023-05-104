@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Цветовые схемы и функции" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Попытался как-то улучшить меню и интерфейс в целом">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,34 +38,30 @@
       <list>
         <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
-    {
-      "state": "OPEN"
-    }
-  ],
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Smak80&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="33033d58-cefe-4cb0-9275-6e8a2ca60014" />
-        <option name="url" value="https://github.com/RenataBay/MandelbrotSet" />
+        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
+        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -85,7 +84,9 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/KotlinProjects&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -310,55 +311,7 @@
       <option name="project" value="LOCAL" />
       <updated>1700957424827</updated>
     </task>
-    <task id="LOCAL-00020" summary="Попытался как-то улучшить меню и интерфейс в целом">
-      <option name="closed" value="true" />
-      <created>1701368000988</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1701368000988</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Попытался как-то улучшить меню и интерфейс в целом">
-      <option name="closed" value="true" />
-      <created>1701846562445</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1701846562445</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Попытался как-то улучшить меню и интерфейс в целом">
-      <option name="closed" value="true" />
-      <created>1701846865315</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1701846865315</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Попытался как-то улучшить меню и интерфейс в целом">
-      <option name="closed" value="true" />
-      <created>1702045093053</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1702045093053</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Цветовые схемы и функции">
-      <option name="closed" value="true" />
-      <created>1702045771293</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1702045771293</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Цветовые схемы и функции">
-      <option name="closed" value="true" />
-      <created>1702055179589</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1702055179589</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,8 +372,7 @@
     <MESSAGE value="добавил кнопку закрытия для Окна Сохранения" />
     <MESSAGE value="сделал чтобы открывалось окно для создания Видео." />
     <MESSAGE value="Попытался как-то улучшить меню и интерфейс в целом" />
-    <MESSAGE value="Цветовые схемы и функции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Цветовые схемы и функции" />
+    <option name="LAST_COMMIT_MESSAGE" value="Попытался как-то улучшить меню и интерфейс в целом" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
