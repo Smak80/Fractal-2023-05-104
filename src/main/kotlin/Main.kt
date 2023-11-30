@@ -14,7 +14,6 @@ import controls.menu
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
-import java.awt.FileDialog
 import java.io.File
 import java.util.*
 import kotlin.math.absoluteValue
@@ -41,7 +40,6 @@ fun openFileDialog(window: ComposeWindow, title: String, allowedExtensions: List
 @Composable
 @Preview
 fun App(){
-
     val fileDialogSaver = remember {  FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE).apply {
         isMultipleMode = false
         setFilenameFilter { _, filename ->
@@ -56,8 +54,6 @@ fun App(){
             extension == "fractal"
         }
     }}
-
-    val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
             val r = sin(it*15f).absoluteValue
@@ -95,11 +91,11 @@ fun App(){
                                 fp.plane = Plane(fd.xMin,fd.xMax,fd.yMin,fd.yMax,plane.width,plane.height)
                                 fp.refresh = true
                             }
-                        }
+
                     },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
-                    addFrames = {TODO("Добавления Кадров к Экскурсии")},
+                    addFrames = fp.img,
                     //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
                     //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
                     themesMap = mapOf(),
@@ -136,5 +132,15 @@ fun main() = application {
 }
 
 fun testBranch(){
-    println("Test Branch")
+    val fileChooser = JFileChooser()
+    fileChooser.fileFilter = FileNameExtensionFilter("Текстовые файлы", "jpg") // Фильтр по расширению файла
+
+    val result = fileChooser.showOpenDialog(null)
+
+    if (result == JFileChooser.APPROVE_OPTION) {
+        val selectedFile = fileChooser.selectedFile
+        println("Выбранный файл: ${selectedFile.absolutePath}")
+    } else {
+        println("Выбор файла отменен")
+    }
 }

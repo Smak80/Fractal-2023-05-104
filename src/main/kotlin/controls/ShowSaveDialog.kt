@@ -37,8 +37,7 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                 close()
             },
             properties = DialogProperties(dismissOnClickOutside = true)
-        )
-        {
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
