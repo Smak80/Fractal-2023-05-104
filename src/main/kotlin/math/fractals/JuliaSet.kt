@@ -2,7 +2,6 @@ package math.fractals
 
 import math.Complex
 
-
 object JuliaSet : AlgebraicFractal {
     var selectedPoint = Complex(0.0,0.0)
     override var maxIterations: Int = 500
