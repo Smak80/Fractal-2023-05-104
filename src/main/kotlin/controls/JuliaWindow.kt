@@ -1,9 +1,11 @@
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import controls.drawingPanel
 import drawing.FractalPainter
 import drawing.convertation.Converter
 import drawing.convertation.Plane
@@ -17,10 +19,6 @@ import kotlin.math.sin
 @Composable
 fun JuliaApp(point: Offset) {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
-    val xCart = Converter.xScr2Crt(point.x,plane)
-    val yCart = Converter.yScr2Crt(point.y,plane)
-    JuliaSet.selectedPoint = Complex(xCart,yCart)
-
     val fp = remember { FractalPainter(JuliaSet){
         if (it == 1f) Color.Black
         else {
@@ -32,10 +30,18 @@ fun JuliaApp(point: Offset) {
     }}
     fp.plane = plane
     MaterialTheme {
-        drawingPanel(fp){size ->
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
-            fp.refresh = true
+        Canvas(Modifier.fillMaxSize()) {
+            if(fp.width != size.width.toInt() || fp.height != size.height.toInt()){
+                fp.width = size.width.toInt()
+                fp.height = size.height.toInt()
+                fp.refresh = true
+            }
+            val xCart = Converter.xScr2Crt(point.x,plane)
+            val yCart = Converter.yScr2Crt(point.y,plane)
+            println(xCart)
+            println(yCart)
+            JuliaSet.selectedPoint = Complex(xCart,yCart)
+            fp.paint(this)
         }
     }
 }
