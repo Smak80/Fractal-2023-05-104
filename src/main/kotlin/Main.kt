@@ -5,7 +5,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
@@ -14,9 +13,6 @@ import controls.menu
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
-import java.awt.FileDialog
-import javax.swing.JFileChooser
-import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -25,8 +21,7 @@ import kotlin.math.sin
 @Composable
 @Preview
 fun App(){
-    var fd = remember { FileDialog(ComposeWindow(),"Загрузить", FileDialog.LOAD) }
-    var fp = remember { FractalPainter(Mandelbrot){
+    val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
             val r = sin(it*15f).absoluteValue
@@ -44,13 +39,10 @@ fun App(){
                 menu(
                     saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
                     saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
-                    openF = {
-                        fd.isVisible = true
-                        println("sdasd")
-                    },
+                    openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
-                    addFrames = fp.img,
+                    addFrames = {TODO("Добавления Кадров к Экскурсии")},
                     //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
                     //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
                     themesMap = mapOf(),
@@ -87,21 +79,5 @@ fun main() = application {
 }
 
 fun testBranch(){
-    val fileChooser = JFileChooser()
-    fileChooser.fileFilter = FileNameExtensionFilter("Текстовые файлы", "jpg") // Фильтр по расширению файла
-
-    val result = fileChooser.showOpenDialog(null)
-
-    if (result == JFileChooser.APPROVE_OPTION) {
-        val selectedFile = fileChooser.selectedFile
-        println("Выбранный файл: ${selectedFile.absolutePath}")
-    } else {
-        println("Выбор файла отменен")
-    }
-}
-
-
-
-fun FildeDialog() {
-
+    println("Test Branch")
 }
