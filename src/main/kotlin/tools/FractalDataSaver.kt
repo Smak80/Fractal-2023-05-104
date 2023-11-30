@@ -1,3 +1,6 @@
+package tools
+
+import math.fractals.FractalData
 import java.io.*
 
 object FractalDataProcessor{
