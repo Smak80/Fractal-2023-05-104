@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Создала класс для сохранения фрактала, но он не работает :(">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2023_5_53__Changes_.xml" beforeDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="сделала загрузку файлов, но всё ещё нужно подправить">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/FractalDataSaver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/FractalDataSaver.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/Menu.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701279728789</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="сделала загрузку файлов, но всё ещё нужно подправить">
+      <option name="closed" value="true" />
+      <created>1701294968114</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701294968114</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -212,15 +220,16 @@
     <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="сделала класс FractalData" />
     <MESSAGE value="Создала класс для сохранения фрактала, но он не работает :(" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создала класс для сохранения фрактала, но он не работает :(" />
+    <MESSAGE value="сделала загрузку файлов, но всё ещё нужно подправить" />
+    <option name="LAST_COMMIT_MESSAGE" value="сделала загрузку файлов, но всё ещё нужно подправить" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/Main.kt</url>
-          <line>71</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/src/main/kotlin/FractalDataSaver.kt</url>
+          <line>23</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
