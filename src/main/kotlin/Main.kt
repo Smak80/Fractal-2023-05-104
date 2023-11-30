@@ -81,15 +81,21 @@ fun App(){
                         val filePath = fileDialogSaver.directory + selectedFile
                         fp.plane?.let{
                             val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
-                            FractalDataFileSaver.saveFractalDataToFile(fractalData,filePath)
+                            FractalDataProcessor.saveFractalDataToFile(fractalData,filePath)
                         }
                     },
                     openFractal = {
                         fileDialogLoader.isVisible = true
                         val selectedFile = fileDialogLoader.file
                         val filePath = fileDialogLoader.directory + selectedFile
-                        val resData = FractalDataFileSaver.readFractalDataFromFile(filePath)
+                        val resData = FractalDataProcessor.readFractalDataFromFile(filePath)
                         println(resData?.xMax ?: "null")
+                        resData?.let {fd ->
+                            fp.plane?.let {plane ->
+                                fp.plane = Plane(fd.xMin,fd.xMax,fd.yMin,fd.yMax,plane.width,plane.height)
+                                fp.refresh = true
+                            }
+                        }
                     },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},

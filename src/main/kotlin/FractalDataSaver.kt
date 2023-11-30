@@ -1,6 +1,6 @@
 import java.io.*
 
-object FractalDataFileSaver{
+object FractalDataProcessor{
     fun saveFractalDataToFile(fractalData: FractalData, filePath: String) {
         try {
             val fileOutputStream = FileOutputStream("$filePath.fractal")
@@ -11,7 +11,7 @@ object FractalDataFileSaver{
             objectOutputStream.close()
             fileOutputStream.close()
 
-            println("FractalData saved successfully to $filePath.fractal")
+            println("Файл Успешно Сохранён")
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -34,7 +34,7 @@ object FractalDataFileSaver{
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()
         }
-
+        println("Файл Успешно Открыт")
         return fractalData
     }
 }
