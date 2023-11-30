@@ -7,32 +7,17 @@ import androidx.compose.foundation.PointerMatcher
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowSize
-import controls.panels.drawingPanel
 import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
-import drawing.convertation.Plane
-import math.Complex
-import math.fractals.JuliaSet
-import math.fractals.Mandelbrot
-import java.awt.Toolkit
-import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.log2
-import kotlin.math.sin
 
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
@@ -100,4 +85,15 @@ fun selectionPanel(
         }
     }
 }
-
+@Composable
+fun drawingPanel(
+    fp: Painter,
+    onResize: (Size)-> Unit = {},
+) {
+    Canvas(Modifier.fillMaxSize()) {
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt()){
+            onResize(size)
+        }
+        fp.paint(this)
+    }
+}
