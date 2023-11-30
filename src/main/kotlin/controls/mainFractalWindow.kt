@@ -19,6 +19,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowSize
+import controls.panels.drawingPanel
 import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
@@ -100,14 +101,3 @@ fun selectionPanel(
     }
 }
 
-@Composable
-fun drawingPanel(
-    fp: Painter,
-    onResize: (Size)-> Unit = {},
-) {
-    Canvas(Modifier.fillMaxSize()) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt())
-            onResize(size)
-        fp.paint(this)
-    }
-}

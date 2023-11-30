@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="создала фрактал JuliaSet">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/JuliaWindow.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Создала Window для отображения множества Жулиа, но оно не работает ((">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/controls/panels/drawingPanel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/ShowSaveDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/ShowSaveDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/JuliaWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/JuliaWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/JuliaSet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/JuliaSet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,9 +41,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -390,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701351230393</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Создала Window для отображения множества Жулиа, но оно не работает ((">
+      <option name="closed" value="true" />
+      <created>1701367724466</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1701367724466</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -470,7 +479,8 @@
     <MESSAGE value="изменила selectionPanel, чтобы получать точку, нужную для множества Жулиа" />
     <MESSAGE value="Оптимизировал Импорты" />
     <MESSAGE value="создала фрактал JuliaSet" />
-    <option name="LAST_COMMIT_MESSAGE" value="создала фрактал JuliaSet" />
+    <MESSAGE value="Создала Window для отображения множества Жулиа, но оно не работает ((" />
+    <option name="LAST_COMMIT_MESSAGE" value="Создала Window для отображения множества Жулиа, но оно не работает ((" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

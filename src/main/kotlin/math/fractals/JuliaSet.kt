@@ -5,7 +5,7 @@ import math.Complex
 
 object JuliaSet : AlgebraicFractal {
     var selectedPoint = Complex(0.0,0.0)
-    override var maxIterations: Int = 5000
+    override var maxIterations: Int = 500
         set(value) { field = value.coerceIn(20..10000)}
     private var r = 2.0
     override fun isInSet(c : Complex) : Float {
