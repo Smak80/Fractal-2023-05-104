@@ -1,23 +1,37 @@
 package controls
 
+import JuliaApp
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.PointerMatcher
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowSize
 import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
+import drawing.convertation.Plane
+import math.Complex
+import math.fractals.JuliaSet
+import math.fractals.Mandelbrot
+import java.awt.Toolkit
+import kotlin.math.absoluteValue
+import kotlin.math.cos
+import kotlin.math.log2
+import kotlin.math.sin
 
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
@@ -47,7 +61,11 @@ fun selectionPanel(
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }
-    Canvas(Modifier.fillMaxSize().pointerInput(Unit){
+    var juliaDialogVisible by remember { mutableStateOf(false) }
+    var pt by remember { mutableStateOf(Offset(0f,0f)) }
+    Canvas(Modifier
+        .fillMaxSize()
+        .pointerInput(Unit){
         detectDragGestures(
             onDragStart = {
                 rect = SelectionRect(it)
@@ -60,8 +78,25 @@ fun selectionPanel(
                 rect = SelectionRect(Offset.Zero)
             },
             matcher = PointerMatcher.Primary)
-    }){
+        }
+        .pointerInput(Unit) {
+            detectTapGestures(
+                onTap = { offset ->
+                    pt = Offset(offset.x, offset.y)
+                    juliaDialogVisible = true
+                }
+            )
+        }
+    ){
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
+    }
+    if (juliaDialogVisible) {
+        Window(
+            onCloseRequest = { juliaDialogVisible = false },
+            title = "Множество Жулиа"
+        ){
+            JuliaApp(pt)
+        }
     }
 }
 
@@ -71,9 +106,8 @@ fun drawingPanel(
     onResize: (Size)-> Unit = {},
 ) {
     Canvas(Modifier.fillMaxSize()) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt())
             onResize(size)
-
         fp.paint(this)
     }
 }
