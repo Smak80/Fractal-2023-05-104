@@ -1,3 +1,5 @@
+package math.fractals
+
 import androidx.compose.ui.graphics.Color
 import java.io.Serializable
 

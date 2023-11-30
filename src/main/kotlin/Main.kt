@@ -13,9 +13,15 @@ import controls.mainFractalWindow
 import controls.menu
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import math.fractals.FractalData
 import math.fractals.Mandelbrot
+import org.jetbrains.skiko.loadBytesFromPath
+import tools.FractalDataProcessor
+import java.awt.FileDialog
 import java.io.File
 import java.util.*
+import javax.swing.JFileChooser
+import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -54,6 +60,7 @@ fun App(){
             extension == "fractal"
         }
     }}
+    val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
             val r = sin(it*15f).absoluteValue
@@ -61,7 +68,8 @@ fun App(){
             val b = log2(2f - cos(sin(18*-it)))
             Color(r, g, b)
         }
-    }}
+    }
+    }
 
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
@@ -86,12 +94,12 @@ fun App(){
                         val filePath = fileDialogLoader.directory + selectedFile
                         val resData = FractalDataProcessor.readFractalDataFromFile(filePath)
                         println(resData?.xMax ?: "null")
-                        resData?.let {fd ->
-                            fp.plane?.let {plane ->
-                                fp.plane = Plane(fd.xMin,fd.xMax,fd.yMin,fd.yMax,plane.width,plane.height)
+                        resData?.let { fd ->
+                            fp.plane?.let { plane ->
+                                fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)
                                 fp.refresh = true
                             }
-
+                        }
                     },
                     back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
                     showVideoDialog = {},
