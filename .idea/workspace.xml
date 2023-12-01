@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Версия с пары">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Версия со второй пары">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,15 +53,14 @@
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Smak80&quot;
+    &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
-        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
+        <option name="accountId" value="218f5daf-983c-455e-8c1a-42316e3c01cb" />
+        <option name="url" value="https://github.com/MBMustafin/Fractal_Team2.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -84,7 +84,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/repositories&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
@@ -214,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701247150392</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Версия со второй пары">
+      <option name="closed" value="true" />
+      <created>1701264231550</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701264231550</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,7 +246,8 @@
     <MESSAGE value="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями." />
     <MESSAGE value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
     <MESSAGE value="Версия с пары" />
-    <option name="LAST_COMMIT_MESSAGE" value="Версия с пары" />
+    <MESSAGE value="Версия со второй пары" />
+    <option name="LAST_COMMIT_MESSAGE" value="Версия со второй пары" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -88,51 +88,12 @@ fun DrawingPanel(
     fp: FractalPainter,
     onResize: (Size)-> Unit = {},
 ) {
-    val lastXmin = remember { mutableStateOf(fp.plane!!.xMin) }
-    val lastXmax = remember { mutableStateOf(fp.plane!!.xMax) }
-    val lastYmin = remember { mutableStateOf(fp.plane!!.yMin) }
-    val lastYmax = remember { mutableStateOf(fp.plane!!.yMax) }
-    val lastWidth = remember { mutableStateOf(fp.width) }
-    val lastHeight = remember { mutableStateOf(fp.height) }
 
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
 
         if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ) {
 
-            if(fp.width == 0){
-                lastWidth.value = size.width.toInt()
-            }else{
-                lastWidth.value = fp.width
-            }
-
-            if(fp.height == 0){
-                lastHeight.value = size.height.toInt()
-            }else{
-                lastHeight.value = fp.height
-            }
-
-
             onResize(size)
-
-            val deltaX = 0.5*(lastXmax.value - lastXmin.value) * ((size.width / lastWidth.value) - 1)
-            val deltaY = 0.5*(lastYmax.value - lastYmin.value) * ((size.height / lastHeight.value) - 1)
-            fp.plane?.let{
-
-            }
-            fp.plane!!.xMin -= deltaX
-            fp.plane!!.xMax += deltaX
-
-            fp.plane!!.yMin -= deltaY
-            fp.plane!!.yMax += deltaY
-
-
-            lastXmin.value = fp.plane!!.xMin
-            lastXmax.value = fp.plane!!.xMax
-            lastYmin.value = fp.plane!!.yMin
-            lastYmax.value = fp.plane!!.yMax
-            lastWidth.value = fp.width
-            lastHeight.value = fp.height
-
         }
         fp.paint(this)
     }
@@ -140,6 +101,7 @@ fun DrawingPanel(
 
 
 fun main() = application {
+
     Window(
         onCloseRequest = ::exitApplication,
         title = "Множество Мандельброта"

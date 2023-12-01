@@ -10,6 +10,7 @@ import math.Complex
 import math.fractals.AlgebraicFractal
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class FractalPainter(
     val fractal: AlgebraicFractal,
@@ -23,34 +24,63 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
-    private var deltaX: Double = 0.0
-        set(scopeWidth) {
-            plane?.let {
-                field = 0.5*(xMax - xMin) * ((scopeWidth / width) - 1)
+    private val xMax = 1.0
+//        get()  {
+//            var temp = 0.0
+//            plane?.let {
+//                 temp = it.xMax
+//            }
+//            return temp
+//        }
+    private val xMin = -2.0
+//        get()  {
+//            var temp = 0.0
+//            plane?.let {
+//                temp = it.xMin
+//            }
+//            return temp
+//        }
+    private val yMin = -1.0
+//        get()  {
+//            var temp = 0.0
+//            plane?.let {
+//                temp = it.yMin
+//            }
+//            return temp
+//        }
+    private val yMax = 1.0
+//        get()  {
+//            var temp = 0.0
+//            plane?.let {
+//                temp = it.yMax
+//            }
+//            return temp
+//        }
+    fun scoping(){
+        val X = abs(xMax-xMin) /width
+        val Y = abs(yMax - yMin) /height
+        if(Y>X)
+        {
+            val dx = (width*Y- abs(xMax-xMin))/2
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
+
+        }
+        else
+        {
+            val dy = (height*X- abs((yMax - yMin)))/2
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
             }
         }
-
-
-    private var deltaY: Double = 0.0
-        set(scopeHeight) {
-            plane?.let {
-                field = 0.5*(yMax - yMin) * ((scopeHeight / height) - 1)
-            }
-        }
-
-    private var xMin: Double = -2.0
-        get() = (plane?.xMin ?: 0.0) - deltaX
-        set(deltaX) {
-            field = (plane?.xMin ?: 0.0) - deltaX
-        }
-
-    private val xMax: Double
-        get() = (plane?.xMax ?: 0.0) + deltaX
-
-    private val yMin: Double
-        get() = (plane?.yMin ?: 0.0) - deltaY
-    private val yMax: Double
-        get() = (plane?.yMax ?: 0.0) + deltaY
+    }
 
 
     var img = BufferedImage(
@@ -61,6 +91,7 @@ class FractalPainter(
     var refresh = true
 
     override fun paint(scope: DrawScope) {
+        this.scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
@@ -71,9 +102,11 @@ class FractalPainter(
             plane?.let { plane ->
 
 
-//                println("X : [ ${plane.xMin}; ${plane.xMax}]")
-//                println("Y : [ ${plane.yMin}; ${plane.yMax}]")
-//                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
+                println("X : [ ${plane.xMin}; ${plane.xMax}]")
+                println("Y : [ ${plane.yMin}; ${plane.yMax}]")
+                println("X : [ ${xMin}; ${xMax}]")
+                println("Y : [ ${yMin}; ${yMax}]")
+                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
 //                println("Пропорция фрактала: ${(plane.xMax-plane.xMin)/ (plane.yMax-plane.yMin)} ; Отношение ширины окна к высоте :${scope.size.width / scope.size.height}")
 
                 val tc = Runtime.getRuntime().availableProcessors()
