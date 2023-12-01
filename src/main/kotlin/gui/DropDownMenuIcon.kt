@@ -1,11 +1,10 @@
-package controls
+package gui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
 fun dropdownMenuIcon(

@@ -12,24 +12,23 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
+import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
-import controls.*
+import gui.*
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
-import org.jetbrains.skiko.loadBytesFromPath
 import tools.FractalDataProcessor
 import java.awt.FileDialog
 import java.awt.image.BufferedImage
 import java.io.File
 import java.util.*
-import javax.swing.JFileChooser
-import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -61,6 +60,8 @@ fun App(){
             Color(r, g, b)
         }
     } }
+    val photoList = remember { SnapshotStateList<BufferedImage>() }
+    var window by remember { mutableStateOf(false)}
 
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
@@ -68,7 +69,7 @@ fun App(){
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
                 var isMenuExpanded by remember { mutableStateOf(false) }
-                val list = remember { SnapshotStateList<BufferedImage>() }
+
 
                 TopAppBar(
                     title = {
@@ -93,8 +94,8 @@ fun App(){
                                 ) {
                                     showSaveDialog("Cохранить",
                                         {
-                                            TODO("Реализовать функцию для сохранения изображения")
                                             isMenuExpanded = false
+                                            TODO("Реализовать функцию для сохранения изображения")
                                         }, {
                                             fileDialogSaver.isVisible = true
                                             val selectedFile = fileDialogSaver.file
@@ -167,17 +168,17 @@ fun App(){
                                             onDismissRequest = { showVideoDialogBoolean = false },
                                             properties = DialogProperties(dismissOnClickOutside = true)
                                         ) {
-                                            workWithVideoDialog(list) { showVideoDialogBoolean = false }
+                                            workWithVideoDialog(photoList) { showVideoDialogBoolean = false }
                                         }
                                     }
                                 }
                                 Spacer(modifier = Modifier.width(5.dp))
                                 IconButton(
                                     onClick = {
-                                        TODO("Тут придумай")
-                                        if(list.size > 0){
-                                            println(list[0].width)
-                                            println(list[0].height)
+                                        photoList.add(fp.img)
+                                        if(photoList.size > 0){
+                                            println(photoList[0].width)
+                                            println(photoList[0].height)
                                         }
                                     }
                                 ) {
@@ -218,7 +219,7 @@ fun App(){
             Box(
                 Modifier.fillMaxSize()
             ){
-                mainFractalWindow(fp)
+                mainFractalWindow(fp,photoList)
             }
         }
     }

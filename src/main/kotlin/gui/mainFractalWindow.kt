@@ -1,4 +1,4 @@
-package controls
+package gui
 
 import JuliaApp
 import androidx.compose.foundation.Canvas
@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -18,9 +19,10 @@ import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
+import java.awt.image.BufferedImage
 
 @Composable
-fun mainFractalWindow(fp:FractalPainter){
+fun mainFractalWindow(fp:FractalPainter,photoList: SnapshotStateList<BufferedImage>){
     drawingPanel(fp){ size ->
         fp.width = size.width.toInt()
         fp.height = size.height.toInt()
