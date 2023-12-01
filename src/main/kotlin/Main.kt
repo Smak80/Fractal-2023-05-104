@@ -61,8 +61,6 @@ fun App(){
         }
     } }
     val photoList = remember { SnapshotStateList<BufferedImage>() }
-    var window by remember { mutableStateOf(false)}
-
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
         Scaffold(
@@ -175,11 +173,14 @@ fun App(){
                                 Spacer(modifier = Modifier.width(5.dp))
                                 IconButton(
                                     onClick = {
-                                        photoList.add(fp.img)
-                                        if(photoList.size > 0){
-                                            println(photoList[0].width)
-                                            println(photoList[0].height)
-                                        }
+                                        val scaled = BufferedImage(
+                                            fp.img.width, fp.img.height,
+                                            BufferedImage.TYPE_INT_RGB
+                                        )
+                                        val g = scaled.createGraphics()
+                                        g.drawImage(fp.img, 0, 0, 150, 150, null)
+                                        photoList.add(scaled)
+
                                     }
                                 ) {
                                     Icon(

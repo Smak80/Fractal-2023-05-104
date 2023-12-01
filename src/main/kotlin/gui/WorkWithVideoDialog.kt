@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -21,6 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
+
 
 @Composable
 fun workWithVideoDialog(
@@ -151,23 +153,47 @@ fun workWithVideoDialog(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(imageList) {
-                MyCard(it)
+                MyCard(it) { imageList.remove(it) }
             }
         }
     }
 }
 
 @Composable
-fun MyCard(bufferedImage: BufferedImage) {
+fun MyCard(bufferedImage: BufferedImage,onDel:()->Unit) {
+    val sample = bufferedImage.toComposeImageBitmap()
     Card(
-        modifier = Modifier.background(color = Color.Magenta),
+        modifier = Modifier
+            .background(color = Color.Magenta)
+            .width(110.dp)
+            .height(110.dp),
         backgroundColor = MaterialTheme.colors.primarySurface
     ){
-        val composeBitmap = bufferedImage.toComposeImageBitmap()
-        Canvas(
-            modifier = Modifier.width(110.dp).height(110.dp)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
         ) {
-            drawImage(composeBitmap)
+            Canvas(
+                modifier = Modifier
+            ) {
+                drawIntoCanvas { canvas ->
+                    canvas.withSave {
+                        canvas.drawImage(sample, Offset.Zero, Paint())
+                        canvas.translate(sample.width.toFloat(), 0f)
+                    }
+                }
+            }
+            IconButton(
+                onClick = { onDel() },
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.TopEnd)
+            ) {
+                Icon(
+                    Icons.Default.Close,
+                    "Удалить"
+                )
+            }
         }
     }
 }
