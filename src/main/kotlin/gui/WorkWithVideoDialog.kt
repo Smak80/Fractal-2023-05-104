@@ -1,14 +1,11 @@
-package controls
+package gui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -16,27 +13,13 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.loadImageBitmap
-import androidx.compose.ui.res.loadSvgPainter
-import androidx.compose.ui.res.loadXmlImageVector
-import androidx.compose.ui.res.useResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import org.xml.sax.InputSource
 import java.awt.image.BufferedImage
 
 @Composable
@@ -160,15 +143,6 @@ fun workWithVideoDialog(
                 Text("Очистить")
             }
         }
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 10.dp, vertical = 2.dp),
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            verticalAlignment = Alignment.CenterVertically
-//        ){
-//
-//        }
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -186,19 +160,14 @@ fun workWithVideoDialog(
 @Composable
 fun MyCard(bufferedImage: BufferedImage) {
     Card(
-        modifier = Modifier,
+        modifier = Modifier.background(color = Color.Magenta),
         backgroundColor = MaterialTheme.colors.primarySurface
     ){
         val composeBitmap = bufferedImage.toComposeImageBitmap()
         Canvas(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.width(110.dp).height(110.dp)
         ) {
-            drawIntoCanvas { canvas ->
-                canvas.withSave {
-                    canvas.drawImage(composeBitmap, Offset.Zero, Paint())
-                    canvas.translate(composeBitmap.width.toFloat(), 0f)
-                }
-            }
+            drawImage(composeBitmap)
         }
     }
 }
