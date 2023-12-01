@@ -24,44 +24,20 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
-    private val xMax = 1.0
-//        get()  {
-//            var temp = 0.0
-//            plane?.let {
-//                 temp = it.xMax
-//            }
-//            return temp
-//        }
-    private val xMin = -2.0
-//        get()  {
-//            var temp = 0.0
-//            plane?.let {
-//                temp = it.xMin
-//            }
-//            return temp
-//        }
-    private val yMin = -1.0
-//        get()  {
-//            var temp = 0.0
-//            plane?.let {
-//                temp = it.yMin
-//            }
-//            return temp
-//        }
-    private val yMax = 1.0
-//        get()  {
-//            var temp = 0.0
-//            plane?.let {
-//                temp = it.yMax
-//            }
-//            return temp
-//        }
-    fun scoping(){
-        val X = abs(xMax-xMin) /width
-        val Y = abs(yMax - yMin) /height
-        if(Y>X)
+    var xMax = 0.0
+
+    var xMin = 0.0
+
+    var yMin = 0.0
+
+    var yMax = 0.0
+
+    private fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X)
         {
-            val dx = (width*Y- abs(xMax-xMin))/2
+            val dx = (width * Y- abs(xMax - xMin))/2
             plane?.let {plane->
                 plane.xMin =  xMin - dx
                 plane.xMax = xMax + dx
@@ -72,7 +48,7 @@ class FractalPainter(
         }
         else
         {
-            val dy = (height*X- abs((yMax - yMin)))/2
+            val dy = (height * X- abs((yMax - yMin)))/2
             plane?.let {plane->
                 plane.yMin =  yMin - dy
                 plane.yMax = yMax + dy
@@ -102,8 +78,8 @@ class FractalPainter(
             plane?.let { plane ->
 
 
-                println("X : [ ${plane.xMin}; ${plane.xMax}]")
-                println("Y : [ ${plane.yMin}; ${plane.yMax}]")
+                println("planeX : [ ${plane.xMin}; ${plane.xMax}]")
+                println("planeY : [ ${plane.yMin}; ${plane.yMax}]")
                 println("X : [ ${xMin}; ${xMax}]")
                 println("Y : [ ${yMin}; ${yMax}]")
                 println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
