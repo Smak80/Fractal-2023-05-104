@@ -23,16 +23,40 @@ import kotlin.math.*
 @Composable
 @Preview
 fun App() {
+    //потом придумать, что с этими лямбдами делать
+//    val fp = remember { FractalPainter(Mandelbrot){
+//        if (it == 1f) Color.Black
+//        else {
+//            val r = sin(it*15f).absoluteValue
+//            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
+//            val b = log2(2f - cos(sin(18*-it)))
+//            Color(r, g, b)
+//        }
+//    }}
+
+//    val fp = remember { FractalPainter(Mandelbrot){
+//        if (it == 1f) Color.Black
+//        else {
+//            val r = (2*asin(it + PI*(tan(it)))/PI).absoluteValue.toFloat()
+//            val g = (2* atan(it + PI*(1-cos(it))) / PI).absoluteValue.toFloat()
+//            val b = (2*acos(it+ PI*(1-sin(it)))/PI).absoluteValue.toFloat()
+//            Color(r, g, b)
+//        }
+//    }}
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
-            val r = sin(it*15f).absoluteValue
-            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
-            val b = log2(2f - cos(sin(18*-it)))
+            val r = cos(it + PI*(0.5 + it)).absoluteValue.toFloat()
+            val g = (2*atan(it + PI*(tan(it)))/ PI).absoluteValue.toFloat()
+            val b = cos(it+PI*(0.5+sin(it))).absoluteValue.toFloat()
             Color(r, g, b)
         }
     }}
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+
+
+
+
     MaterialTheme {
         DrawingPanel(fp){size ->
             fp.width = size.width.toInt()
