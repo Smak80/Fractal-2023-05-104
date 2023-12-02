@@ -13,9 +13,8 @@ object Mandelbrot : AlgebraicFractal {
             z*=z
             z+=c
             if (z.abs2() >= r2)
-                return i.toFloat()/ maxIterations
+                return i.toFloat() / maxIterations
         }
         return 1f
     }
-
 }

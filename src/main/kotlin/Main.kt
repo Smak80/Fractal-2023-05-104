@@ -33,6 +33,7 @@ fun App() {
             Color(r, g, b)
         }
     }}
+
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     fp.plane?.let {
         fp.xMin = it.xMin
@@ -54,10 +55,14 @@ fun App() {
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                plane.xMin = xMin
-                plane.xMax = xMax
-                plane.yMin = yMin
-                plane.yMax = yMax
+//                plane.xMin = xMin
+//                plane.xMax = xMax
+//                plane.yMin = yMin
+//                plane.yMax = yMax
+                fp.xMin = xMin
+                fp.xMax = xMax
+                fp.yMin = yMin
+                fp.yMax = yMax
                 fp.refresh = true
             }
         }
