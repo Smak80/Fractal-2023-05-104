@@ -1,0 +1,19 @@
+Index: src/main/kotlin/math/fractals/Mandelbrot.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package math.fractals\r\n\r\nimport math.Complex\r\n\r\nobject Mandelbrot : AlgebraicFractal {\r\n    override var maxIterations: Int = 5000\r\n        set(value) { field = value.coerceIn(20..10000)}\r\n    var r = 2.0\r\n    override fun isInSet(c: Complex): Float {\r\n        val z = Complex()\r\n        val r2 = r*r\r\n        for (i in 1..maxIterations){\r\n            z*=z\r\n            z+=c\r\n            if (z.abs2() >= r2)\r\n                return i.toFloat()/ maxIterations\r\n        }\r\n        return 1f\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/math/fractals/Mandelbrot.kt b/src/main/kotlin/math/fractals/Mandelbrot.kt
+--- a/src/main/kotlin/math/fractals/Mandelbrot.kt	
++++ b/src/main/kotlin/math/fractals/Mandelbrot.kt	
+@@ -10,7 +10,7 @@
+         val z = Complex()
+         val r2 = r*r
+         for (i in 1..maxIterations){
+-            z*=z
++            z*=z * z * z
+             z+=c
+             if (z.abs2() >= r2)
+                 return i.toFloat()/ maxIterations

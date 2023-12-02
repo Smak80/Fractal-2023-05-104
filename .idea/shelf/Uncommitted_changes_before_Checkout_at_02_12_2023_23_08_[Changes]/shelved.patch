@@ -1,0 +1,169 @@
+Index: src/main/kotlin/Main.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import androidx.compose.desktop.ui.tooling.preview.Preview\r\nimport androidx.compose.foundation.*\r\nimport androidx.compose.foundation.gestures.detectDragGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.material.MaterialTheme\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.geometry.Offset\r\nimport androidx.compose.ui.geometry.Size\r\nimport androidx.compose.ui.graphics.*\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.window.Window\r\nimport androidx.compose.ui.window.application\r\nimport drawing.FractalPainter\r\nimport drawing.Painter\r\nimport drawing.SelectionRect\r\nimport drawing.convertation.Converter\r\nimport drawing.convertation.Plane\r\nimport math.fractals.Mandelbrot\r\nimport kotlin.math.*\r\n\r\n@Composable\r\n@Preview\r\nfun App() {\r\n    val fp = remember { FractalPainter(Mandelbrot){\r\n        if (it == 1f) Color.Black\r\n        else {\r\n            val r = sin(it*15f).absoluteValue\r\n            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue\r\n            val b = log2(2f - cos(sin(18*-it)))\r\n            Color(r, g, b)\r\n        }\r\n    }}\r\n    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)\r\n    MaterialTheme {\r\n        DrawingPanel(fp){size ->\r\n            fp.width = size.width.toInt()\r\n            fp.height = size.height.toInt()\r\n            fp.refresh = true\r\n        }\r\n        SelectionPanel{\r\n            fp.plane?.let{ plane ->\r\n                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)\r\n                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)\r\n                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)\r\n                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)\r\n                plane.xMin = xMin\r\n                plane.xMax = xMax\r\n                plane.yMin = yMin\r\n                plane.yMax = yMax\r\n                fp.refresh = true\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n@OptIn(ExperimentalFoundationApi::class)\r\n@Composable\r\nfun SelectionPanel(\r\n    onSelected: (SelectionRect)->Unit\r\n) {\r\n    var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}\r\n    Canvas(Modifier.fillMaxSize().padding(8.dp).pointerInput(Unit){\r\n        detectDragGestures(\r\n            onDragStart = {\r\n                rect = SelectionRect(it)\r\n            },\r\n            onDrag = {\r\n                rect.addPoint(it)\r\n            },\r\n            onDragEnd = {\r\n                onSelected(rect)\r\n                rect = SelectionRect(Offset.Zero)\r\n            },\r\n            matcher = PointerMatcher.Primary)\r\n    }){\r\n        drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)\r\n    }\r\n}\r\n\r\n@Composable\r\nfun DrawingPanel(\r\n    fp: Painter,\r\n    onResize: (Size)-> Unit = {},\r\n) {\r\n    Canvas(Modifier.fillMaxSize().padding(8.dp)) {\r\n        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )\r\n            onResize(size)\r\n\r\n        fp.paint(this)\r\n    }\r\n}\r\n\r\n\r\nfun main() = application {\r\n    Window(\r\n        onCloseRequest = ::exitApplication,\r\n        title = \"Множество Мандельброта\"\r\n    ) {\r\n        App()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/Main.kt b/src/main/kotlin/Main.kt
+--- a/src/main/kotlin/Main.kt	
++++ b/src/main/kotlin/Main.kt	
+@@ -18,12 +18,14 @@
+ import drawing.convertation.Converter
+ import drawing.convertation.Plane
+ import math.fractals.Mandelbrot
++import math.fractals.notMandelbrotFractals.Fractal1
++import math.fractals.notMandelbrotFractals.Fractal2
+ import kotlin.math.*
+ 
+ @Composable
+ @Preview
+ fun App() {
+-    val fp = remember { FractalPainter(Mandelbrot){
++    val fp = remember { FractalPainter(Fractal2){
+         if (it == 1f) Color.Black
+         else {
+             val r = sin(it*15f).absoluteValue
+@@ -33,6 +35,7 @@
+         }
+     }}
+     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
++//    fp.plane = Plane(-2.2, 1.2, -1.2, 1.2, 0f, 0f)    //для fractal2
+     MaterialTheme {
+         DrawingPanel(fp){size ->
+             fp.width = size.width.toInt()
+Index: .idea/kotlinc.xml
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/kotlinc.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="KotlinJpsPluginSettings">
++    <option name="version" value="1.9.20" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.name
+===================================================================
+diff --git a/.idea/.name b/.idea/.name
+new file mode 100644
+--- /dev/null	
++++ b/.idea/.name	
+@@ -0,0 +1,1 @@
++fractalComposable-2023
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"Кешированная картинка\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Kotlin Object\" />\r\n        <option value=\"Kotlin Interface\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Smak80&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"63d9b16c-360d-454a-b31f-2651873cf1b2\" />\r\n        <option name=\"url\" value=\"https://github.com/Smak80/Fractal-2023-05-104.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2XZAs6xhe1GZhoUiB1MDX62RELf\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;project.kotlinCompiler&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Smak\\Programming\\Idea\\fractalComposable-2023\\src\\main\\kotlin\\drawing\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Kotlin.MainKt\">\r\n    <configuration name=\"fractalComposable-2023 [compileKotlin]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"compileKotlin\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <RunAsTest>false</RunAsTest>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainKt\" />\r\n      <module name=\"fractalComposable-2023.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.MainKt\" />\r\n        <item itemvalue=\"Gradle.fractalComposable-2023 [compileKotlin]\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"\" />\r\n      <created>1698826435830</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1698826435830</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Complex.kt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698845263297</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698845263297</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Фрактал с неверным умножением\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698848936222</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698848936222</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Фрактал раскрашеный\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699448279436</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699448279436</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Выделение мышкой\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699453823971</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699453823971</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Кешированная картинка\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700055800048</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700055800048</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"6\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Complex.kt\" />\r\n    <MESSAGE value=\"Фрактал с неверным умножением\" />\r\n    <MESSAGE value=\"Фрактал раскрашеный\" />\r\n    <MESSAGE value=\"Выделение мышкой\" />\r\n    <MESSAGE value=\"Кешированная картинка\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Кешированная картинка\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,8 +5,10 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Кешированная картинка">
++      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -37,13 +39,18 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="Kotlin Object" />
+         <option value="Kotlin Interface" />
+         <option value="Kotlin Class" />
++        <option value="Kotlin Object" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="master" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+@@ -75,18 +82,19 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;project.kotlinCompiler&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "master",
++    "last_opened_file_path": "C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.48081535",
++    "settings.editor.selected.configurable": "project.kotlinCompiler"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
+@@ -112,7 +120,7 @@
+       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <RunAsTest>false</RunAsTest>
++      <ForceTestExec>false</ForceTestExec>
+       <method v="2" />
+     </configuration>
+     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+@@ -180,6 +188,29 @@
+     </task>
+     <option name="localTasksCounter" value="6" />
+     <servers />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="origin/Task_A_Fractal_Propotions" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
++          </value>
++        </entry>
++      </map>
++    </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Complex.kt" />
