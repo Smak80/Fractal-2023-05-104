@@ -77,7 +77,6 @@ class FractalPainter(
             )
             plane?.let { plane ->
 
-
                 println("planeX : [ ${plane.xMin}; ${plane.xMax}]")
                 println("planeY : [ ${plane.yMin}; ${plane.yMax}]")
                 println("X : [ ${xMin}; ${xMax}]")
