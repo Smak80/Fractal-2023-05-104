@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Сделал отображаемые картинки для видео, но до ума не довел">
+    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/WorkWithVideoDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tools/VideoMaker.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
@@ -88,7 +95,8 @@
       <option name="presentableId" value="Default" />
       <updated>1701426156767</updated>
       <workItem from="1701426158060" duration="959000" />
-      <workItem from="1701428515908" duration="12960000" />
+      <workItem from="1701428515908" duration="18203000" />
+      <workItem from="1701725256497" duration="3517000" />
     </task>
     <task id="LOCAL-00001" summary="Сделал отображаемые картинки для видео, но до ума не довел">
       <option name="closed" value="true" />
@@ -98,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701433310641</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления">
+      <option name="closed" value="true" />
+      <created>1701453814071</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701453814071</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +134,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Исправил последствия кривого мержа" />
     <MESSAGE value="Сделал отображаемые картинки для видео, но до ума не довел" />
-    <option name="LAST_COMMIT_MESSAGE" value="Сделал отображаемые картинки для видео, но до ума не довел" />
+    <MESSAGE value="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления" />
+    <option name="LAST_COMMIT_MESSAGE" value="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления" />
   </component>
 </project>

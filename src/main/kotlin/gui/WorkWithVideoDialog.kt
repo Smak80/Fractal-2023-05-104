@@ -13,26 +13,29 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.toComposeImageBitmap
+import androidx.compose.ui.graphics.withSave
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import tools.VideoMaker
 import java.awt.image.BufferedImage
-import java.io.File
-import javax.imageio.ImageIO
 
 
 @Composable
 fun workWithVideoDialog(
+    videoCreator: VideoMaker,
     imageList: SnapshotStateList<BufferedImage>,
     close:()->Unit,
 ) {
-    var height by remember { mutableStateOf(0) }
-    var width by remember { mutableStateOf(0) }
-    var fps by remember { mutableStateOf(0) }
-    var duration by remember { mutableStateOf(0) }
+    var height by remember { mutableStateOf(600) }
+    var width by remember { mutableStateOf(800) }
+    var fps by remember { mutableStateOf(24) }
+    var duration by remember { mutableStateOf(5) }
 
     Column(
         modifier = Modifier
@@ -134,9 +137,7 @@ fun workWithVideoDialog(
                 Text("Создать")
             }
             Button(
-                onClick = {
-
-                },
+                onClick = { imageList.clear() },
                 modifier = Modifier
                     .weight(1f)
                     .padding(16.dp)
