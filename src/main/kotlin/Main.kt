@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -23,8 +21,8 @@ import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.Plane
-import kotlinx.coroutines.launch
 import math.fractals.Mandelbrot
+import java.awt.Dimension
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -34,44 +32,15 @@ import kotlin.math.sin
 @Composable
 @Preview
 fun App() {
-//    val fp = remember { FractalPainter(Mandelbrot){
-//        if (it == 1f) Color.Black
-//        else {
-//            val r = sin(it*15f).absoluteValue
-//            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
-//            val b = log2(2f - cos(sin(18*-it)))
-//            Color(r, g, b)
-//        }
-//    }
-//    }
-//    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
-    MaterialTheme {
-//        DrawingPanel(fp){size ->
-//            fp.width = size.width.toInt()
-//            fp.height = size.height.toInt()
-//            fp.refresh = true
-//        }
-//        SelectionPanel{
-//            fp.plane?.let{ plane ->
-//                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-//                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
-//                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-//                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-//                plane.xMin = xMin
-//                plane.xMax = xMax
-//                plane.yMin = yMin
-//                plane.yMax = yMax
-//                fp.refresh = true
-//            }
-//        }
+    val fp = fractalInitializer()
 
+    MaterialTheme {
+        menu(fp)
     }
-    menu()
 }
 
-
 @Composable
-fun menu(){
+fun fractalInitializer(): FractalPainter{
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -83,38 +52,82 @@ fun menu(){
     }
     }
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+    return fp
+}
 
+@Composable
+fun menu(fp: FractalPainter){
     var expandedMenu by remember { mutableStateOf(false) }
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
+    var expandedMenuColor by remember { mutableStateOf(false) }
+    var expandedFractalFunctions by remember { mutableStateOf(false) }
     val checkedState = remember { mutableStateOf(true) }
     val juliaButtonState = remember { mutableStateOf(false) }
     Scaffold(
-        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(modifier = Modifier.fillMaxWidth().background(Color.Blue)) {
+
                 Box {
-                    IconButton(onClick = {
-                        scope.launch {
-                            scaffoldState.drawerState.open()
-                        }
-                    }){
-                        Icon(Icons.Filled.Menu, contentDescription = "Кнопка меню")
+                    Button(onClick = {expandedMenuColor = true}){
+                        Text("Цвета")
                     }
-
-
+                    DropdownMenu(expanded = expandedMenuColor, onDismissRequest = {expandedMenuColor = false}){
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = { TODO() }
+                        ) {
+                            Text("1 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = {TODO()}
+                        ) {
+                            Text("2 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = {TODO()}
+                        ) {
+                            Text("3 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                    }
                 }
-                Text("Фрактал", modifier = Modifier.padding(5.dp), color = Color.White)
+
+                Box {
+                    Button(onClick = {expandedFractalFunctions = true}){
+                        Text("Функции")
+                    }
+                    DropdownMenu(expanded = expandedFractalFunctions, onDismissRequest = {expandedFractalFunctions = false}){
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = { TODO() }
+                        ) {
+                            Text("1 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = {TODO()}
+                        ) {
+                            Text("2 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = {TODO()}
+                        ) {
+                            Text("3 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                    }
+                }
+
 
                 Spacer(Modifier.weight(1f, true))
 
-                Button(onClick = {}, enabled = juliaButtonState.value){
+                Button(onClick = {TODO()}, enabled = juliaButtonState.value){
                     Text("Построить множество Жюлиа")
                 }
 
                 Spacer(Modifier.weight(0.5f, true))
 
-                IconButton(onClick = {}){
+                IconButton(onClick = {TODO()}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
                 }
 
@@ -125,26 +138,25 @@ fun menu(){
                     DropdownMenu(expanded = expandedMenu, onDismissRequest = {expandedMenu = false}){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {}
+                            onClick = {TODO()}
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {}
+                            onClick = {TODO()}
                         ) {
                             Text("Сохранить в формате", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {}
+                            onClick = {TODO()}
                         ) {
                             Text("Выгрузить фрактал", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {checkedState.value = !checkedState.value},
-                            //enabled = false
+                            onClick = {checkedState.value = !checkedState.value}
                         ) {
                             Text("Динамическое изменение\nчисла итераций", fontSize = 11.sp)
                             Checkbox(checked = checkedState.value, onCheckedChange = {checkedState.value = it})
@@ -152,52 +164,8 @@ fun menu(){
                     }
                 }
             }
-        },
-        drawerContent = {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Box(modifier = Modifier.fillMaxWidth().height(60.dp), contentAlignment = Alignment.CenterStart) {
-                    Text("Выбор цветовой схемы", fontSize = 26.sp)
-                }
-                Button(onClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        TODO()
-                    }
-                }){
-                    Text("Цветовая схема №1", fontSize = 10.sp)
-                }
-                Button(onClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        TODO()
-                    }
-                }){
-                    Text("Цветовая схема №2", fontSize = 10.sp)
-                }
-                Button(onClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        TODO()
-                    }
-                }){
-                    Text("Цветовая схема №3", fontSize = 10.sp)
-                }
-
-                Spacer(modifier = Modifier.height(30.dp))
-                Divider()
-                Button(onClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        TODO()
-                    }
-                }){
-                    Text("Создать видео(Coming Soon . . .)", fontSize = 10.sp)
-                }
-            }
         }
     ) {
-        //Canvas(modifier = Modifier.background(Color.LightGray).fillMaxSize()){
-
             DrawingPanel(fp){size ->
                 fp.width = size.width.toInt()
                 fp.height = size.height.toInt()
@@ -216,7 +184,6 @@ fun menu(){
                     fp.refresh = true
                 }
             }
-        //}
     }
 
 }
@@ -263,6 +230,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Множество Мандельброта"
     ) {
+        this.window.minimumSize = Dimension(600, 400)
         App()
     }
 }
