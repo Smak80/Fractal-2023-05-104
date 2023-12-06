@@ -52,7 +52,6 @@ fun fractalInitializer(): FractalPainter{
         fp.yMax = it.yMax
         fp.yMin = it.yMin
     }
-
     return fp
 }
 
