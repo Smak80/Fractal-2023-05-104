@@ -221,6 +221,7 @@ fun DrawingPanel(
         if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
             onResize(size)
 
+
         fp.paint(this)
     }
 }
