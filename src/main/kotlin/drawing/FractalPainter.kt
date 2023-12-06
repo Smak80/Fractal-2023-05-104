@@ -1,9 +1,6 @@
 package drawing
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -13,6 +10,7 @@ import math.Complex
 import math.fractals.AlgebraicFractal
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class FractalPainter(
     val fractal: AlgebraicFractal,
@@ -26,6 +24,41 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
+    var xMax = 0.0
+
+    var xMin = 0.0
+
+    var yMin = 0.0
+
+    var yMax = 0.0
+
+    private fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X)
+        {
+            val dx = (width * Y- abs(xMax - xMin))/2
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
+
+        }
+        else
+        {
+            val dy = (height * X- abs((yMax - yMin)))/2
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
+            }
+        }
+    }
+
+
     var img = BufferedImage(
         1,
         1,
@@ -34,6 +67,7 @@ class FractalPainter(
     var refresh = true
 
     override fun paint(scope: DrawScope) {
+        this.scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
@@ -42,6 +76,14 @@ class FractalPainter(
                 BufferedImage.TYPE_INT_ARGB,
             )
             plane?.let { plane ->
+
+                println("planeX : [ ${plane.xMin}; ${plane.xMax}]")
+                println("planeY : [ ${plane.yMin}; ${plane.yMax}]")
+                println("X : [ ${xMin}; ${xMax}]")
+                println("Y : [ ${yMin}; ${yMax}]")
+                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
+//                println("Пропорция фрактала: ${(plane.xMax-plane.xMin)/ (plane.yMax-plane.yMin)} ; Отношение ширины окна к высоте :${scope.size.width / scope.size.height}")
+
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
                     thread {

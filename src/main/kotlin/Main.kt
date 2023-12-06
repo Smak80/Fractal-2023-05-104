@@ -41,17 +41,25 @@ fun App() {
 
 @Composable
 fun fractalInitializer(): FractalPainter{
-    val fp = remember { FractalPainter(Mandelbrot){
+    val fp = remember { FractalPainter(Mandelbrot) {
         if (it == 1f) Color.Black
         else {
-            val r = sin(it*15f).absoluteValue
-            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
-            val b = log2(2f - cos(sin(18*-it)))
+            val r = sin(it * 15f).absoluteValue
+            val g = (sin(-8f * it) * cos(it * 5f + 12f)).absoluteValue
+            val b = log2(2f - cos(sin(18 * -it)))
             Color(r, g, b)
         }
     }
     }
+
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+    fp.plane?.let {
+        fp.xMin = it.xMin
+        fp.xMax = it.xMax
+        fp.yMax = it.yMax
+        fp.yMin = it.yMin
+    }
+
     return fp
 }
 
@@ -178,10 +186,14 @@ fun menu(fp: FractalPainter){
                     val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                     val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                     val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                    plane.xMin = xMin
-                    plane.xMax = xMax
-                    plane.yMin = yMin
-                    plane.yMax = yMax
+                    //                plane.xMin = xMin
+//                plane.xMax = xMax
+//                plane.yMin = yMin
+//                plane.yMax = yMax
+                    fp.xMin = xMin
+                    fp.xMax = xMax
+                    fp.yMin = yMin
+                    fp.yMax = yMax
                     fp.refresh = true
                 }
             }
@@ -214,20 +226,23 @@ fun SelectionPanel(
 
 @Composable
 fun DrawingPanel(
-    fp: Painter,
+    fp: FractalPainter,
     onResize: (Size)-> Unit = {},
 ) {
+
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
+
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ) {
+
             onResize(size)
-
-
+        }
         fp.paint(this)
     }
 }
 
 
 fun main() = application {
+
     Window(
         onCloseRequest = ::exitApplication,
         title = "Множество Мандельброта"

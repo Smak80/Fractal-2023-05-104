@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Готовая версия меню. Мб, что-то добавить, мб, нет" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Готовая версия задания. Остается только, мб, оптимизировать код.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,28 +41,28 @@
         <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Task_D_Fractal_Functions_and_Coloring" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Smak80&quot;
+    &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
-        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
+        <option name="accountId" value="218f5daf-983c-455e-8c1a-42316e3c01cb" />
+        <option name="url" value="https://github.com/MBMustafin/Fractal_Team2.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -81,7 +86,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/repositories&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
@@ -179,24 +184,75 @@
       <option name="project" value="LOCAL" />
       <updated>1700055800048</updated>
     </task>
-    <task id="LOCAL-00006" summary="Готовая версия меню. Мб, что-то добавить, мб, нет">
+    <task id="LOCAL-00006" summary="Создана ветка для решения задачи А">
       <option name="closed" value="true" />
-      <created>1701847189789</created>
+      <created>1701190923425</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1701847189789</updated>
+      <updated>1701190923425</updated>
     </task>
-    <task id="LOCAL-00007" summary="Готовая версия меню. Мб, что-то добавить, мб, нет">
+    <task id="LOCAL-00007" summary="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями.">
       <option name="closed" value="true" />
-      <created>1701847221132</created>
+      <created>1701194331941</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1701847221132</updated>
+      <updated>1701194331942</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются">
+      <option name="closed" value="true" />
+      <created>1701199843924</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701199843924</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Версия с пары">
+      <option name="closed" value="true" />
+      <created>1701247150392</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701247150392</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Версия со второй пары">
+      <option name="closed" value="true" />
+      <created>1701264231550</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701264231550</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением">
+      <option name="closed" value="true" />
+      <created>1701444130436</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1701444130437</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Пол работы сделано, но можно было бы и лучше. Разобраться с окном">
+      <option name="closed" value="true" />
+      <created>1701448061595</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701448061595</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Complex.kt" />
@@ -204,8 +260,15 @@
     <MESSAGE value="Фрактал раскрашеный" />
     <MESSAGE value="Выделение мышкой" />
     <MESSAGE value="Кешированная картинка" />
-    <MESSAGE value="Готовая версия меню. Мб, что-то добавить, мб, нет" />
-    <option name="LAST_COMMIT_MESSAGE" value="Готовая версия меню. Мб, что-то добавить, мб, нет" />
+    <MESSAGE value="Создана ветка для решения задачи А" />
+    <MESSAGE value="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями." />
+    <MESSAGE value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
+    <MESSAGE value="Версия с пары" />
+    <MESSAGE value="Версия со второй пары" />
+    <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
+    <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
+    <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
+    <option name="LAST_COMMIT_MESSAGE" value="Готовая версия задания. Остается только, мб, оптимизировать код." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
