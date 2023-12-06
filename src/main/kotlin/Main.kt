@@ -18,14 +18,14 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import drawing.FractalPainter
 import drawing.SelectionRect
+import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.convertation.Plane
-import math.fractals.Mandelbrot
 import java.awt.Dimension
-import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.log2
-import kotlin.math.sin
+
+
+import math.fractals.Fractal
+import math.fractals.funcs
 
 
 @Composable
@@ -40,16 +40,10 @@ fun App() {
 
 @Composable
 fun fractalInitializer(): FractalPainter{
-    val fp = remember { FractalPainter(Mandelbrot) {
-        if (it == 1f) Color.Black
-        else {
-            val r = sin(it * 15f).absoluteValue
-            val g = (sin(-8f * it) * cos(it * 5f + 12f)).absoluteValue
-            val b = log2(2f - cos(sin(18 * -it)))
-            Color(r, g, b)
-        }
-    }
-    }
+
+    Fractal.function = funcs["Mandelbrot"]!!
+    val fp = remember { FractalPainter(Fractal, colors["color2"]!!)}
+
 
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     fp.plane?.let {
@@ -193,8 +187,8 @@ fun menu(fp: FractalPainter){
                 }
             }
     }
-
 }
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SelectionPanel(
