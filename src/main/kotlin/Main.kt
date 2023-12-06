@@ -25,7 +25,11 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import kotlinx.coroutines.launch
 import math.fractals.Mandelbrot
-import kotlin.math.*
+import kotlin.math.absoluteValue
+import kotlin.math.cos
+import kotlin.math.log2
+import kotlin.math.sin
+
 
 @Composable
 @Preview
@@ -38,9 +42,10 @@ fun App() {
 //            val b = log2(2f - cos(sin(18*-it)))
 //            Color(r, g, b)
 //        }
-//    }}
+//    }
+//    }
 //    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
-//    MaterialTheme {
+    MaterialTheme {
 //        DrawingPanel(fp){size ->
 //            fp.width = size.width.toInt()
 //            fp.height = size.height.toInt()
@@ -59,15 +64,26 @@ fun App() {
 //                fp.refresh = true
 //            }
 //        }
-//    }
 
+    }
     menu()
 }
 
 
 @Composable
 fun menu(){
-    var expandedColors by remember { mutableStateOf(false) }
+    val fp = remember { FractalPainter(Mandelbrot){
+        if (it == 1f) Color.Black
+        else {
+            val r = sin(it*15f).absoluteValue
+            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
+            val b = log2(2f - cos(sin(18*-it)))
+            Color(r, g, b)
+        }
+    }
+    }
+    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+
     var expandedMenu by remember { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -180,10 +196,29 @@ fun menu(){
             }
         }
     ) {
-        Canvas(modifier = Modifier.background(Color.LightGray).fillMaxSize()){
+        //Canvas(modifier = Modifier.background(Color.LightGray).fillMaxSize()){
 
-        }
+            DrawingPanel(fp){size ->
+                fp.width = size.width.toInt()
+                fp.height = size.height.toInt()
+                fp.refresh = true
+            }
+            SelectionPanel{
+                fp.plane?.let{ plane ->
+                    val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+                    val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+                    val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+                    val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+                    plane.xMin = xMin
+                    plane.xMax = xMax
+                    plane.yMin = yMin
+                    plane.yMax = yMax
+                    fp.refresh = true
+                }
+            }
+        //}
     }
+
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
