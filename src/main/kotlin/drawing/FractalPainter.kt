@@ -76,14 +76,6 @@ class FractalPainter(
                 BufferedImage.TYPE_INT_ARGB,
             )
             plane?.let { plane ->
-
-                println("planeX : [ ${plane.xMin}; ${plane.xMax}]")
-                println("planeY : [ ${plane.yMin}; ${plane.yMax}]")
-                println("X : [ ${xMin}; ${xMax}]")
-                println("Y : [ ${yMin}; ${yMax}]")
-                println("Высота экрана: ${scope.size.height} , Ширина экрана: ${scope.size.width}")
-//                println("Пропорция фрактала: ${(plane.xMax-plane.xMin)/ (plane.yMax-plane.yMin)} ; Отношение ширины окна к высоте :${scope.size.width / scope.size.height}")
-
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
                     thread {

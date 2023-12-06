@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import drawing.FractalPainter
-import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.Plane
@@ -186,10 +185,6 @@ fun menu(fp: FractalPainter){
                     val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                     val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                     val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                    //                plane.xMin = xMin
-//                plane.xMax = xMax
-//                plane.yMin = yMin
-//                plane.yMax = yMax
                     fp.xMin = xMin
                     fp.xMax = xMax
                     fp.yMin = yMin
