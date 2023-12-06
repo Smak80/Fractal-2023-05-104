@@ -127,7 +127,8 @@ fun menu(fp: FractalPainter){
 
                 Spacer(Modifier.weight(0.5f, true))
 
-                IconButton(onClick = {TODO()}){
+                var i = 0                                                                                   //i убрать. Сделал так, чтобы ошибка не вылетаал
+                IconButton(onClick = {i++}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
                 }
 
