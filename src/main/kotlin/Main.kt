@@ -28,6 +28,7 @@ import video.Cadre
 import java.awt.FileDialog
 import java.io.File
 import java.util.*
+import javax.swing.UIManager
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -36,20 +37,7 @@ import kotlin.math.sin
 @Composable
 @Preview
 fun App(){
-    val fileDialogSaver = remember {  FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE).apply {
-        isMultipleMode = false
-        setFilenameFilter { _, filename ->
-            val extension = File(filename).extension.lowercase(Locale.getDefault())
-            extension == "fractal"
-        }
-    }}
-    val fileDialogLoader = remember {  FileDialog(ComposeWindow(), "Открыть фрактал", FileDialog.LOAD).apply {
-        isMultipleMode = false
-        setFilenameFilter { _, filename ->
-            val extension = File(filename).extension.lowercase(Locale.getDefault())
-            extension == "fractal"
-        }
-    }}
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
     val fp = remember { FractalPainter(Mandelbrot){
         if (it == 1f) Color.Black
         else {
@@ -89,40 +77,25 @@ fun App(){
                                     expanded = isMenuExpanded,
                                     onDismissRequest = { isMenuExpanded = false }
                                 ) {
-                                    showSaveDialog("Cохранить",
+                                    SaveOpenMenuItems(
                                         {
                                             isMenuExpanded = false
                                             TODO("Реализовать функцию для сохранения изображения")
                                         }, {
-                                            fileDialogSaver.isVisible = true
-                                            val selectedFile = fileDialogSaver.file
-                                            val filePath = fileDialogSaver.directory + selectedFile
                                             fp.plane?.let{
                                                 val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
-                                                FractalDataProcessor.saveFractalDataToFile(fractalData,filePath)
+                                                FractalDataProcessor.saveFractal(fractalData)
                                             }
-                                            isMenuExpanded  = false
-                                        },{
-                                            isMenuExpanded = false
-                                        })
-                                    DropdownMenuItem(
-                                        onClick = {
-                                            fileDialogLoader.isVisible = true
-                                            val selectedFile = fileDialogLoader.file
-                                            val filePath = fileDialogLoader.directory + selectedFile
-                                            val resData = FractalDataProcessor.readFractalDataFromFile(filePath)
-                                            println(resData?.xMax ?: "null")
+                                        }, {
+                                            val resData = FractalDataProcessor.loadData()
                                             resData?.let { fd ->
                                                 fp.plane?.let { plane ->
                                                     fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)
-                                                    fp.refresh = true
                                                 }
                                             }
-                                            isMenuExpanded = false
-                                        }
-                                    ){
-                                        Text("Открыть")
-                                    }
+                                            fp.refresh = true
+                                        }, { isMenuExpanded = false }
+                                    )
                                 }
                             }
                         }
