@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="добавил поддержку разных цветов и фракталов">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Обновляется цвет, но не работает масштабирование, и наоборот">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -261,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701900683428</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Обновляется цвет, но не работает масштабирование, и наоборот">
+      <option name="closed" value="true" />
+      <created>1701950212447</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701950212447</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,7 +310,8 @@
     <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
     <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
     <MESSAGE value="добавил поддержку разных цветов и фракталов" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавил поддержку разных цветов и фракталов" />
+    <MESSAGE value="Обновляется цвет, но не работает масштабирование, и наоборот" />
+    <option name="LAST_COMMIT_MESSAGE" value="Обновляется цвет, но не работает масштабирование, и наоборот" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

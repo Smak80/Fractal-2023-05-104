@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -30,18 +31,17 @@ import math.fractals.funcs
 @Preview
 fun App() {
     val fractalFunc = remember { mutableStateOf("Mandelbrot") }
-    val fractalColor = remember { mutableStateOf("color2")  }
-
-    val fractal = FractalPainter(Fractal, colors[fractalColor.value]!!)
-    val fp = remember {  fractal }
+    val fractalColor = remember { mutableStateOf("color1")  }
 
 
-    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
-    fp.plane?.let {
-        fp.xMin = it.xMin
-        fp.xMax = it.xMax
-        fp.yMax = it.yMax
-        fp.yMin = it.yMin
+    var fp = remember { mutableStateOf(FractalPainter(Fractal, colors[fractalColor.value]!!))}
+
+    fp.value.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+    fp.value.plane?.let {
+        fp.value.xMin = it.xMin
+        fp.value.xMax = it.xMax
+        fp.value.yMax = it.yMax
+        fp.value.yMin = it.yMin
     }
     MaterialTheme {
         menu(fp, fractalColor, fractalFunc)
@@ -49,7 +49,7 @@ fun App() {
 }
 
 @Composable
-fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: MutableState<String>){
+fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, fractalFunc: MutableState<String>){
     var expandedMenu by remember { mutableStateOf(false) }
     var expandedMenuColor by remember { mutableStateOf(false) }
     var expandedFractalFunctions by remember { mutableStateOf(false) }
@@ -68,6 +68,8 @@ fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: Mu
                             modifier = Modifier.height(35.dp),
                             onClick = {
                                 if (fractalColor.value != "color1"){
+                                    val fp1 = FractalPainter(Fractal, colors["color1"]!!)
+                                    fp.value = fp1
                                     fractalColor.value = "color1"
                                 }
                                 //TODO()
@@ -79,6 +81,8 @@ fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: Mu
                             modifier = Modifier.height(35.dp),
                             onClick = {
                                 if (fractalColor.value != "color2"){
+                                    val fp1 = FractalPainter(Fractal, colors["color2"]!!)
+                                    fp.value = fp1
                                     fractalColor.value = "color2"
                                 }
                             }
@@ -89,6 +93,8 @@ fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: Mu
                             modifier = Modifier.height(35.dp),
                             onClick = {
                                 if (fractalColor.value != "color3"){
+                                    val fp1 = FractalPainter(Fractal, colors["color3"]!!)
+                                    fp.value = fp1
                                     fractalColor.value = "color3"
                                 }
                                 //TODO()
@@ -180,22 +186,22 @@ fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: Mu
             }
         }
     ) {
-            DrawingPanel(fp){size ->
-                fp.width = size.width.toInt()
-                fp.height = size.height.toInt()
-                fp.refresh = true
+            DrawingPanel(fp.value){size ->
+                fp.value.width = size.width.toInt()
+                fp.value.height = size.height.toInt()
+                fp.value.refresh = true
             }
             SelectionPanel{
-                fp.plane?.let{ plane ->
+                fp.value.plane?.let{ plane ->
                     val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                     val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                     val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                     val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                    fp.xMin = xMin
-                    fp.xMax = xMax
-                    fp.yMin = yMin
-                    fp.yMax = yMax
-                    fp.refresh = true
+                    fp.value.xMin = xMin
+                    fp.value.xMax = xMax
+                    fp.value.yMin = yMin
+                    fp.value.yMax = yMax
+                    fp.value.refresh = true
                 }
             }
     }
