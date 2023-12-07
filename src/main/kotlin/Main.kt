@@ -22,8 +22,6 @@ import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.convertation.Plane
 import java.awt.Dimension
-
-
 import math.fractals.Fractal
 import math.fractals.funcs
 
@@ -31,18 +29,11 @@ import math.fractals.funcs
 @Composable
 @Preview
 fun App() {
-    val fp = fractalInitializer()
+    val fractalFunc = remember { mutableStateOf("Mandelbrot") }
+    val fractalColor = remember { mutableStateOf("color2")  }
 
-    MaterialTheme {
-        menu(fp)
-    }
-}
-
-@Composable
-fun fractalInitializer(): FractalPainter{
-
-    Fractal.function = funcs["Mandelbrot"]!!
-    val fp = remember { FractalPainter(Fractal, colors["color2"]!!)}
+    val fractal = FractalPainter(Fractal, colors[fractalColor.value]!!)
+    val fp = remember {  fractal }
 
 
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
@@ -52,11 +43,13 @@ fun fractalInitializer(): FractalPainter{
         fp.yMax = it.yMax
         fp.yMin = it.yMin
     }
-    return fp
+    MaterialTheme {
+        menu(fp, fractalColor, fractalFunc)
+    }
 }
 
 @Composable
-fun menu(fp: FractalPainter){
+fun menu(fp: FractalPainter, fractalColor: MutableState<String>, fractalFunc: MutableState<String>){
     var expandedMenu by remember { mutableStateOf(false) }
     var expandedMenuColor by remember { mutableStateOf(false) }
     var expandedFractalFunctions by remember { mutableStateOf(false) }
@@ -73,19 +66,33 @@ fun menu(fp: FractalPainter){
                     DropdownMenu(expanded = expandedMenuColor, onDismissRequest = {expandedMenuColor = false}){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = { TODO() }
+                            onClick = {
+                                if (fractalColor.value != "color1"){
+                                    fractalColor.value = "color1"
+                                }
+                                //TODO()
+                            }
                         ) {
                             Text("1 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {
+                                if (fractalColor.value != "color2"){
+                                    fractalColor.value = "color2"
+                                }
+                            }
                         ) {
                             Text("2 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {
+                                if (fractalColor.value != "color3"){
+                                    fractalColor.value = "color3"
+                                }
+                                //TODO()
+                            }
                         ) {
                             Text("3 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
@@ -99,21 +106,27 @@ fun menu(fp: FractalPainter){
                     DropdownMenu(expanded = expandedFractalFunctions, onDismissRequest = {expandedFractalFunctions = false}){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = { TODO() }
+                            onClick = { Fractal.function = funcs["Mandelbrot"]!! }
                         ) {
                             Text("1 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {Fractal.function = funcs["square"]!!}
                         ) {
                             Text("2 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {Fractal.function = funcs["third_pow"]!!}
                         ) {
                             Text("3 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
+                        }
+                        DropdownMenuItem(
+                            modifier = Modifier.height(35.dp),
+                            onClick = {Fractal.function = funcs["multiply_and_plus"]!!}
+                        ) {
+                            Text("4 функция", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                     }
                 }

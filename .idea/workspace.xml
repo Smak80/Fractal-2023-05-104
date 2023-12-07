@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Кешированная картинка" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="добавил поддержку разных цветов и фракталов">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -250,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701448061595</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="добавил поддержку разных цветов и фракталов">
+      <option name="closed" value="true" />
+      <created>1701900683428</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1701900683428</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -290,7 +301,8 @@
     <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
     <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
     <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
-    <option name="LAST_COMMIT_MESSAGE" value="Готовая версия задания. Остается только, мб, оптимизировать код." />
+    <MESSAGE value="добавил поддержку разных цветов и фракталов" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавил поддержку разных цветов и фракталов" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
