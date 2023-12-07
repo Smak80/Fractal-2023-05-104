@@ -14,26 +14,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import drawing.convertation.Plane
+import tools.FractalDataProcessor
 
 @Composable
-fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,close: () -> Unit) {
+fun SaveOpenMenuItems(imageSave: () -> Unit,
+                   fractalSave: () -> Unit,
+                   fractalLoad: () -> Unit,
+                   close: () -> Unit) {
+
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    // Добавленная кнопка для открытия диалогового окна
-    DropdownMenuItem(
-        onClick = {
-            isDialogVisible = true
-        }
-    ) {
-        Text(text)
-    }
 
-    // Диалоговое окно
+    DropdownMenuItem(
+        onClick = { isDialogVisible = true }
+    ) { Text("Сохранить") }
+    DropdownMenuItem(fractalLoad){ Text("Открыть") }
+
     if (isDialogVisible) {
         Dialog(
             onDismissRequest = {
-                isDialogVisible = false
                 close()
+                isDialogVisible = false
             },
             properties = DialogProperties(dismissOnClickOutside = true)
         ) {
@@ -52,7 +54,6 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Текст в диалоговом окне
                     Text(
                         "Как вы хотите сохранить файл?",
                         fontSize = 18.sp,
@@ -60,7 +61,6 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.weight(1f)
                     )
-                    //Закрытие
                     IconButton(
                         onClick = {
                             close()
@@ -68,12 +68,7 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                         },
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
-                    ) {
-                        Icon(
-                            Icons.Default.Close,
-                            "Закрыть"
-                        )
-                    }
+                    ) { Icon(Icons.Default.Close, "Закрыть") }
                 }
 
                 // Кнопки в строку
@@ -87,6 +82,7 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                     Button(
                         onClick = {
                             imageSave()
+                            close()
                             isDialogVisible = false
                         },
                         modifier = Modifier
@@ -99,6 +95,7 @@ fun showSaveDialog(text: String, imageSave: () -> Unit, fractalSave: () -> Unit,
                     Button(
                         onClick = {
                             fractalSave()
+                            close()
                             isDialogVisible = false
                         },
                         modifier = Modifier
