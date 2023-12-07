@@ -1,4 +1,4 @@
-package gui
+package gui.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row

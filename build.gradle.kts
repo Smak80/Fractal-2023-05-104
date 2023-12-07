@@ -20,7 +20,7 @@ dependencies {
     // (in a separate module for demo project and in testMain).
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
-    implementation("org.jcodec:jcodec:0.2.4")
+    implementation("org.jcodec:jcodec:0.2.5")
 }
 
 compose.desktop {
