@@ -19,10 +19,11 @@ import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
+import video.Cadre
 import java.awt.image.BufferedImage
 
 @Composable
-fun mainFractalWindow(fp:FractalPainter,photoList: SnapshotStateList<BufferedImage>){
+fun mainFractalWindow(fp:FractalPainter,photoList: SnapshotStateList<Cadre>){
     drawingPanel(fp){ size ->
         fp.width = size.width.toInt()
         fp.height = size.height.toInt()

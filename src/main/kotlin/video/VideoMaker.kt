@@ -1,0 +1,8 @@
+package video
+
+
+
+class VideoMaker
+{
+
+}

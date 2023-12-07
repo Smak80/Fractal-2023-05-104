@@ -38,23 +38,28 @@ class FractalPainter(
                 scope.size.height.toInt(),
                 BufferedImage.TYPE_INT_ARGB,
             )
-            plane?.let { plane ->
-                val tc = Runtime.getRuntime().availableProcessors()
-                List(tc) { t ->
-                    thread {
-                        for (i in t..<width step tc)
-                            for (j in 0..<height) {
-                                val x = Complex(
-                                    Converter.xScr2Crt(i.toFloat(), plane),
-                                    Converter.yScr2Crt(j.toFloat(), plane)
-                                )
-                                img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
-                            }
-                    }
-                }.forEach { it.join() }
-            }
+            getImageFromPlane(img)
         }
         scope.drawImage(img.toComposeImageBitmap())
+    }
+
+    fun getImageFromPlane(img: BufferedImage): BufferedImage{
+        plane?.let { plane ->
+            val tc = Runtime.getRuntime().availableProcessors()
+            List(tc) { t ->
+                thread {
+                    for (i in t..<width step tc)
+                        for (j in 0..<height) {
+                            val x = Complex(
+                                Converter.xScr2Crt(i.toFloat(), plane),
+                                Converter.yScr2Crt(j.toFloat(), plane)
+                            )
+                            img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
+                        }
+                }
+            }.forEach { it.join() }
+        }
+        return img
     }
 
 }

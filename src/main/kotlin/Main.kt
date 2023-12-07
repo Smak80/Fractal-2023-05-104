@@ -12,9 +12,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
-import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,11 +20,12 @@ import androidx.compose.ui.window.*
 import gui.*
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
 import tools.FractalDataProcessor
+import video.Cadre
 import java.awt.FileDialog
-import java.awt.image.BufferedImage
 import java.io.File
 import java.util.*
 import kotlin.math.absoluteValue
@@ -60,7 +59,7 @@ fun App(){
             Color(r, g, b)
         }
     } }
-    val photoList = remember { SnapshotStateList<BufferedImage>() }
+    val photoList = remember { SnapshotStateList<Cadre>() }
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
         Scaffold(
@@ -173,14 +172,9 @@ fun App(){
                                 Spacer(modifier = Modifier.width(5.dp))
                                 IconButton(
                                     onClick = {
-                                        val scaled = BufferedImage(
-                                            fp.img.width, fp.img.height,
-                                            BufferedImage.TYPE_INT_RGB
-                                        )
-                                        val g = scaled.createGraphics()
-                                        g.drawImage(fp.img, 0, 0, 150, 150, null)
-                                        photoList.add(scaled)
-
+                                        fp.plane?.let {
+                                            photoList.add(Cadre(it))
+                                        }
                                     }
                                 ) {
                                     Icon(
