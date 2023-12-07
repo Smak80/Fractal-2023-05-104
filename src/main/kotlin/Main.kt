@@ -28,6 +28,7 @@ import video.Cadre
 import java.awt.FileDialog
 import java.io.File
 import java.util.*
+import javax.swing.UIManager
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -36,9 +37,12 @@ import kotlin.math.sin
 @Composable
 @Preview
 fun App(){
-    val fileDialogSaver = remember {  FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE).apply {
-        isMultipleMode = false
-        setFilenameFilter { _, filename ->
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+    val fileDialogSaver = remember {  FileDialog(ComposeWindow(), "Сохранить фрактал", FileDialog.SAVE)
+        .apply {
+            setFile("*.txt");
+            isMultipleMode = false
+            setFilenameFilter { _, filename ->
             val extension = File(filename).extension.lowercase(Locale.getDefault())
             extension == "fractal"
         }
