@@ -12,7 +12,7 @@ class Cadre(plane: Plane) {
     var preRenderImg: BufferedImage
 
     init {
-        this.plane = plane
+        this.plane = plane.copy()
         preRenderImg = getImageFromPlane(this.plane,110f, 110f)
        // img = getImageFromPlane(this.plane, 0f, 0f)
     }

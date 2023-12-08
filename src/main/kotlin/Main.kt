@@ -130,7 +130,6 @@ fun App(){
                                 ) {
                                     Text("Создать Видео")
                                     if (showVideoDialogBoolean) {
-                                        // Диалоговое окно
                                         Dialog(
                                             onDismissRequest = { showVideoDialogBoolean = false },
                                             properties = DialogProperties(dismissOnClickOutside = true)
@@ -147,10 +146,7 @@ fun App(){
                                         }
                                     }
                                 ) {
-                                    Icon(
-                                        Icons.Default.Add,
-                                        "Добавить Кадр"
-                                    )
+                                    Icon(Icons.Default.Add, "Добавить Кадр")
                                 }
                             }
                             //Выбор Цветовой Схемы
