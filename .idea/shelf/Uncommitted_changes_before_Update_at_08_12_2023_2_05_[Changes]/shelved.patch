@@ -1,0 +1,273 @@
+Index: src/main/kotlin/gui/video/WorkWithVideoDialog.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gui.video\r\n\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.lazy.LazyRow\r\nimport androidx.compose.foundation.lazy.items\r\nimport androidx.compose.material.*\r\nimport androidx.compose.material.icons.Icons\r\nimport androidx.compose.material.icons.filled.Close\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.runtime.snapshots.SnapshotStateList\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.text.font.FontWeight\r\nimport androidx.compose.ui.text.style.TextAlign\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.unit.sp\r\nimport gui.controls.intTextField\r\nimport video.Cadre\r\nimport video.VideoMaker\r\n\r\n\r\n@Composable\r\nfun workWithVideoDialog(\r\n    imageList: SnapshotStateList<Cadre>,\r\n    close:()->Unit,\r\n) {\r\n    var height by remember { mutableStateOf(600) }\r\n    var width by remember { mutableStateOf(800) }\r\n    var fps by remember { mutableStateOf(24) }\r\n    var duration by remember { mutableStateOf(5) }\r\n    var vm = VideoMaker()\r\n\r\n    Column(\r\n        modifier = Modifier\r\n            .fillMaxWidth()\r\n            .padding(10.dp)\r\n            .background(MaterialTheme.colors.surface, shape = MaterialTheme.shapes.medium),\r\n        verticalArrangement = Arrangement.Center,\r\n        horizontalAlignment = Alignment.CenterHorizontally\r\n    ) {\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .padding(horizontal = 10.dp, vertical = 2.dp),\r\n            horizontalArrangement = Arrangement.SpaceBetween,\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            // Текст в диалоговом окне\r\n            Text(\r\n                \"Параметры Видео\",\r\n                fontSize = 18.sp,\r\n                fontWeight = FontWeight.Bold,\r\n                textAlign = TextAlign.Center,\r\n                modifier = Modifier.weight(1f),\r\n            )\r\n            //Закрытие\r\n            IconButton(\r\n                onClick = close,\r\n                modifier = Modifier\r\n                    .padding(horizontal = 8.dp),\r\n            ) {\r\n                Icon(\r\n                    Icons.Default.Close,\r\n                    contentDescription = \"Закрыть\",\r\n                )\r\n            }\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .padding(horizontal = 10.dp, vertical = 2.dp),\r\n            horizontalArrangement = Arrangement.SpaceBetween,\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            intTextField(\r\n                value = height,\r\n                label = \"Высота\",\r\n                onValueChange = {height=it},\r\n                maxValue = 10000,\r\n                modifier = Modifier.weight(1f)\r\n            )\r\n            intTextField(\r\n                value = width,\r\n                label = \"Ширина\",\r\n                onValueChange = {width=it},\r\n                maxValue = 10000,\r\n                modifier = Modifier.weight(1f)\r\n            )\r\n        }\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .padding(horizontal = 10.dp, vertical = 2.dp),\r\n            horizontalArrangement = Arrangement.SpaceBetween,\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            intTextField(\r\n                value = fps,\r\n                label = \"FPS\",\r\n                onValueChange = {fps=it},\r\n                minValue = 1,\r\n                maxValue = 240,\r\n                modifier = Modifier.weight(1f)\r\n            )\r\n            intTextField(\r\n                value = duration,\r\n                label = \"Длительность, c\",\r\n                onValueChange = {duration=it},\r\n                maxValue = 10*60*60,\r\n                modifier = Modifier.weight(1f)\r\n            )\r\n        }\r\n\r\n        Row(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .padding(horizontal = 10.dp, vertical = 2.dp),\r\n            horizontalArrangement = Arrangement.SpaceBetween,\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            Button(\r\n                onClick = {\r\n\r\n                },\r\n                modifier = Modifier\r\n                    .weight(1f)\r\n                    .padding(16.dp)\r\n                    .height(45.dp)\r\n            ) {\r\n                Text(\"Создать\")\r\n            }\r\n            Button(\r\n                onClick = { imageList.clear() },\r\n                modifier = Modifier\r\n                    .weight(1f)\r\n                    .padding(16.dp)\r\n                    .height(45.dp)\r\n            ) {\r\n                Text(\"Очистить\")\r\n            }\r\n        }\r\n        LazyRow(\r\n            modifier = Modifier\r\n                .fillMaxWidth()\r\n                .padding(vertical = 10.dp, horizontal = 16.dp),\r\n            horizontalArrangement = Arrangement.spacedBy(8.dp),\r\n            verticalAlignment = Alignment.CenterVertically\r\n        ) {\r\n            items(imageList) {\r\n                MyCard(it.preRenderImg) { imageList.remove(it) }\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/gui/video/WorkWithVideoDialog.kt b/src/main/kotlin/gui/video/WorkWithVideoDialog.kt
+--- a/src/main/kotlin/gui/video/WorkWithVideoDialog.kt	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/src/main/kotlin/gui/video/WorkWithVideoDialog.kt	(date 1701913786820)
+@@ -29,8 +29,7 @@
+     var width by remember { mutableStateOf(800) }
+     var fps by remember { mutableStateOf(24) }
+     var duration by remember { mutableStateOf(5) }
+-    var vm = VideoMaker()
+-
++    var vm: VideoMaker
+     Column(
+         modifier = Modifier
+             .fillMaxWidth()
+@@ -122,6 +121,14 @@
+             Button(
+                 onClick = {
+ 
++                    vm = VideoMaker(
++                        width,
++                        height,
++                        fps,
++                        duration,
++                        "",
++                        imageList,
++                    )
+                 },
+                 modifier = Modifier
+                     .weight(1f)
+Index: src/main/kotlin/gui/DropDownMenuIcon.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/gui/DropDownMenuIcon.kt b/src/main/kotlin/gui/controls/DropDownMenuIcon.kt
+rename from src/main/kotlin/gui/DropDownMenuIcon.kt
+rename to src/main/kotlin/gui/controls/DropDownMenuIcon.kt
+--- a/src/main/kotlin/gui/DropDownMenuIcon.kt	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/src/main/kotlin/gui/controls/DropDownMenuIcon.kt	(date 1701914129124)
+@@ -1,4 +1,4 @@
+-package gui
++package gui.controls
+ 
+ import androidx.compose.foundation.layout.Column
+ import androidx.compose.material.*
+@@ -13,13 +13,11 @@
+     var expanded by remember { mutableStateOf(false) }
+ 
+     Column {
+-        // Иконка, которая вызывает выпадающий список
+         IconButton(onClick = { expanded = !expanded }) {
+             Icon(imageVector = Icons.Default.Create,
+                 contentDescription = "Dropdown Icon")
+         }
+ 
+-        // Выпадающий список
+         DropdownMenu(
+             expanded = expanded,
+             onDismissRequest = { expanded = false }
+Index: src/main/kotlin/Main.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import androidx.compose.desktop.ui.tooling.preview.Preview\r\nimport androidx.compose.foundation.background\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.shape.RoundedCornerShape\r\nimport androidx.compose.material.*\r\nimport androidx.compose.material.icons.Icons\r\nimport androidx.compose.material.icons.filled.Add\r\nimport androidx.compose.material.icons.filled.ArrowBack\r\nimport androidx.compose.material.icons.filled.Menu\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.runtime.snapshots.SnapshotStateList\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.awt.ComposeWindow\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.text.style.TextAlign\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.unit.sp\r\nimport androidx.compose.ui.window.*\r\nimport gui.*\r\nimport drawing.FractalPainter\r\nimport drawing.convertation.Plane\r\nimport gui.video.workWithVideoDialog\r\nimport math.fractals.FractalData\r\nimport math.fractals.Mandelbrot\r\nimport tools.FractalDataProcessor\r\nimport video.Cadre\r\nimport java.awt.FileDialog\r\nimport java.io.File\r\nimport java.util.*\r\nimport kotlin.math.absoluteValue\r\nimport kotlin.math.cos\r\nimport kotlin.math.log2\r\nimport kotlin.math.sin\r\n\r\n@Composable\r\n@Preview\r\nfun App(){\r\n    val fileDialogSaver = remember {  FileDialog(ComposeWindow(), \"Сохранить фрактал\", FileDialog.SAVE).apply {\r\n        isMultipleMode = false\r\n        setFilenameFilter { _, filename ->\r\n            val extension = File(filename).extension.lowercase(Locale.getDefault())\r\n            extension == \"fractal\"\r\n        }\r\n    }}\r\n    val fileDialogLoader = remember {  FileDialog(ComposeWindow(), \"Открыть фрактал\", FileDialog.LOAD).apply {\r\n        isMultipleMode = false\r\n        setFilenameFilter { _, filename ->\r\n            val extension = File(filename).extension.lowercase(Locale.getDefault())\r\n            extension == \"fractal\"\r\n        }\r\n    }}\r\n    val fp = remember { FractalPainter(Mandelbrot){\r\n        if (it == 1f) Color.Black\r\n        else {\r\n            val r = sin(it*15f).absoluteValue\r\n            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue\r\n            val b = log2(2f - cos(sin(18*-it)))\r\n            Color(r, g, b)\r\n        }\r\n    } }\r\n    val photoList = remember { SnapshotStateList<Cadre>() }\r\n    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)\r\n    MaterialTheme{\r\n        Scaffold(\r\n            topBar = {\r\n                var dynamicIterationsCheck by remember { mutableStateOf(false) }\r\n                var isMenuExpanded by remember { mutableStateOf(false) }\r\n\r\n\r\n                TopAppBar(\r\n                    title = {\r\n                        Text(\r\n                            modifier = Modifier,\r\n                            textAlign = TextAlign.Center,\r\n                            text = \"Множество Мондельброта\"\r\n                        )\r\n                    },\r\n                    navigationIcon = {\r\n                        IconButton(\r\n                            onClick = { isMenuExpanded = true }\r\n                        ) {\r\n                            Icon(\r\n                                imageVector = Icons.Default.Menu,\r\n                                contentDescription = \"Меню\")\r\n                            if (isMenuExpanded) {\r\n                                // Выпадающий список\r\n                                DropdownMenu(\r\n                                    expanded = isMenuExpanded,\r\n                                    onDismissRequest = { isMenuExpanded = false }\r\n                                ) {\r\n                                    showSaveDialog(\"Cохранить\",\r\n                                        {\r\n                                            isMenuExpanded = false\r\n                                            TODO(\"Реализовать функцию для сохранения изображения\")\r\n                                        }, {\r\n                                            fileDialogSaver.isVisible = true\r\n                                            val selectedFile = fileDialogSaver.file\r\n                                            val filePath = fileDialogSaver.directory + selectedFile\r\n                                            fp.plane?.let{\r\n                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)\r\n                                                FractalDataProcessor.saveFractalDataToFile(fractalData,filePath)\r\n                                            }\r\n                                            isMenuExpanded  = false\r\n                                        },{\r\n                                            isMenuExpanded = false\r\n                                        })\r\n                                    DropdownMenuItem(\r\n                                        onClick = {\r\n                                            fileDialogLoader.isVisible = true\r\n                                            val selectedFile = fileDialogLoader.file\r\n                                            val filePath = fileDialogLoader.directory + selectedFile\r\n                                            val resData = FractalDataProcessor.readFractalDataFromFile(filePath)\r\n                                            println(resData?.xMax ?: \"null\")\r\n                                            resData?.let { fd ->\r\n                                                fp.plane?.let { plane ->\r\n                                                    fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)\r\n                                                    fp.refresh = true\r\n                                                }\r\n                                            }\r\n                                            isMenuExpanded = false\r\n                                        }\r\n                                    ){\r\n                                        Text(\"Открыть\")\r\n                                    }\r\n                                }\r\n                            }\r\n                        }\r\n                    },\r\n                    actions = {\r\n                        Row(\r\n                            modifier = Modifier\r\n                                .padding(horizontal = 10.dp, vertical = 2.dp),\r\n                            horizontalArrangement = Arrangement.spacedBy(16.dp),\r\n                            verticalAlignment = Alignment.CenterVertically,\r\n                        )\r\n                        {\r\n                            //Кнопка Назад\r\n                            IconButton(\r\n                                onClick = {TODO(\"Отмена действий!\")}\r\n                            ) {\r\n                                Icon(\r\n                                    Icons.Default.ArrowBack,\r\n                                    \"Назад\"\r\n                                )\r\n                            }\r\n                            //Для Вызова Окна с Видео\r\n                            Row(\r\n                                modifier = Modifier\r\n                                    .background(\r\n                                        color = MaterialTheme.colors.secondaryVariant,\r\n                                        shape = RoundedCornerShape(50.dp)\r\n                                    )\r\n                            ) {\r\n                                var showVideoDialogBoolean by remember { mutableStateOf(false) }\r\n                                Button(\r\n                                    modifier = Modifier.padding(start = 16.dp),\r\n                                    onClick = { showVideoDialogBoolean = true },\r\n                                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)\r\n                                ) {\r\n                                    Text(\"Создать Видео\")\r\n                                    if (showVideoDialogBoolean) {\r\n                                        // Диалоговое окно\r\n                                        Dialog(\r\n                                            onDismissRequest = { showVideoDialogBoolean = false },\r\n                                            properties = DialogProperties(dismissOnClickOutside = true)\r\n                                        ) {\r\n                                            workWithVideoDialog(photoList) { showVideoDialogBoolean = false }\r\n                                        }\r\n                                    }\r\n                                }\r\n                                Spacer(modifier = Modifier.width(5.dp))\r\n                                IconButton(\r\n                                    onClick = {\r\n                                        fp.plane?.let {\r\n                                            photoList.add(Cadre(it))\r\n                                        }\r\n                                    }\r\n                                ) {\r\n                                    Icon(\r\n                                        Icons.Default.Add,\r\n                                        \"Добавить Кадр\"\r\n                                    )\r\n                                }\r\n                            }\r\n                            //Выбор Цветовой Схемы\r\n                            dropdownMenuIcon(\r\n                                mapOf(),\r\n                            )\r\n                            // Checkbox для динамических итераций\r\n                            Row(\r\n                                horizontalArrangement = Arrangement.SpaceEvenly,\r\n                                verticalAlignment = Alignment.CenterVertically,\r\n                            ) {\r\n                                Checkbox(\r\n                                    checked = dynamicIterationsCheck,\r\n                                    onCheckedChange = {dynamicIterationsCheck = it},\r\n                                    modifier = Modifier.padding(start = 8.dp)\r\n                                )\r\n                                Text(\r\n                                    text = \"D. итерации\",\r\n                                    style = MaterialTheme.typography.body1.copy(\r\n                                        fontSize = 18.sp,\r\n                                        color = Color.White\r\n                                    )\r\n                                )\r\n                            }\r\n                        }\r\n                    },\r\n                    modifier = Modifier.height(65.dp)\r\n                )\r\n            },\r\n            modifier = Modifier.fillMaxSize()){\r\n            Box(\r\n                Modifier.fillMaxSize()\r\n            ){\r\n                mainFractalWindow(fp,photoList)\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\nfun main() = application {\r\n    Window(\r\n        onCloseRequest = ::exitApplication,\r\n        title = \"Множество Мандельброта\",\r\n        state = rememberWindowState(\r\n            width = 800.dp,\r\n            height = 600.dp,\r\n            placement = WindowPlacement.Floating,\r\n            position = WindowPosition(100.dp, 100.dp),\r\n            isMinimized = false\r\n        ),\r\n    ) {\r\n        App()\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/Main.kt b/src/main/kotlin/Main.kt
+--- a/src/main/kotlin/Main.kt	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/src/main/kotlin/Main.kt	(date 1701914129130)
+@@ -20,6 +20,7 @@
+ import gui.*
+ import drawing.FractalPainter
+ import drawing.convertation.Plane
++import gui.controls.dropdownMenuIcon
+ import gui.video.workWithVideoDialog
+ import math.fractals.FractalData
+ import math.fractals.Mandelbrot
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5\" name=\"Changes\" comment=\"Какие-то манипуляции с видео\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/gui/video/myCard.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/tools/AWTUtil.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/build.gradle.kts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/build.gradle.kts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/Main.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/Main.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/gui/IntField.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/gui/controls/IntField.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/gui/WorkWithVideoDialog.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/tools/VideoMaker.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"07c5f99b-f13a-4ef3-a289-23ab9c80abc1\" />\r\n        <option name=\"url\" value=\"https://github.com/LevGrekov/MandelbrotSet.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2YwAEa02pCgvMpjN0dsAJ2A9AnB\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\KotlinProjects\\MandelbrotSet\\src\\main\\kotlin\\gui\\controls\" />\r\n      <recent name=\"D:\\KotlinProjects\\MandelbrotSet\\src\\main\\kotlin\\gui\\video\" />\r\n      <recent name=\"D:\\KotlinProjects\\MandelbrotSet\\src\\main\\kotlin\\video\" />\r\n    </key>\r\n    <key name=\"MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY\">\r\n      <recent name=\"video\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Kotlin.MainKt (1)\">\r\n    <configuration name=\"MainKt (1)\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainKt\" />\r\n      <module name=\"fractalComposable-2023.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"video.MainKt\" />\r\n      <module name=\"fractalComposable-2023.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.MainKt (1)\" />\r\n        <item itemvalue=\"Kotlin.MainKt\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5\" name=\"Changes\" comment=\"Исправил последствия кривого мержа\" />\r\n      <created>1701426156767</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1701426156767</updated>\r\n      <workItem from=\"1701426158060\" duration=\"959000\" />\r\n      <workItem from=\"1701428515908\" duration=\"18203000\" />\r\n      <workItem from=\"1701725256497\" duration=\"3888000\" />\r\n      <workItem from=\"1701808489342\" duration=\"244000\" />\r\n      <workItem from=\"1701886579355\" duration=\"17348000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Сделал отображаемые картинки для видео, но до ума не довел\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1701433310641</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1701433310641</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1701453814071</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1701453814071</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Какие-то манипуляции с видео\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1701729677715</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1701729677716</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Исправил последствия кривого мержа\" />\r\n    <MESSAGE value=\"Сделал отображаемые картинки для видео, но до ума не довел\" />\r\n    <MESSAGE value=\"До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления\" />\r\n    <MESSAGE value=\"Какие-то манипуляции с видео\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Какие-то манипуляции с видео\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"kotlin-function\">\r\n          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt</url>\r\n          <line>13</line>\r\n          <properties class=\"drawing.FractalPainter\" method=\"&lt;init&gt;\">\r\n            <option name=\"EMULATED\" value=\"true\" />\r\n            <option name=\"WATCH_EXIT\" value=\"false\" />\r\n          </properties>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/.idea/workspace.xml	(date 1701990241575)
+@@ -4,22 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Какие-то манипуляции с видео">
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/myCard.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/tools/AWTUtil.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" beforeDir="false" />
++    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Создал Класс Cadre чтобы потом использовать для создания видео">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/IntField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/controls/IntField.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/DropDownMenuIcon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/controls/DropDownMenuIcon.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -81,20 +72,20 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "git-widget-placeholder": "master",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="D:\KotlinProjects\MandelbrotSet\src\main\kotlin\gui\controls" />
+@@ -139,7 +130,8 @@
+       <workItem from="1701428515908" duration="18203000" />
+       <workItem from="1701725256497" duration="3888000" />
+       <workItem from="1701808489342" duration="244000" />
+-      <workItem from="1701886579355" duration="17348000" />
++      <workItem from="1701886579355" duration="21588000" />
++      <workItem from="1701958269471" duration="1819000" />
+     </task>
+     <task id="LOCAL-00001" summary="Сделал отображаемые картинки для видео, но до ума не довел">
+       <option name="closed" value="true" />
+@@ -165,7 +157,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1701729677716</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="Создал Класс Cadre чтобы потом использовать для создания видео">
++      <option name="closed" value="true" />
++      <created>1701911388738</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1701911388738</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -187,7 +187,8 @@
+     <MESSAGE value="Сделал отображаемые картинки для видео, но до ума не довел" />
+     <MESSAGE value="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления" />
+     <MESSAGE value="Какие-то манипуляции с видео" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Какие-то манипуляции с видео" />
++    <MESSAGE value="Создал Класс Cadre чтобы потом использовать для создания видео" />
++    <option name="LAST_COMMIT_MESSAGE" value="Создал Класс Cadre чтобы потом использовать для создания видео" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+Index: src/main/kotlin/video/VideoMaker.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package video\r\n\r\n\r\n\r\nclass VideoMaker\r\n{\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/video/VideoMaker.kt b/src/main/kotlin/video/VideoMaker.kt
+--- a/src/main/kotlin/video/VideoMaker.kt	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/src/main/kotlin/video/VideoMaker.kt	(date 1701912494855)
+@@ -1,8 +1,50 @@
+ package video
+ 
++import androidx.compose.runtime.snapshots.SnapshotStateList
++import math.Complex
++import org.jcodec.api.SequenceEncoder
++import org.jcodec.common.io.NIOUtils
++import org.jcodec.common.model.ColorSpace
++import org.jcodec.common.model.Picture
++import org.jcodec.common.model.Rational
++import tools.AWTUtil
++import java.awt.image.BufferedImage
++import java.io.File
++import java.time.Duration
+ 
+ 
+-class VideoMaker
++class VideoMaker(
++    width:Int,
++    height:Int,
++    fps:Int,
++    duration: Int,
++    file:String,
++    imageList: SnapshotStateList<Cadre>
++)
+ {
++    var configuration = VideoConfiguration(
++        width.toFloat(),
++        height.toFloat(),
++        fps,
++        duration,
++        file,
++        imageList
++    )
++
++    private fun render(data: List<BufferedImage>,) {
++        val output = File(configuration.file);
++
++        val enc = SequenceEncoder.createWithFps(
++            NIOUtils.writableChannel(output),
++            Rational(configuration.fps, 1)
++        )
++
++        for (img in data) {
++            enc.encodeNativeFrame(AWTUtil.fromBufferedImage(img, ColorSpace.RGB));
++        }
++
++        enc.finish()
++    }
++
+ 
+ }
+\ No newline at end of file
+Index: src/main/kotlin/video/VideoConfiguration.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package video\r\n\r\ndata class VideoConfiguration(\r\n    val height: Float,\r\n    val width: Float,\r\n    val duration: Int,\r\n    val fps: Int = 24,\r\n    val filename: String,\r\n    val cadres: MutableList<Cadre>\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/video/VideoConfiguration.kt b/src/main/kotlin/video/VideoConfiguration.kt
+--- a/src/main/kotlin/video/VideoConfiguration.kt	(revision 863cbdfdf3338c93638fe3a1e496fa1cebac96c6)
++++ b/src/main/kotlin/video/VideoConfiguration.kt	(date 1701912382073)
+@@ -5,6 +5,6 @@
+     val width: Float,
+     val duration: Int,
+     val fps: Int = 24,
+-    val filename: String,
++    val file: String,
+     val cadres: MutableList<Cadre>
+ )

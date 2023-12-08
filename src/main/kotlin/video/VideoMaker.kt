@@ -1,5 +1,6 @@
 package video
 
+import drawing.convertation.Plane
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
 import org.jcodec.common.io.SeekableByteChannel
@@ -10,37 +11,31 @@ import java.awt.image.BufferedImage
 @Suppress("NAME_SHADOWING")
 class VideoMaker(private val conf: VideoConfiguration) {
     fun getVideo() {
-        val images = getData()
+        val images = getCadres()
         render(images)
     }
 
-    private fun getData(): List<BufferedImage> {
+    private fun getCadres(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
+        var currPlane = conf.cadres[0].plane.copy()
         for (i in 0 until conf.cadres.size - 1) {
-            val currCadrePlane = conf.cadres[i].plane
-            var currPlane = drawing.convertation.Plane(
-                currCadrePlane.xMin,
-                currCadrePlane.xMax,
-                currCadrePlane.yMin,
-                currCadrePlane.yMax,
-                conf.width,
-                conf.height
-            )
-            val stepDxMax = (conf.cadres[i + 1].plane.xMax - conf.cadres[i].plane.xMax) / framesPerSegment
-            val stepDxMin = (conf.cadres[i + 1].plane.xMin - conf.cadres[i].plane.xMin) / framesPerSegment
-            val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment
-            val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment
+            val stepDxMax = (conf.cadres[i + 1].plane.xMax - conf.cadres[i].plane.xMax) / framesPerSegment.toFloat()
+            val stepDxMin = (conf.cadres[i + 1].plane.xMin - conf.cadres[i].plane.xMin) / framesPerSegment.toFloat()
+            val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment.toFloat()
+            val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment.toFloat()
             for (j in 0 until framesPerSegment) {
                 val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height)
                 cadresList.add(bi)
-                currPlane = drawing.convertation.Plane(
-                    currPlane.xMin + stepDxMin,
-                    currPlane.xMax + stepDxMax,
-                    currPlane.yMin + stepDyMin,
-                    currPlane.yMax + stepDyMax,
-                    currPlane.width, currPlane.height
-                )
+                val nxmin = currPlane.xMin + stepDxMin
+                val nxmax = currPlane.xMax + stepDxMax
+                val nymin = currPlane.yMin + stepDyMin
+                val nymax = currPlane.yMax + stepDyMax
+
+                currPlane = Plane(nxmin,nxmax,nymin,nymax,conf.width,conf.height).also {
+                    println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
+                }
+
             }
         }
         return cadresList
