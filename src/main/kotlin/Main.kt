@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,14 +19,12 @@ import androidx.compose.ui.window.*
 import gui.*
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import gui.controls.dropdownMenuIcon
 import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
-import tools.FractalDataProcessor
+import tools.FileManager
 import video.Cadre
-import java.awt.FileDialog
-import java.io.File
-import java.util.*
 import javax.swing.UIManager
 import kotlin.math.absoluteValue
 import kotlin.math.cos
@@ -84,10 +81,10 @@ fun App(){
                                         }, {
                                             fp.plane?.let{
                                                 val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
-                                                FractalDataProcessor.saveFractal(fractalData)
+                                                FileManager.saveFractalData(fractalData)
                                             }
                                         }, {
-                                            val resData = FractalDataProcessor.loadData()
+                                            val resData = FileManager.loadFractalData()
                                             resData?.let { fd ->
                                                 fp.plane?.let { plane ->
                                                     fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)

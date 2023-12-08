@@ -16,7 +16,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gui.controls.intTextField
+import tools.FileManager
 import video.Cadre
+import video.VideoConfiguration
 import video.VideoMaker
 
 
@@ -29,8 +31,7 @@ fun workWithVideoDialog(
     var width by remember { mutableStateOf(800) }
     var fps by remember { mutableStateOf(24) }
     var duration by remember { mutableStateOf(5) }
-    var vm = VideoMaker()
-
+    var vm: VideoMaker
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,7 +122,19 @@ fun workWithVideoDialog(
         ) {
             Button(
                 onClick = {
-
+                    val filePath = FileManager.getPathForVideoSave()?.let {
+                        val configuration = VideoConfiguration(
+                            width.toFloat(),
+                            height.toFloat(),
+                            fps,
+                            duration,
+                            it,
+                            imageList,
+                        )
+                        vm = VideoMaker(configuration)
+                        println("Начинаем делать видео")
+                        vm.getVideo()
+                    }
                 },
                 modifier = Modifier
                     .weight(1f)

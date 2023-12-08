@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import drawing.convertation.Plane
-import tools.FractalDataProcessor
 
 @Composable
 fun SaveOpenMenuItems(imageSave: () -> Unit,

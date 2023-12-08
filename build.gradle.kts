@@ -15,12 +15,9 @@ repositories {
 }
 
 dependencies {
-    // Note, if you develop a library, you should use compose.desktop.common.
-    // compose.desktop.currentOs should be used in launcher-sourceSet
-    // (in a separate module for demo project and in testMain).
-    // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation("org.jcodec:jcodec:0.2.5")
+    implementation ("org.jcodec:jcodec-javase:0.2.5")
 }
 
 compose.desktop {

@@ -10,8 +10,8 @@ import javax.swing.JOptionPane
 import javax.swing.filechooser.FileNameExtensionFilter
 import javax.swing.filechooser.FileSystemView
 
-object FractalDataProcessor {
-    fun saveFractal(data: FractalData){
+object FileManager {
+    fun saveFractalData(data: FractalData){
         val fileSystemView = FileSystemView.getFileSystemView()
         val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
             dialogTitle = "Сохранение состояния фрактала"
@@ -32,7 +32,7 @@ object FractalDataProcessor {
         }
     }
 
-    fun loadData() :  FractalData? {
+    fun loadFractalData() :  FractalData? {
         val fileChooser = JFileChooser().apply {
             dialogTitle = "Открытие фрактала"
             fileFilter = FileNameExtensionFilter(".fractal", "fractal")
@@ -54,5 +54,22 @@ object FractalDataProcessor {
             }
         }
         return null
+    }
+
+    fun getPathForVideoSave(): String?{
+        val fileSystemView = FileSystemView.getFileSystemView()
+        val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
+            dialogTitle = "Сохранить Видео"
+            fileFilter = FileNameExtensionFilter(".mp4", "mp4")
+            isAcceptAllFileFilterUsed = false
+            fileSelectionMode = JFileChooser.OPEN_DIALOG
+        }
+        val openDialogResult = fileChooser.showSaveDialog(fileChooser)
+        if (openDialogResult == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.currentDirectory.absolutePath + "\\" +
+                    fileChooser.selectedFile.nameWithoutExtension + ".mp4"
+        }
+        return null
+
     }
 }
