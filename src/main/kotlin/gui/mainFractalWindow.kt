@@ -19,16 +19,18 @@ import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
-import video.Cadre
-import java.awt.image.BufferedImage
+import drawing.convertation.colorFunc
+import math.fractals.Mandelbrot
 
 @Composable
-fun mainFractalWindow(fp:FractalPainter,photoList: SnapshotStateList<Cadre>){
-    drawingPanel(fp){ size ->
-        fp.width = size.width.toInt()
-        fp.height = size.height.toInt()
-        fp.refresh = true
-    }
+fun mainFractalWindow(fp: FractalPainter){
+    drawingPanel(fp,
+        onResize = { size ->
+            fp.width = size.width.toInt()
+            fp.height = size.height.toInt()
+            fp.refresh = true
+        },
+    )
     selectionPanel{
         fp.plane?.let{ plane ->
             val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
@@ -84,13 +86,13 @@ fun selectionPanel(
             onCloseRequest = { juliaDialogVisible = false },
             title = "Множество Жулиа"
         ){
-            JuliaApp(pt)
+            JuliaApp(pt.copy())
         }
     }
 }
 @Composable
 fun drawingPanel(
-    fp: Painter,
+    fp: FractalPainter,
     onResize: (Size)-> Unit = {},
 ) {
     Canvas(Modifier.fillMaxSize()) {

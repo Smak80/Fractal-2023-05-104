@@ -1,56 +1,213 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
-import androidx.compose.ui.zIndex
-import controls.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.GalacticRepublic
+import compose.icons.lineawesomeicons.PaletteSolid
+import compose.icons.lineawesomeicons.Save
+import compose.icons.lineawesomeicons.UndoSolid
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import drawing.convertation.colorFunc
+import gui.SaveOpenMenuItems
+import gui.controls.dropdownMenuIcon
+import gui.mainFractalWindow
+import gui.video.workWithVideoDialog
+import math.fractals.FractalData
 import math.fractals.Mandelbrot
-import kotlin.math.*
-import drawing.convertation.ColorFunc
+import tools.FileManager
+import video.Cadre
+import javax.swing.UIManager
 
 @Composable
 @Preview
 fun App(){
-    Mandelbrot.funcNum = 3
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+//    var colorSchemeIndex by remember { mutableStateOf(2) }
+//    var fractalSchemeIndex by remember { mutableStateOf(1) }
+    val photoList = remember { SnapshotStateList<Cadre>() }
     val fp = remember {FractalPainter(Mandelbrot)}
-    fp.colorNum = ColorFunc(2)
-    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+    fp.colorFunc = colorFunc(1)
+    Mandelbrot.funcNum = 1
+    fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+
+
     MaterialTheme{
         Scaffold(
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
-                var isVideoDialogVisible by remember { mutableStateOf(false) }
-                menu(
-                    saveImage = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНЕНИЯ КАК КАРТИНКИ")},
-                    saveFractal = { TODO("ПЕРЕДАТЬ ФУНКЦИЮ ДЛЯ СОХРАНИНИЯ КАК СОБСТВЕННЫЙ ТИП")},
-                    openF = { TODO("ДЛЯ ОТКРЫТИЯ ФАЙЛА В СОБСТВЕННОМ ТИПЕ")},
-                    back = { TODO("ОТМЕНА ДЕЙСТВИЯ")},
-                    showVideoDialog = {},
-                    addFrames = {TODO("Добавления Кадров к Экскурсии")},
-                    //ТУТ ПЕРЕДАЕТСЯ КАРТА {НАЗВАНИЕ -> ФУНКЦИЯ}, в неё мохно передавать цветовые схемы, сколько угодно.
-                    //т.е когда пользователь будет нажимать на название, то вызывается функция, которая меняет фрактал
-                    themesMap = mapOf(),
-                    //Это Boolean значение для динамических итераций, Переключатель True/False. Тут менять ничего не нужно.
-                    //Нужно просто реализовать логику изменения
-                    dynamicIterationsCheck = dynamicIterationsCheck,
-                    dynamicIterationsCheckChange =  {dynamicIterationsCheck = it},
+                var isMenuExpanded by remember { mutableStateOf(false) }
+
+                TopAppBar(
+                    title = {
+                        Text(
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center,
+                            text = "FractaLAB"
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { isMenuExpanded = true }) {
+                            Icon(LineAwesomeIcons.Save, "Меню")
+                            if (isMenuExpanded) {
+                                // Выпадающий список
+                                DropdownMenu(
+                                    expanded = isMenuExpanded,
+                                    onDismissRequest = { isMenuExpanded = false }
+                                ) {
+                                    SaveOpenMenuItems(
+                                        {
+                                            isMenuExpanded = false
+                                            TODO("Реализовать функцию для сохранения изображения")
+                                        }, {
+                                            fp.plane?.let{
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
+                                                FileManager.saveFractalData(fractalData)
+                                            }
+                                        }, {
+                                            val resData = FileManager.loadFractalData()
+                                            resData?.let { fd ->
+                                                fp.plane?.let { plane ->
+                                                    fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)
+                                                }
+                                            }
+                                            fp.refresh = true
+                                        }, { isMenuExpanded = false }
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    actions = {
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 10.dp, vertical = 2.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        )
+                        {
+                            //Кнопка Назад
+
+                            IconButton(onClick = {TODO("Отмена действий!")}
+                            ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
+//                            IconButton(onClick = {
+//                                fp.plane = when(Mandelbrot.funcNum){
+//                                    2-> Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
+//                                    else-> Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+//                                }
+//                            }
+//                            ) { Icon(FontAwesomeIcons.Solid.SyncAlt, "Обновить") }
+                            //Для Вызова Окна с Видео
+                            Row(
+                                modifier = Modifier
+                                    .background(
+                                        color = MaterialTheme.colors.secondaryVariant,
+                                        shape = RoundedCornerShape(50.dp)
+                                    )
+                            ) {
+                                var showVideoDialogBoolean by remember { mutableStateOf(false) }
+                                Button(
+                                    modifier = Modifier.padding(start = 16.dp),
+                                    onClick = { showVideoDialogBoolean = true },
+                                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+                                ) {
+                                    Text("Создать Видео")
+                                    if (showVideoDialogBoolean) {
+                                        Dialog(
+                                            onDismissRequest = { showVideoDialogBoolean = false },
+                                            properties = DialogProperties(dismissOnClickOutside = true)
+                                        ) {
+                                            workWithVideoDialog(fp.colorFunc,photoList) { showVideoDialogBoolean = false }
+                                        }
+                                    }
+                                }
+                                Spacer(modifier = Modifier.width(5.dp))
+                                IconButton(
+                                    onClick = {
+                                        fp.plane?.let {
+                                            photoList.add(Cadre(it,fp.colorFunc))
+                                        }
+                                    }
+                                ) {
+                                    Icon(Icons.Default.Add, "Добавить Кадр")
+                                }
+                            }
+                            //Выбор Цветовой Схемы
+                            dropdownMenuIcon(
+                                mapOf(
+                                    "Логарифм Папа" to {fp.apply {
+                                        colorFunc= colorFunc(1)
+                                        refresh = true
+                                    }},
+                                    "Футболка Денчика" to{fp.apply {
+                                        colorFunc= colorFunc(2)
+                                        refresh = true
+                                    }},
+                                    "Болото Шрека" to {fp.apply {
+                                        colorFunc= colorFunc(3)
+                                        refresh = true
+                                    }},
+                                ),
+                                LineAwesomeIcons.PaletteSolid
+                            )
+                            dropdownMenuIcon(
+                                mapOf(
+                                    "Оригинал" to {fp.apply {
+                                        Mandelbrot.funcNum = 1
+                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+                                        refresh = true
+                                    }},
+                                    "Перевертыш" to {fp.apply {
+                                        Mandelbrot.funcNum = 2
+                                        plane = Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
+                                        refresh = true
+                                    }},
+                                    "Кубический" to {fp.apply {
+                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+                                        Mandelbrot.funcNum = 3
+                                        refresh = true
+                                    }},
+                                    "Дурацкий Кружок" to {fp.apply {
+                                        Mandelbrot.funcNum = 4
+                                        refresh = true
+                                    }},
+                                ),
+                                LineAwesomeIcons.GalacticRepublic
+                            )
+                            // Checkbox для динамических итераций
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Checkbox(
+                                    checked = dynamicIterationsCheck,
+                                    onCheckedChange = {dynamicIterationsCheck = it},
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                                Text(
+                                    text = "D. итерации",
+                                    style = MaterialTheme.typography.body1.copy(
+                                        fontSize = 18.sp,
+                                        color = Color.White
+                                    )
+                                )
+                            }
+                        }
+                    },
+                    modifier = Modifier.height(65.dp)
                 )
             },
             modifier = Modifier.fillMaxSize()){
@@ -62,6 +219,7 @@ fun App(){
         }
     }
 }
+
 
 
 fun main() = application {
