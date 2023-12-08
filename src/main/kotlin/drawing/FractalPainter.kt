@@ -15,7 +15,7 @@ import kotlin.concurrent.thread
 import kotlin.math.abs
 
 class FractalPainter(
-    var fractal: AlgebraicFractal,
+    var fractal: Fractal,
     var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
 
@@ -69,16 +69,10 @@ class FractalPainter(
     )
     var refresh = true
 
-
-    fun setColorFunction(newColorFunc: (Float) -> Color) {
-        colorFunc = newColorFunc
-    }
-
-    fun setFractalFunction(newFractFunc: (Complex) -> Complex) {
-        Fractal.function = newFractFunc
-    }
     override fun paint(scope: DrawScope) {
         this.scoping()
+        var fractal = fractal
+        var colorFunc = colorFunc
         if (refresh) {
             refresh = false
 

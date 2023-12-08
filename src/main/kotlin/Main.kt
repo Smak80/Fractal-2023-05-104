@@ -21,9 +21,10 @@ import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.convertation.Plane
-import java.awt.Dimension
 import math.fractals.Fractal
 import math.fractals.funcs
+import java.awt.Dimension
+
 
 
 
@@ -53,7 +54,7 @@ fun App() {
 fun menu(fp:  MutableState<FractalPainter>){
 
     val fractalColor = remember { mutableStateOf("color1")  }
-    var fractalFunction = remember { mutableStateOf("Mandelbrot") }
+    val fractalFunction = remember { mutableStateOf("Mandelbrot") }
 
     var expandedMenu by remember { mutableStateOf(false) }
     var expandedMenuColor by remember { mutableStateOf(false) }
@@ -159,8 +160,8 @@ fun menu(fp:  MutableState<FractalPainter>){
 
                 Spacer(Modifier.weight(0.5f, true))
 
-                var i = 0                                                                                   //i убрать. Сделал так, чтобы ошибка не вылетаал
-                IconButton(onClick = {i++}){
+                var i = 0                                                                             //i убрать. Сделал так, чтобы ошибка не вылетала
+                IconButton(onClick = {println(fractalColor.value)}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
                 }
 
@@ -199,7 +200,7 @@ fun menu(fp:  MutableState<FractalPainter>){
             }
         }
     ) {
-            DrawingPanel(fp.value, fractalColor, fractalFunction){size ->
+            DrawingPanel(fp, fractalColor, fractalFunction){size ->
                 fp.value.width = size.width.toInt()
                 fp.value.height = size.height.toInt()
                 fp.value.refresh = true
@@ -247,7 +248,7 @@ fun SelectionPanel(
 
 @Composable
 fun DrawingPanel(
-    fp: FractalPainter,
+    fp: MutableState<FractalPainter>,
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
     onResize: (Size)-> Unit = {},
@@ -255,16 +256,24 @@ fun DrawingPanel(
 
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
 
+        if(fp.value.colorFunc != colors[fpcolors.value]) {
+            fp.value.colorFunc = colors[fpcolors.value]!!
+            fp.value.refresh = true
+            println(fpcolors.value)
+        }
+        if(fp.value.fractal.function != funcs[fpfunctions.value]) {
 
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ||
-            fp.colorFunc != colors[fpcolors.value] || fp.fractal != funcs[fpfunctions.value]) {
+            fp.value.fractal.function = funcs[fpfunctions.value]!!
+            fp.value.refresh = true
+            println(fpfunctions.value)
+        }
+        if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
 
             onResize(size)
-            fp.setColorFunction(colors[fpcolors.value]!!)
-            fp.setFractalFunction(funcs[fpfunctions.value]!!)
+            println("Размер изменился")
         }
 
-        fp.paint(this)
+        fp.value.paint(this)
     }
 }
 

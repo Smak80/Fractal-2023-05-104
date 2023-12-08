@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Корректно работает смена цвета фрактала. Функции фрактала не подкручены">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
@@ -27,7 +27,17 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -86,14 +96,18 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/repositories&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.kotlinCompiler&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -286,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702026584434</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно.">
+      <option name="closed" value="true" />
+      <created>1702029071341</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702029071341</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -330,7 +352,8 @@
     <MESSAGE value="Обновляется цвет, но не работает масштабирование, и наоборот" />
     <MESSAGE value="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается" />
     <MESSAGE value="Корректно работает смена цвета фрактала. Функции фрактала не подкручены" />
-    <option name="LAST_COMMIT_MESSAGE" value="Корректно работает смена цвета фрактала. Функции фрактала не подкручены" />
+    <MESSAGE value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
+    <option name="LAST_COMMIT_MESSAGE" value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
