@@ -136,7 +136,7 @@ fun workWithVideoDialog(
                         )
                         vm = VideoMaker(configuration)
                         println("Начинаем делать видео")
-                        vm.getVideo()
+                        vm.getVideo(VideoMaker.InterpolationMethod.CatmullRom)
                     }
                 },
                 modifier = Modifier

@@ -1,21 +1,31 @@
 package video
 
 import drawing.convertation.Plane
+import math.Complex
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
 import org.jcodec.common.io.SeekableByteChannel
 import org.jcodec.common.model.Rational
 import java.awt.image.BufferedImage
+import java.lang.Exception
+import kotlin.math.*
 
 
 @Suppress("NAME_SHADOWING")
 class VideoMaker(private val conf: VideoConfiguration) {
-    fun getVideo() {
-        val images = getCadres()
+    enum class InterpolationMethod {
+        Linear,
+        CatmullRom
+    }
+    fun getVideo(method:InterpolationMethod) {
+        val images = when(method){
+            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
+            InterpolationMethod.Linear -> getCadresLinear()
+        }
         render(images)
     }
 
-    private fun getCadres(): List<BufferedImage> {
+    private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         var currPlane = conf.cadres[0].plane.copy()
@@ -40,7 +50,6 @@ class VideoMaker(private val conf: VideoConfiguration) {
         }
         return cadresList
     }
-
     private fun render(data: List<BufferedImage>) {
         val out: SeekableByteChannel? = null
         try {
@@ -56,5 +65,16 @@ class VideoMaker(private val conf: VideoConfiguration) {
         finally {
             NIOUtils.closeQuietly(out);
         }
+    }
+    private fun getCenterOfShots(cadres: MutableList<Cadre>): List<Complex> =
+        cadres.map {
+            Complex(
+                (it.plane.xMin + it.plane.xMax) * 0.5,
+                (it.plane.yMin + it.plane.yMax) * 0.5
+            )
+    }
+
+    private fun getCadresCatmullRom(): List<BufferedImage> {
+        TODO("not yet implementated")
     }
 }

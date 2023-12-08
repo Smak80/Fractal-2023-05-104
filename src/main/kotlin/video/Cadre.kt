@@ -19,11 +19,12 @@ class Cadre(plane: Plane,colorScheme:(Float)-> Color) {
 
     companion object{
         fun getImageFromPlane(plane: Plane, width: Float, height: Float,colorScheme:(Float)-> Color): BufferedImage {
-            plane.width = width;
-            plane.height = height;
+            val newPlane = plane.copy()
+            newPlane.width = width;
+            newPlane.height = height;
 
             val fp = FractalPainter(fractal = Mandelbrot,colorScheme)
-            fp.plane = plane
+            fp.plane = newPlane
 
             val img = BufferedImage(
                 width.toInt(),
