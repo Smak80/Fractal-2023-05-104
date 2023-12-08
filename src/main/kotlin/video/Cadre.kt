@@ -1,28 +1,28 @@
 package video
 
+import androidx.compose.ui.graphics.Color
 import drawing.FractalPainter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import java.awt.image.BufferedImage
 
-class Cadre(plane: Plane) {
+class Cadre(plane: Plane,colorScheme:(Float)-> Color) {
 
     val plane: Plane
-    //var img: BufferedImage
     var preRenderImg: BufferedImage
 
     init {
         this.plane = plane.copy()
-        preRenderImg = getImageFromPlane(this.plane,110f, 110f)
+        preRenderImg = getImageFromPlane(this.plane,150f, 150f,colorScheme)
        // img = getImageFromPlane(this.plane, 0f, 0f)
     }
 
     companion object{
-        fun getImageFromPlane(plane: Plane, width: Float, height: Float): BufferedImage {
+        fun getImageFromPlane(plane: Plane, width: Float, height: Float,colorScheme:(Float)-> Color): BufferedImage {
             plane.width = width;
             plane.height = height;
 
-            val fp = FractalPainter(fractal = Mandelbrot)
+            val fp = FractalPainter(fractal = Mandelbrot,colorScheme)
             fp.plane = plane
 
             val img = BufferedImage(

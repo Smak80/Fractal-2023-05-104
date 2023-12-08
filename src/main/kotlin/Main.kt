@@ -35,7 +35,7 @@ import kotlin.math.sin
 @Preview
 fun App(){
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-    val fp = remember { FractalPainter(Mandelbrot){
+    val colorScheme : (Float)-> Color = {
         if (it == 1f) Color.Black
         else {
             val r = sin(it*15f).absoluteValue
@@ -43,7 +43,8 @@ fun App(){
             val b = log2(2f - cos(sin(18*-it)))
             Color(r, g, b)
         }
-    } }
+    }
+    val fp = remember { FractalPainter(Mandelbrot,colorScheme)}
     val photoList = remember { SnapshotStateList<Cadre>() }
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
@@ -134,7 +135,7 @@ fun App(){
                                             onDismissRequest = { showVideoDialogBoolean = false },
                                             properties = DialogProperties(dismissOnClickOutside = true)
                                         ) {
-                                            workWithVideoDialog(photoList) { showVideoDialogBoolean = false }
+                                            workWithVideoDialog(fp.colorFunc,photoList) { showVideoDialogBoolean = false }
                                         }
                                     }
                                 }
@@ -142,7 +143,7 @@ fun App(){
                                 IconButton(
                                     onClick = {
                                         fp.plane?.let {
-                                            photoList.add(Cadre(it))
+                                            photoList.add(Cadre(it,fp.colorFunc))
                                         }
                                     }
                                 ) {
