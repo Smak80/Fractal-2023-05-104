@@ -1,21 +1,59 @@
 package math.fractals
-
 import math.Complex
 
 object Mandelbrot : AlgebraicFractal {
-    override var maxIterations: Int = 500
-        set(value) { field = value.coerceIn(20..10000)}
-    private var r = 2.0
+    var funcNum: Int = 0
+    val r = 2.0
+    override var maxIterations: Int = 200
     override fun isInSet(c: Complex): Float {
-        val z = Complex()
-        val r2 = r*r
-        for (i in 1..maxIterations){
-            z*=z
-            z+=c
-            if (z.abs2() >= r2)
-                return i.toFloat()/ maxIterations
-        }
-        return 1f
-    }
+        var i = 0
+        val z1 = Complex()
+        val r2 = r * r
 
+        funcNum.let {// классический Мандельброт
+            if(it==1) {
+                val func1 = {
+                    do {
+                        z1 *= z1
+                        z1 += c
+                    } while (++i < maxIterations && z1.abs2() < r2)
+                    i / maxIterations.toFloat()
+                }
+                return func1.invoke()
+            }
+
+            else if(it==2) {   // Мандельброт перевертыш
+                val func2 = {
+                    do {
+                        z1 *= z1
+                        z1 -= c
+                    } while(++i < maxIterations && z1.abs2() < r2)
+                    i / maxIterations.toFloat()
+                }
+                return func2.invoke()
+            }
+
+            else if(it==3) {   // кубический Мандельброт
+                val func3 = { do{
+                    z1 *= z1
+                    z1 *= z1
+                    z1 += c
+                } while(++i < maxIterations && z1.abs2() < r2)
+                    i / maxIterations.toFloat()}
+                return func3.invoke()
+            }
+
+            else {   // дурацкий кружок
+                val func4 = {
+                    do
+                    {
+                        z1 += z1
+                        z1 += c
+                    }
+                    while(++i < maxIterations && z1.abs2() < r2)
+                    i / maxIterations.toFloat()}
+                return func4.invoke()
+            }
+        }
+    }
 }
