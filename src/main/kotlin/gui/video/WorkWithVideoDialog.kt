@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import video.VideoMaker
 
 @Composable
 fun workWithVideoDialog(
+    colorScheme: (Float)-> Color,
     imageList: SnapshotStateList<Cadre>,
     close:()->Unit,
 ) {
@@ -126,10 +128,11 @@ fun workWithVideoDialog(
                         val configuration = VideoConfiguration(
                             width.toFloat(),
                             height.toFloat(),
-                            fps,
                             duration,
+                            fps,
                             it,
                             imageList,
+                            colorScheme
                         )
                         vm = VideoMaker(configuration)
                         println("Начинаем делать видео")

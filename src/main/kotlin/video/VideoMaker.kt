@@ -25,7 +25,7 @@ class VideoMaker(private val conf: VideoConfiguration) {
             val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment.toFloat()
             val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment.toFloat()
             for (j in 0 until framesPerSegment) {
-                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height)
+                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height,conf.colorScheme)
                 cadresList.add(bi)
                 val nxmin = currPlane.xMin + stepDxMin
                 val nxmax = currPlane.xMax + stepDxMax
