@@ -12,8 +12,7 @@ import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 
 class FractalPainter(
-    val fractal: AlgebraicFractal,
-    val colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
+    val fractal: AlgebraicFractal
 ) : Painter {
     var plane: Plane? = null
     override var width: Int
@@ -22,6 +21,7 @@ class FractalPainter(
     override var height: Int
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
+    var colorNum: (Float) -> Color = {if (it < 1f) Color.White else Color.Black }
 
     var img = BufferedImage(
         1,
@@ -30,6 +30,7 @@ class FractalPainter(
     )
     var refresh = true
 
+    @OptIn(ExperimentalStdlibApi::class)
     override fun paint(scope: DrawScope) {
         if (refresh) {
             refresh = false
@@ -38,28 +39,22 @@ class FractalPainter(
                 scope.size.height.toInt(),
                 BufferedImage.TYPE_INT_ARGB,
             )
-            getImageFromPlane(img)
+            plane?.let { plane ->
+                val tc = Runtime.getRuntime().availableProcessors()
+                List(tc) { t ->
+                    thread {
+                        for (i in t..<width step tc)
+                            for (j in 0..<height) {
+                                val x = Complex(
+                                    Converter.xScr2Crt(i.toFloat(), plane),
+                                    Converter.yScr2Crt(j.toFloat(), plane)
+                                )
+                                img.setRGB(i, j, colorNum(fractal.isInSet(x)).toArgb())
+                            }
+                    }
+                }.forEach { it.join() }
+            }
         }
         scope.drawImage(img.toComposeImageBitmap())
     }
-
-    fun getImageFromPlane(img: BufferedImage): BufferedImage{
-        plane?.let { plane ->
-            val tc = Runtime.getRuntime().availableProcessors()
-            List(tc) { t ->
-                thread {
-                    for (i in t..<width step tc)
-                        for (j in 0..<height) {
-                            val x = Complex(
-                                Converter.xScr2Crt(i.toFloat(), plane),
-                                Converter.yScr2Crt(j.toFloat(), plane)
-                            )
-                            img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
-                        }
-                }
-            }.forEach { it.join() }
-        }
-        return img
-    }
-
 }
