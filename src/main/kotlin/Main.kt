@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,29 +28,33 @@ import math.fractals.Fractal
 import math.fractals.funcs
 
 
+
 @Composable
 @Preview
 fun App() {
-    val fractalFunc = remember { mutableStateOf("Mandelbrot") }
-    val fractalColor = remember { mutableStateOf("color1")  }
 
-
-    var fp = remember { mutableStateOf(FractalPainter(Fractal, colors[fractalColor.value]!!))}
+    //val fractalColor = remember { mutableStateOf("color1")  }
+    val fp = remember { mutableStateOf(FractalPainter(Fractal, colors["color1"]!!))}
+    
 
     fp.value.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+
     fp.value.plane?.let {
         fp.value.xMin = it.xMin
         fp.value.xMax = it.xMax
         fp.value.yMax = it.yMax
         fp.value.yMin = it.yMin
     }
+
     MaterialTheme {
-        menu(fp, fractalColor, fractalFunc)
+        menu(fp)
     }
 }
 
+
 @Composable
-fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, fractalFunc: MutableState<String>){
+fun menu(fp:  MutableState<FractalPainter>){
+    val fractalColor = remember { mutableStateOf("color1")  }
     var expandedMenu by remember { mutableStateOf(false) }
     var expandedMenuColor by remember { mutableStateOf(false) }
     var expandedFractalFunctions by remember { mutableStateOf(false) }
@@ -67,12 +72,11 @@ fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, 
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                if (fractalColor.value != "color1"){
-                                    val fp1 = FractalPainter(Fractal, colors["color1"]!!)
-                                    fp.value = fp1
+                                if (fp.value.colorFunc != colors["color1"]){
                                     fractalColor.value = "color1"
+                                    println("Changing color to color1")
+//                                    fp.value.colorFunc = colors["color1"]!!
                                 }
-                                //TODO()
                             }
                         ) {
                             Text("1 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -80,10 +84,10 @@ fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, 
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                if (fractalColor.value != "color2"){
-                                    val fp1 = FractalPainter(Fractal, colors["color2"]!!)
-                                    fp.value = fp1
+                                if (fp.value.colorFunc != colors["color2"]){
                                     fractalColor.value = "color2"
+                                    println("Changing color to color2")
+//                                    fp.value.colorFunc = colors["color2"]!!
                                 }
                             }
                         ) {
@@ -92,12 +96,12 @@ fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, 
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                if (fractalColor.value != "color3"){
-                                    val fp1 = FractalPainter(Fractal, colors["color3"]!!)
-                                    fp.value = fp1
+                                if (fp.value.colorFunc != colors["color3"]){
                                     fractalColor.value = "color3"
+                                    println("Changing color to color3")
+//                                    fp.value.colorFunc = colors["color3"]!!
+
                                 }
-                                //TODO()
                             }
                         ) {
                             Text("3 цвет", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -186,7 +190,7 @@ fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, 
             }
         }
     ) {
-            DrawingPanel(fp.value){size ->
+            DrawingPanel(fp.value, fractalColor){size ->
                 fp.value.width = size.width.toInt()
                 fp.value.height = size.height.toInt()
                 fp.value.refresh = true
@@ -197,6 +201,10 @@ fun menu(fp:  MutableState<FractalPainter>, fractalColor: MutableState<String>, 
                     val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                     val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                     val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+
+                    //fp.value.plane = fp.value.plane
+                    //println(fpPlane.value)
+
                     fp.value.xMin = xMin
                     fp.value.xMax = xMax
                     fp.value.yMin = yMin
@@ -234,15 +242,23 @@ fun SelectionPanel(
 @Composable
 fun DrawingPanel(
     fp: FractalPainter,
+    fpcolors:  MutableState<String>,
     onResize: (Size)-> Unit = {},
 ) {
 
     Canvas(Modifier.fillMaxSize().padding(8.dp)) {
 
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ) {
+
+        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() ||  fp.colorFunc != colors[fpcolors.value]) {
 
             onResize(size)
+            fp.setColorFunction(colors[fpcolors.value]!!) // Это добавленная строка
         }
+//        if(fp.colorFunc != colors[fpcolors.value]){
+//            fp.setColorFunction(colors[fpcolors.value]!!) // Это добавленная строка
+//            println(fpcolors.value)
+//
+//        }
         fp.paint(this)
     }
 }
