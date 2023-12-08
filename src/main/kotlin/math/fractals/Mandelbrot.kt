@@ -11,48 +11,45 @@ object Mandelbrot : AlgebraicFractal {
         val r2 = r * r
 
         funcNum.let {// классический Мандельброт
-            if(it==1) {
-                val func1 = {
-                    do {
-                        z1 *= z1
-                        z1 += c
-                    } while (++i < maxIterations && z1.abs2() < r2)
-                    i / maxIterations.toFloat()
-                }
-                return func1.invoke()
-            }
-
-            else if(it==2) {   // Мандельброт перевертыш
-                val func2 = {
-                    do {
-                        z1 *= z1
-                        z1 -= c
-                    } while(++i < maxIterations && z1.abs2() < r2)
-                    i / maxIterations.toFloat()
-                }
-                return func2.invoke()
-            }
-
-            else if(it==3) {   // кубический Мандельброт
-                val func3 = { do{
-                    z1 *= z1
-                    z1 *= z1
-                    z1 += c
-                } while(++i < maxIterations && z1.abs2() < r2)
-                    i / maxIterations.toFloat()}
-                return func3.invoke()
-            }
-
-            else {   // дурацкий кружок
-                val func4 = {
-                    do
-                    {
-                        z1 += z1
-                        z1 += c
+            when (it) {
+                1 -> {
+                    val func1 = {
+                        do {
+                            z1 *= z1
+                            z1 += c
+                        } while (++i < maxIterations && z1.abs2() < r2)
+                        i / maxIterations.toFloat()
                     }
-                    while(++i < maxIterations && z1.abs2() < r2)
-                    i / maxIterations.toFloat()}
-                return func4.invoke()
+                    return func1.invoke()
+                }
+                2 -> {   // Мандельброт перевертыш
+                    val func2 = {
+                        do {
+                            z1 *= z1
+                            z1 -= c
+                        } while(++i < maxIterations && z1.abs2() < r2)
+                        i / maxIterations.toFloat()
+                    }
+                    return func2.invoke()
+                }
+                3 -> {   // кубический Мандельброт
+                    val func3 = { do{
+                        z1 *= z1
+                        z1 *= z1
+                        z1 += c
+                    } while(++i < maxIterations && z1.abs2() < r2)
+                        i / maxIterations.toFloat()}
+                    return func3.invoke()
+                }
+                else -> {   // дурацкий кружок
+                    val func4 = {
+                        do {
+                            z1 += z1
+                            z1 += c
+                        } while(++i < maxIterations && z1.abs2() < r2)
+                        i / maxIterations.toFloat()}
+                    return func4.invoke()
+                }
             }
         }
     }

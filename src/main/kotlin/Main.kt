@@ -9,77 +9,59 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
-import androidx.compose.ui.zIndex
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.GalacticRepublic
+import compose.icons.lineawesomeicons.PaletteSolid
+import compose.icons.lineawesomeicons.Save
+import compose.icons.lineawesomeicons.UndoSolid
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import drawing.convertation.colorFunc
 import gui.SaveOpenMenuItems
 import gui.controls.dropdownMenuIcon
 import gui.mainFractalWindow
 import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
-import kotlin.math.*
 import tools.FileManager
 import video.Cadre
 import javax.swing.UIManager
-import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.log2
-import kotlin.math.sin
 
 @Composable
 @Preview
 fun App(){
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-    val colorScheme : (Float)-> Color = {
-        if (it == 1f) Color.Black
-        else {
-            val r = sin(it*15f).absoluteValue
-            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
-            val b = log2(2f - cos(sin(18*-it)))
-            Color(r, g, b)
-        }
-    }
-
+//    var colorSchemeIndex by remember { mutableStateOf(2) }
+//    var fractalSchemeIndex by remember { mutableStateOf(1) }
     val photoList = remember { SnapshotStateList<Cadre>() }
-    Mandelbrot.funcNum = 3
     val fp = remember {FractalPainter(Mandelbrot)}
-    fp.colorNum = ColorFunc(2)
-    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
+    fp.colorFunc = colorFunc(1)
+    Mandelbrot.funcNum = 1
+    fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+
+
     MaterialTheme{
         Scaffold(
             topBar = {
                 var dynamicIterationsCheck by remember { mutableStateOf(false) }
                 var isMenuExpanded by remember { mutableStateOf(false) }
 
-
                 TopAppBar(
                     title = {
                         Text(
                             modifier = Modifier,
                             textAlign = TextAlign.Center,
-                            text = "Множество Мондельброта"
+                            text = "FractaLAB"
                         )
                     },
                     navigationIcon = {
-                        IconButton(
-                            onClick = { isMenuExpanded = true }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = "Меню")
+                        IconButton(onClick = { isMenuExpanded = true }) {
+                            Icon(LineAwesomeIcons.Save, "Меню")
                             if (isMenuExpanded) {
                                 // Выпадающий список
                                 DropdownMenu(
@@ -118,14 +100,16 @@ fun App(){
                         )
                         {
                             //Кнопка Назад
-                            IconButton(
-                                onClick = {TODO("Отмена действий!")}
-                            ) {
-                                Icon(
-                                    Icons.Default.ArrowBack,
-                                    "Назад"
-                                )
-                            }
+
+                            IconButton(onClick = {TODO("Отмена действий!")}
+                            ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
+//                            IconButton(onClick = {
+//                                fp.plane = when(Mandelbrot.funcNum){
+//                                    2-> Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
+//                                    else-> Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+//                                }
+//                            }
+//                            ) { Icon(FontAwesomeIcons.Solid.SyncAlt, "Обновить") }
                             //Для Вызова Окна с Видео
                             Row(
                                 modifier = Modifier
@@ -163,7 +147,45 @@ fun App(){
                             }
                             //Выбор Цветовой Схемы
                             dropdownMenuIcon(
-                                mapOf(),
+                                mapOf(
+                                    "Логарифм Папа" to {fp.apply {
+                                        colorFunc= colorFunc(1)
+                                        refresh = true
+                                    }},
+                                    "Футболка Денчика" to{fp.apply {
+                                        colorFunc= colorFunc(2)
+                                        refresh = true
+                                    }},
+                                    "Болото Шрека" to {fp.apply {
+                                        colorFunc= colorFunc(3)
+                                        refresh = true
+                                    }},
+                                ),
+                                LineAwesomeIcons.PaletteSolid
+                            )
+                            dropdownMenuIcon(
+                                mapOf(
+                                    "Оригинал" to {fp.apply {
+                                        Mandelbrot.funcNum = 1
+                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+                                        refresh = true
+                                    }},
+                                    "Перевертыш" to {fp.apply {
+                                        Mandelbrot.funcNum = 2
+                                        plane = Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
+                                        refresh = true
+                                    }},
+                                    "Кубический" to {fp.apply {
+                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+                                        Mandelbrot.funcNum = 3
+                                        refresh = true
+                                    }},
+                                    "Дурацкий Кружок" to {fp.apply {
+                                        Mandelbrot.funcNum = 4
+                                        refresh = true
+                                    }},
+                                ),
+                                LineAwesomeIcons.GalacticRepublic
                             )
                             // Checkbox для динамических итераций
                             Row(
@@ -192,7 +214,7 @@ fun App(){
             Box(
                 Modifier.fillMaxSize()
             ){
-                mainFractalWindow(fp,photoList)
+                mainFractalWindow(fp)
             }
         }
     }

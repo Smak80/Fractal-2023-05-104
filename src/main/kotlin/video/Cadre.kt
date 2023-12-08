@@ -23,8 +23,9 @@ class Cadre(plane: Plane,colorScheme:(Float)-> Color) {
             newPlane.width = width;
             newPlane.height = height;
 
-            val fp = FractalPainter(fractal = Mandelbrot,colorScheme)
+            val fp = FractalPainter(Mandelbrot)
             fp.plane = newPlane
+            fp.colorFunc = colorScheme
 
             val img = BufferedImage(
                 width.toInt(),

@@ -5,17 +5,19 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.vector.ImageVector
+import javax.swing.Icon
 
 @Composable
 fun dropdownMenuIcon(
-    itemFunctions: Map<String, () -> Unit>
+    itemFunctions: Map<String, () -> Unit>,
+    icon: ImageVector
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     Column {
         IconButton(onClick = { expanded = !expanded }) {
-            Icon(imageVector = Icons.Default.Create,
-                contentDescription = "Dropdown Icon")
+            Icon( icon, "Dropdown Icon")
         }
 
         DropdownMenu(
