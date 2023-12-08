@@ -1,4 +1,4 @@
-package gui
+package gui.controls
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
@@ -13,13 +13,11 @@ fun dropdownMenuIcon(
     var expanded by remember { mutableStateOf(false) }
 
     Column {
-        // Иконка, которая вызывает выпадающий список
         IconButton(onClick = { expanded = !expanded }) {
             Icon(imageVector = Icons.Default.Create,
                 contentDescription = "Dropdown Icon")
         }
 
-        // Выпадающий список
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
