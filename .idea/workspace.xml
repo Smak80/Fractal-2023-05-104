@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Обновляется цвет, но не работает масштабирование, и наоборот">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/colors/Color_Func.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal_Func.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +273,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701950212447</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается">
+      <option name="closed" value="true" />
+      <created>1701977505471</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701977505471</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,7 +323,8 @@
     <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
     <MESSAGE value="добавил поддержку разных цветов и фракталов" />
     <MESSAGE value="Обновляется цвет, но не работает масштабирование, и наоборот" />
-    <option name="LAST_COMMIT_MESSAGE" value="Обновляется цвет, но не работает масштабирование, и наоборот" />
+    <MESSAGE value="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается" />
+    <option name="LAST_COMMIT_MESSAGE" value="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

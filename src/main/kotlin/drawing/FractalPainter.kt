@@ -14,8 +14,10 @@ import kotlin.math.abs
 
 class FractalPainter(
     val fractal: AlgebraicFractal,
-    val colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
+    var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
+
+
     var plane: Plane? = null
     override var width: Int
         get() = plane?.width?.toInt() ?: 0
@@ -66,10 +68,17 @@ class FractalPainter(
     )
     var refresh = true
 
+
+    fun setColorFunction(newColorFunc: (Float) -> Color) {
+        colorFunc = newColorFunc
+    }
     override fun paint(scope: DrawScope) {
+        this.setColorFunction(colorFunc)
         this.scoping()
         if (refresh) {
             refresh = false
+
+
             img = BufferedImage(
                 scope.size.width.toInt(),
                 scope.size.height.toInt(),
