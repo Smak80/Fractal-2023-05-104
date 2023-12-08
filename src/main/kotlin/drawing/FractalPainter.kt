@@ -8,15 +8,16 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
+import math.fractals.Fractal
+import math.fractals.funcs
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
 class FractalPainter(
-    val fractal: AlgebraicFractal,
+    var fractal: AlgebraicFractal,
     var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
-
 
     var plane: Plane? = null
     override var width: Int
@@ -72,8 +73,11 @@ class FractalPainter(
     fun setColorFunction(newColorFunc: (Float) -> Color) {
         colorFunc = newColorFunc
     }
+
+    fun setFractalFunction(newFractFunc: (Complex) -> Complex) {
+        Fractal.function = newFractFunc
+    }
     override fun paint(scope: DrawScope) {
-        this.setColorFunction(colorFunc)
         this.scoping()
         if (refresh) {
             refresh = false
