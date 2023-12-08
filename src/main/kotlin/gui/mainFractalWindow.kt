@@ -20,10 +20,13 @@ import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.colorFunc
+import math.Complex
+import math.fractals.JuliaSet
 import math.fractals.Mandelbrot
 
 @Composable
 fun mainFractalWindow(fp: FractalPainter){
+    var juliaDialogVisible by remember { mutableStateOf(false) }
     drawingPanel(fp,
         onResize = { size ->
             fp.width = size.width.toInt()
@@ -31,17 +34,35 @@ fun mainFractalWindow(fp: FractalPainter){
             fp.refresh = true
         },
     )
-    selectionPanel{
-        fp.plane?.let{ plane ->
-            val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-            val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
-            val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-            val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-            plane.xMin = xMin
-            plane.xMax = xMax
-            plane.yMin = yMin
-            plane.yMax = yMax
-            fp.refresh = true
+    selectionPanel(
+        onTap = {offset->
+            fp.plane?.let { plane ->
+                val xCart = Converter.xScr2Crt(offset.x,plane)
+                val yCart = Converter.yScr2Crt(offset.y,plane)
+                JuliaSet.selectedPoint = Complex(xCart,yCart)
+                juliaDialogVisible = true
+            }
+        },
+        onSelected = {
+            fp.plane?.let{ plane ->
+                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+                plane.xMin = xMin
+                plane.xMax = xMax
+                plane.yMin = yMin
+                plane.yMax = yMax
+                fp.refresh = true
+            }
+        }
+    )
+    if (juliaDialogVisible) {
+        Window(
+            onCloseRequest = { juliaDialogVisible = false },
+            title = "Множество Жулиа"
+        ){
+            JuliaApp()
         }
     }
 }
@@ -49,11 +70,10 @@ fun mainFractalWindow(fp: FractalPainter){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun selectionPanel(
-    onSelected: (SelectionRect)->Unit
+    onSelected: (SelectionRect)->Unit,
+    onTap: (Offset)->Unit
 ) {
     var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }
-    var juliaDialogVisible by remember { mutableStateOf(false) }
-    var pt by remember { mutableStateOf(Offset(0f,0f)) }
     Canvas(Modifier
         .fillMaxSize()
         .pointerInput(Unit){
@@ -70,24 +90,10 @@ fun selectionPanel(
             },
             matcher = PointerMatcher.Primary)
         }
-        .pointerInput(Unit) {
-            detectTapGestures(
-                onTap = { offset ->
-                    pt = Offset(offset.x, offset.y)
-                    juliaDialogVisible = true
-                }
-            )
-        }
+        .pointerInput(Unit) { detectTapGestures(onTap = { offset -> onTap(offset) }) }
+
     ){
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
-    }
-    if (juliaDialogVisible) {
-        Window(
-            onCloseRequest = { juliaDialogVisible = false },
-            title = "Множество Жулиа"
-        ){
-            JuliaApp(pt.copy())
-        }
     }
 }
 @Composable
@@ -95,7 +101,9 @@ fun drawingPanel(
     fp: FractalPainter,
     onResize: (Size)-> Unit = {},
 ) {
-    Canvas(Modifier.fillMaxSize()) {
+    Canvas(
+        Modifier.fillMaxSize()
+    ) {
         if(fp.width != size.width.toInt() || fp.height != size.height.toInt()){
             onResize(size)
         }

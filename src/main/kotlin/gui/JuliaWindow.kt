@@ -14,7 +14,7 @@ import math.fractals.JuliaSet
 import kotlin.math.sin
 
 @Composable
-fun JuliaApp(point: Offset) {
+fun JuliaApp() {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     val fp = remember { FractalPainter(JuliaSet)}
     fp.colorFunc = colorFunc(2)
@@ -26,11 +26,6 @@ fun JuliaApp(point: Offset) {
                 fp.height = size.height.toInt()
                 fp.refresh = true
             }
-            val xCart = Converter.xScr2Crt(point.x,plane)
-            val yCart = Converter.yScr2Crt(point.y,plane)
-            println(xCart)
-            println(yCart)
-            JuliaSet.selectedPoint = Complex(xCart,yCart)
             fp.paint(this)
         }
     }
