@@ -24,7 +24,6 @@ class VideoMaker(private val conf: VideoConfiguration) {
         }
         render(images)
     }
-
     private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
