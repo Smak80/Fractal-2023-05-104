@@ -44,6 +44,7 @@ fun App(){
             Color(r, g, b)
         }
     }
+
     val fp = remember { FractalPainter(Mandelbrot,colorScheme)}
     val photoList = remember { SnapshotStateList<Cadre>() }
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
@@ -186,6 +187,7 @@ fun App(){
         }
     }
 }
+
 
 fun main() = application {
     Window(

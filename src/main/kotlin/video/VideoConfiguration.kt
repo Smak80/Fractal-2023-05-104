@@ -1,6 +1,7 @@
 package video
 
 import androidx.compose.ui.graphics.Color
+import math.Complex
 
 data class VideoConfiguration(
     val width: Float,
