@@ -4,25 +4,33 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
-import gui.*
+import androidx.compose.ui.zIndex
 import drawing.FractalPainter
 import drawing.convertation.Plane
+import gui.SaveOpenMenuItems
 import gui.controls.dropdownMenuIcon
+import gui.mainFractalWindow
 import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
+import kotlin.math.*
 import tools.FileManager
 import video.Cadre
 import javax.swing.UIManager
@@ -45,8 +53,10 @@ fun App(){
         }
     }
 
-    val fp = remember { FractalPainter(Mandelbrot,colorScheme)}
     val photoList = remember { SnapshotStateList<Cadre>() }
+    Mandelbrot.funcNum = 3
+    val fp = remember {FractalPainter(Mandelbrot)}
+    fp.colorNum = ColorFunc(2)
     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
     MaterialTheme{
         Scaffold(
@@ -187,6 +197,7 @@ fun App(){
         }
     }
 }
+
 
 
 fun main() = application {

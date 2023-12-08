@@ -82,13 +82,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Создал Класс Cadre чтобы потом использовать для создания видео">
+    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Какие-то манипуляции с видео">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/myCard.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/tools/AWTUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/DropDownMenuIcon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/controls/DropDownMenuIcon.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/IntField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/controls/IntField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/WorkWithVideoDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/WorkWithVideoDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,20 +159,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\KotlinProjects\MandelbrotSet\src\main\kotlin\gui\controls" />
@@ -208,8 +217,7 @@
       <workItem from="1701428515908" duration="18203000" />
       <workItem from="1701725256497" duration="3888000" />
       <workItem from="1701808489342" duration="244000" />
-      <workItem from="1701886579355" duration="21588000" />
-      <workItem from="1701958269471" duration="1819000" />
+      <workItem from="1701886579355" duration="17348000" />
     </task>
     <task id="LOCAL-00001" summary="Сделал отображаемые картинки для видео, но до ума не довел">
       <option name="closed" value="true" />
@@ -235,15 +243,7 @@
       <option name="project" value="LOCAL" />
       <updated>1701729677716</updated>
     </task>
-    <task id="LOCAL-00004" summary="Создал Класс Cadre чтобы потом использовать для создания видео">
-      <option name="closed" value="true" />
-      <created>1701911388738</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1701911388738</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,8 +265,7 @@
     <MESSAGE value="Сделал отображаемые картинки для видео, но до ума не довел" />
     <MESSAGE value="До сих пор не понял как сделать нормальное отображение картинок, но добавил возможность удаления" />
     <MESSAGE value="Какие-то манипуляции с видео" />
-    <MESSAGE value="Создал Класс Cadre чтобы потом использовать для создания видео" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создал Класс Cadre чтобы потом использовать для создания видео" />
+    <option name="LAST_COMMIT_MESSAGE" value="Какие-то манипуляции с видео" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
