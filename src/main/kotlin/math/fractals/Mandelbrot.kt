@@ -5,6 +5,9 @@ import math.Complex
 object Mandelbrot : AlgebraicFractal {
     override var maxIterations: Int = 5000
         set(value) { field = value.coerceIn(20..10000)}
+    override var function: (Complex) -> Complex
+        get() = funcs["Mandelbrot"]!!
+        set(value) {}
     var r = 2.0
     override fun isInSet(c: Complex): Float {
         val z = Complex()

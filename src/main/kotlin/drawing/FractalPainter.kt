@@ -15,7 +15,7 @@ import kotlin.concurrent.thread
 import kotlin.math.abs
 
 class FractalPainter(
-    var fractal: Fractal,
+    var fractal: AlgebraicFractal,
     var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
 
