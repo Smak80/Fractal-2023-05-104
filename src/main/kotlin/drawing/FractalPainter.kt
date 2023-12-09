@@ -1,6 +1,10 @@
 package drawing
 
+import Photo.TakePhoto
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -8,16 +12,19 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
+import math.fractals.Fractal
 import java.awt.AlphaComposite
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class FractalPainter(
-    val fractal: AlgebraicFractal,
-    val colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
+    var fractal: AlgebraicFractal,
+    var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
+    var FRACTAL = Fractal
     var plane: Plane? = null
     override var width: Int
         get() = plane?.width?.toInt() ?: 0
@@ -25,6 +32,41 @@ class FractalPainter(
     override var height: Int
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
+
+    var xMax = 0.0
+
+    var xMin = 0.0
+
+    var yMin = 0.0
+
+    var yMax = 0.0
+
+    fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X)
+        {
+            val dx = (width * Y- abs(xMax - xMin))/2
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
+
+        }
+        else
+        {
+            val dy = (height * X- abs((yMax - yMin)))/2
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
+            }
+        }
+    }
+
 
     var img = BufferedImage(
         1,
@@ -41,7 +83,6 @@ class FractalPainter(
                 scope.size.height.toInt(),
                 BufferedImage.TYPE_INT_ARGB,
             )
-
             plane?.let { plane ->
                 val tc = Runtime.getRuntime().availableProcessors()
                 List(tc) { t ->
@@ -59,28 +100,5 @@ class FractalPainter(
             }
         }
         scope.drawImage(img.toComposeImageBitmap())
-
-        TakePhoto()
     }
-
-    fun TakePhoto() {
-        val file = File("screenshot2.png")
-        ImageIO.write(img, "png", file)
-        val bufferedImage: BufferedImage = ImageIO.read(File("screenshot2.png"));
-        val newBufferedImage = BufferedImage(
-            bufferedImage.width,
-            bufferedImage.height + 20, BufferedImage.TYPE_INT_RGB
-        )
-        newBufferedImage.createGraphics().drawImage(img, 0, 0, java.awt.Color.WHITE, null);
-        newBufferedImage.createGraphics().composite = AlphaComposite.SrcOut
-        newBufferedImage.createGraphics().drawString(
-            "xMin = ${plane?.xMin}, " +
-                    "xMax = ${plane?.xMax}, " +
-                    "yMin = ${plane?.yMin}, " +
-                    "yMax = ${plane?.yMax}",
-            newBufferedImage.width / 2, newBufferedImage.height - 2
-        )
-        ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
-    }
-
 }

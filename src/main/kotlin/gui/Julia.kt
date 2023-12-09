@@ -23,7 +23,7 @@ import math.fractals.Julia
 
 
 @Composable
-fun julia(selectedPoint: Complex, color: String){
+fun Julia(selectedPoint: Complex, color: String){
     Julia.selectedPoint = selectedPoint
 
     val jp = remember {FractalPainter(Julia, colors[color]!!)}
