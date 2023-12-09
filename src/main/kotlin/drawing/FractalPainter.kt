@@ -8,6 +8,7 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
+import java.awt.AlphaComposite
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -58,16 +59,28 @@ class FractalPainter(
             }
         }
         scope.drawImage(img.toComposeImageBitmap())
+
+        TakePhoto()
+    }
+
+    fun TakePhoto() {
         val file = File("screenshot2.png")
         ImageIO.write(img, "png", file)
-        val bufferedImage:BufferedImage  = ImageIO.read(File("screenshot2.png"));
+        val bufferedImage: BufferedImage = ImageIO.read(File("screenshot2.png"));
         val newBufferedImage = BufferedImage(
             bufferedImage.width,
-            bufferedImage.height, BufferedImage.TYPE_INT_RGB
+            bufferedImage.height + 20, BufferedImage.TYPE_INT_RGB
         )
-        newBufferedImage.createGraphics().drawImage(bufferedImage, 0, 0, java.awt.Color.WHITE, null);
+        newBufferedImage.createGraphics().drawImage(img, 0, 0, java.awt.Color.WHITE, null);
+        newBufferedImage.createGraphics().composite = AlphaComposite.SrcOut
+        newBufferedImage.createGraphics().drawString(
+            "xMin = ${plane?.xMin}, " +
+                    "xMax = ${plane?.xMax}, " +
+                    "yMin = ${plane?.yMin}, " +
+                    "yMax = ${plane?.yMax}",
+            newBufferedImage.width / 2, newBufferedImage.height
+        )
         ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
-
-
     }
-   }
+
+}
