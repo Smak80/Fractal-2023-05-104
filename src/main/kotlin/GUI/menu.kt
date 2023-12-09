@@ -273,6 +273,7 @@ fun DrawingPanel(
 
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
             onResize(size)
+            fp.value.scoping()
         }
         fp.value.paint(this)
     }
