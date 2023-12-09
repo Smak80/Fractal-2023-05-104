@@ -78,7 +78,7 @@ class FractalPainter(
                     "xMax = ${plane?.xMax}, " +
                     "yMin = ${plane?.yMin}, " +
                     "yMax = ${plane?.yMax}",
-            newBufferedImage.width / 2, newBufferedImage.height
+            newBufferedImage.width / 2, newBufferedImage.height - 2
         )
         ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
     }

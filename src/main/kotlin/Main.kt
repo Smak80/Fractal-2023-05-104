@@ -21,11 +21,6 @@ import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
-import java.awt.Rectangle
-import java.awt.Robot
-import java.awt.Toolkit
-import java.io.File
-import javax.imageio.ImageIO
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.log2
@@ -114,14 +109,4 @@ fun main() = application {
     ) {
         App()
     }
-}
-public fun takeScreenshot() {
-    val screenSize = Toolkit.getDefaultToolkit().screenSize
-    print(screenSize)
-    val screenRect = Rectangle(screenSize)
-    val robot = Robot()
-    val screenshot = robot.createScreenCapture(screenRect)
-
-    val file = File("screenshot.png")
-    ImageIO.write(screenshot, "png", file)
 }
