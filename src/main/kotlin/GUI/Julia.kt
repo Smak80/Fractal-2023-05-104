@@ -17,46 +17,30 @@ import androidx.compose.ui.unit.dp
 import drawing.FractalPainter
 import drawing.Painter
 import drawing.SelectionRect
+import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.convertation.Plane
+import math.Complex
 import math.fractals.Julia
-import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.log2
-import kotlin.math.sin
 
 
 @Composable
-fun Julia(selectedPoint: Offset, fp: FractalPainter){
+fun Julia(selectedPoint: Complex){
 
-    val jp = remember { FractalPainter(Julia){
-        if (it == 1f) Color.Black
-        else {
-            val r = sin(it*15f).absoluteValue
-            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue
-            val b = log2(2f - cos(sin(18*-it)))
-            Color(r, g, b)
-        }
-    }}
+    val jp = remember {FractalPainter(Julia, colors["color1"]!!)}
+
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     MaterialTheme {
-        DrawingPanel(jp){ size ->
-            jp.width = size.width.toInt()
-            jp.height = size.height.toInt()
-            jp.refresh = true
-        }
-        SelectionPanel{
-            jp.plane?.let{ plane ->
-                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
-                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                plane.xMin = xMin
-                plane.xMax = xMax
-                plane.yMin = yMin
-                plane.yMax = yMax
+        Canvas(Modifier.fillMaxSize().padding(8.dp)) {
+            if(jp.width != size.width.toInt() || jp.height != size.height.toInt() ){
+                jp.width = size.width.toInt()
+                jp.height = size.height.toInt()
                 jp.refresh = true
+
             }
+
+            Julia.selectedPoint = selectedPoint
+            jp.paint(this)
         }
     }
 }
@@ -85,15 +69,4 @@ fun SelectionPanel(
     }
 }
 
-@Composable
-fun DrawingPanel(
-    fp: Painter,
-    onResize: (Size)-> Unit = {},
-) {
-    Canvas(Modifier.fillMaxSize().padding(8.dp)) {
-        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )
-            onResize(size)
 
-        fp.paint(this)
-    }
-}

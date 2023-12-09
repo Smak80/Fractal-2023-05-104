@@ -24,9 +24,9 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
+import math.Complex
 import math.fractals.funcs
-import java.awt.Button
-import kotlin.math.roundToInt
+
 
 @Composable
 fun menu(fp: MutableState<FractalPainter>){
@@ -212,7 +212,9 @@ fun menu(fp: MutableState<FractalPainter>){
                         "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
             ){
                 pointCoordinates.value?.let {
-                    Julia(it, fp.value)
+                    val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
+                    println(pair)
+                    Julia(pair)
                 }
             }
         }
@@ -277,8 +279,8 @@ fun DrawingPanel(
 }
 
 fun setFractal(fp: MutableState<FractalPainter>, fpfunctions: MutableState<String>) {
-    if(fp.value.fractal.function != funcs[fpfunctions.value]) {
-        fp.value.fractal.function = funcs[fpfunctions.value]!!
+    if(fp.value.FRACTAL.function != funcs[fpfunctions.value]) {
+        fp.value.FRACTAL.function = funcs[fpfunctions.value]!!
         fp.value.refresh = true
     }
 }

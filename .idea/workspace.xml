@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Теперь все работает корректно и относительно быстро">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_12__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_12__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_12_2023_17_58__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_12_2023_17_58__Changes_.xml" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="что-то еще">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/GUI/Julia.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/GUI/menu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/AlgebraicFractal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/AlgebraicFractal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Julia.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +322,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702043005593</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="что-то еще">
+      <option name="closed" value="true" />
+      <created>1702146248309</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1702146248309</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,7 +364,8 @@
     <MESSAGE value="Корректно работает смена цвета фрактала. Функции фрактала не подкручены" />
     <MESSAGE value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
     <MESSAGE value="Теперь все работает корректно и относительно быстро" />
-    <option name="LAST_COMMIT_MESSAGE" value="Теперь все работает корректно и относительно быстро" />
+    <MESSAGE value="что-то еще" />
+    <option name="LAST_COMMIT_MESSAGE" value="что-то еще" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
