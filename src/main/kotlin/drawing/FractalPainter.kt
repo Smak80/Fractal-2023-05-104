@@ -9,7 +9,6 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 import math.fractals.Fractal
-import math.fractals.funcs
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 import kotlin.math.abs
@@ -35,7 +34,7 @@ class FractalPainter(
 
     var yMax = 0.0
 
-    private fun scoping(){
+    fun scoping(){
         val X = abs(xMax - xMin) / width
         val Y = abs(yMax - yMin) / height
         if(Y > X)
@@ -70,12 +69,8 @@ class FractalPainter(
     var refresh = true
 
     override fun paint(scope: DrawScope) {
-        //this.scoping()
-
         if (refresh) {
             refresh = false
-
-
             img = BufferedImage(
                 scope.size.width.toInt(),
                 scope.size.height.toInt(),
@@ -97,6 +92,7 @@ class FractalPainter(
                 }.forEach { it.join() }
             }
         }
+
         scope.drawImage(img.toComposeImageBitmap())
     }
 

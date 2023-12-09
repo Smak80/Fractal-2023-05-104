@@ -26,10 +26,18 @@ import math.fractals.Julia
 
 @Composable
 fun Julia(selectedPoint: Complex, color: String){
+    Julia.selectedPoint = selectedPoint
 
     val jp = remember {FractalPainter(Julia, colors[color]!!)}
-
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
+    jp.plane?.let {
+        jp.xMin = it.xMin
+        jp.xMax = it.xMax
+        jp.yMin = it.yMin
+        jp.yMax = it.yMax
+    }
+
+
     MaterialTheme {
         Canvas(Modifier.fillMaxSize().padding(8.dp)) {
             if(jp.width != size.width.toInt() || jp.height != size.height.toInt() ){
@@ -38,12 +46,13 @@ fun Julia(selectedPoint: Complex, color: String){
                 jp.refresh = true
 
             }
-
-            Julia.selectedPoint = selectedPoint
             jp.paint(this)
+            jp.scoping()
+            println(jp.plane)
         }
     }
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
