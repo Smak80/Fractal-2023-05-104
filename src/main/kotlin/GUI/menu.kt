@@ -214,7 +214,7 @@ fun menu(fp: MutableState<FractalPainter>){
                 pointCoordinates.value?.let {
                     val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
                     println(pair)
-                    Julia(pair)
+                    Julia(pair, fractalColor.value)
                 }
             }
         }

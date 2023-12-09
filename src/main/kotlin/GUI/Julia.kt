@@ -25,9 +25,9 @@ import math.fractals.Julia
 
 
 @Composable
-fun Julia(selectedPoint: Complex){
+fun Julia(selectedPoint: Complex, color: String){
 
-    val jp = remember {FractalPainter(Julia, colors["color1"]!!)}
+    val jp = remember {FractalPainter(Julia, colors[color]!!)}
 
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     MaterialTheme {
