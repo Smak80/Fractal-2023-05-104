@@ -1,4 +1,4 @@
-package GUI
+package gui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -26,6 +26,7 @@ import drawing.colors.colors
 import drawing.convertation.Converter
 import math.Complex
 import math.fractals.funcs
+import javax.print.DocFlavor.STRING
 
 
 @Composable
@@ -196,6 +197,12 @@ fun menu(fp: MutableState<FractalPainter>){
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
 
+
+                plane.xMin = xMin
+                plane.xMax = xMax
+                plane.yMin = yMin
+                plane.yMax = yMax
+
                 fp.value.xMin = xMin
                 fp.value.xMax = xMax
                 fp.value.yMin = yMin
@@ -204,18 +211,24 @@ fun menu(fp: MutableState<FractalPainter>){
             }
 
         }
-        if (juliaFrame.value){
-            Window(
-                visible = true,
-                onCloseRequest = {juliaFrame.value = false},
-                title = "Множество Жюлиа по точке (${pointCoordinates.value?.let { Converter.xScr2Crt(it.x, fp.value.plane!!) }}, " +
-                        "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
-            ){
-                pointCoordinates.value?.let {
-                    val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                    println(pair)
-                    Julia(pair, fractalColor.value)
-                }
+        JuliaFrameOpener(juliaFrame, pointCoordinates, fp, fractalColor)
+    }
+}
+
+@Composable
+fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
+                     fp: MutableState<FractalPainter>, fractalColor: MutableState<String>)
+{
+    if (juliaFrame.value){
+        Window(
+            visible = true,
+            onCloseRequest = {juliaFrame.value = false},
+            title = "Множество Жюлиа по точке (${pointCoordinates.value?.let { Converter.xScr2Crt(it.x, fp.value.plane!!) }}, " +
+                    "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
+        ){
+            pointCoordinates.value?.let {
+                val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
+                julia(pair, fractalColor.value)
             }
         }
     }
@@ -249,7 +262,6 @@ fun SelectionPanel(
             detectTapGestures {
                 pointCoordinates.value = it
                 juliaButton.value = true
-                println(it)
             }
         }){
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
