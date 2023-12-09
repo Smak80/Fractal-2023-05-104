@@ -1,6 +1,9 @@
 package drawing
 
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -9,7 +12,10 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 import math.fractals.Fractal
+import java.awt.AlphaComposite
 import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
@@ -92,8 +98,29 @@ class FractalPainter(
                 }.forEach { it.join() }
             }
         }
-
         scope.drawImage(img.toComposeImageBitmap())
+
+        TakePhoto()
+    }
+
+    fun TakePhoto() {
+        val file = File("screenshot2.png")
+        ImageIO.write(img, "png", file)
+        val bufferedImage: BufferedImage = ImageIO.read(File("screenshot2.png"));
+        val newBufferedImage = BufferedImage(
+            bufferedImage.width,
+            bufferedImage.height + 20, BufferedImage.TYPE_INT_RGB
+        )
+        newBufferedImage.createGraphics().drawImage(img, 0, 0, java.awt.Color.WHITE, null);
+        newBufferedImage.createGraphics().composite = AlphaComposite.SrcOut
+        newBufferedImage.createGraphics().drawString(
+            "xMin = ${plane?.xMin}, " +
+                    "xMax = ${plane?.xMax}, " +
+                    "yMin = ${plane?.yMin}, " +
+                    "yMax = ${plane?.yMax}",
+            newBufferedImage.width / 2, newBufferedImage.height - 2
+        )
+        ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
     }
 
 }
