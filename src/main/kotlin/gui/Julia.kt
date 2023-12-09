@@ -1,4 +1,4 @@
-package GUI
+package gui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -10,12 +10,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import drawing.FractalPainter
-import drawing.Painter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
@@ -25,7 +23,7 @@ import math.fractals.Julia
 
 
 @Composable
-fun Julia(selectedPoint: Complex, color: String){
+fun julia(selectedPoint: Complex, color: String){
     Julia.selectedPoint = selectedPoint
 
     val jp = remember {FractalPainter(Julia, colors[color]!!)}
@@ -51,13 +49,17 @@ fun Julia(selectedPoint: Complex, color: String){
             println(jp.plane)
         }
 
-        SelectionPanel {
+        selectionPanel {
             jp.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
 
+                plane.xMin = xMin
+                plane.xMax = xMax
+                plane.yMin = yMin
+                plane.yMax = yMax
 
                 jp.xMin = xMin
                 jp.xMax = xMax
@@ -72,7 +74,7 @@ fun Julia(selectedPoint: Complex, color: String){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SelectionPanel(
+fun selectionPanel(
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}
