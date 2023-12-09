@@ -1,22 +1,33 @@
 package math.fractals
 import androidx.compose.ui.geometry.Offset
+import drawing.convertation.Converter
 import math.Complex
 
-//    companion object {
-//        var selectedPoint =
-//    }
 
-class Julia(var selectedPoint: Complex, override var function: (Complex) -> Complex) : AlgebraicFractal {
-    override var maxIterations: Int = 2000
-        private var r = 2.0
-        val r2 = r * r
-    override fun isInSet(c : Complex) : Float {
-        var z: Complex  = c
-        for(i in 0..maxIterations){
-            z = z * z + Complex(selectedPoint.re.toDouble(), selectedPoint.im.toDouble())
+object Julia : AlgebraicFractal {
+    var selectedPoint = Complex()
+    override var maxIterations: Int = 5000
+        set(value) {
+            field = value.coerceIn(20..10000)
+        }
+    var r = 2.0
+    val r2 = r * r
+    override var function: (Complex) -> Complex = { value: Complex -> value }
+        set(value) {
+            if (funcs.containsValue(value)) {
+                field = value
+            }
+        }
+
+
+    override fun isInSet(c: Complex): Float {
+        var z: Complex = c
+        for (i in 0..maxIterations) {
+            z = z * z + Complex(selectedPoint.re, selectedPoint.im)
             if (z.abs2() >= r2)
                 return i.toFloat() / maxIterations
         }
         return 1f
     }
+
 }
