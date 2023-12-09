@@ -6,7 +6,7 @@ object Fractal : AlgebraicFractal {
     override var maxIterations: Int = 5000
         set(value) { field = value.coerceIn(20..10000)}
     var r = 2.0
-    override var function: (Complex) -> Complex = { value:Complex -> value }
+    var function: (Complex) -> Complex = { value:Complex -> value }
         set(value) {
             if(funcs.containsValue(value)){
                 field = value

@@ -18,7 +18,7 @@ class FractalPainter(
     var fractal: AlgebraicFractal,
     var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
-
+    var FRACTAL = Fractal
     var plane: Plane? = null
     override var width: Int
         get() = plane?.width?.toInt() ?: 0
@@ -70,9 +70,8 @@ class FractalPainter(
     var refresh = true
 
     override fun paint(scope: DrawScope) {
-        this.scoping()
-        var fractal = fractal
-        var colorFunc = colorFunc
+        //this.scoping()
+
         if (refresh) {
             refresh = false
 
