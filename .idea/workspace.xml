@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="что-то еще">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/GUI/Julia.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/GUI/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/GUI/menu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/AlgebraicFractal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/AlgebraicFractal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Julia.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702146248309</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
+      <option name="closed" value="true" />
+      <created>1702151622060</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1702151622060</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -365,7 +367,8 @@
     <MESSAGE value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
     <MESSAGE value="Теперь все работает корректно и относительно быстро" />
     <MESSAGE value="что-то еще" />
-    <option name="LAST_COMMIT_MESSAGE" value="что-то еще" />
+    <MESSAGE value="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку" />
+    <option name="LAST_COMMIT_MESSAGE" value="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
