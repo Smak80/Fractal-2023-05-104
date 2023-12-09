@@ -5,16 +5,26 @@ import drawing.convertation.colorFunc
 import math.fractals.FractalData
 import org.jetbrains.skia.Color
 import video.Cadre
+import java.awt.Font
+import java.awt.FontMetrics
+import java.awt.font.LineMetrics
+import java.awt.font.TextAttribute
 import java.awt.image.BufferedImage
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import java.text.AttributedString
 import javax.imageio.ImageIO
 import javax.swing.JFileChooser
 import javax.swing.JOptionPane
 import javax.swing.filechooser.FileNameExtensionFilter
 import javax.swing.filechooser.FileSystemView
+import java.awt.Graphics2D
+
+
+
+
 
 object FileManager {
     fun saveFractalData(data: FractalData){
@@ -83,7 +93,7 @@ object FileManager {
         val fileSystemView = FileSystemView.getFileSystemView()
         val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
             dialogTitle = "Сохранить изображение"
-            fileFilter = FileNameExtensionFilter("Изображение", "jpeg")
+            fileFilter = FileNameExtensionFilter("Изображение", "png")
             isAcceptAllFileFilterUsed = false
             fileSelectionMode = JFileChooser.OPEN_DIALOG
         }
@@ -91,21 +101,25 @@ object FileManager {
         if (openDialogResult == JFileChooser.APPROVE_OPTION) {
             val fileAbsolutePath =
                 fileChooser.currentDirectory.absolutePath + "\\" +
-                        fileChooser.selectedFile.nameWithoutExtension + ".jpeg"
-            val image = prepareImg(data)
+                        fileChooser.selectedFile.nameWithoutExtension + ".png"
+            val image = addCartCoordinates(data)
             val fileStream = FileOutputStream(fileAbsolutePath)
-            ImageIO.write(image,"jpeg",fileStream)
+            ImageIO.write(image,"png",fileStream)
             JOptionPane.showMessageDialog(fileChooser, "Изображение '$fileAbsolutePath' успешно сохранен")
         }
     }
-
-    private fun prepareImg(data:FractalData):BufferedImage{
-        val plane = Plane(data.xMax,data.xMin,data.yMax,data.yMin,1920f,1080f)
+    private fun addCartCoordinates(data:FractalData):BufferedImage{
+        val plane = Plane(data.xMin,data.xMax,data.yMax,data.yMin,1920f,1080f)
         val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorFunc(data.colorscheme))
         a.graphics.also {
-            it.color = java.awt.Color(0, 0, 0)
             val string = "xMin=${plane.xMin} xMax = ${plane.xMax} yMin = ${plane.yMin}, yMax = ${plane.yMax}"
-            it.drawString(string,30, 30)
+            val text = AttributedString(string)
+            text.addAttribute(TextAttribute.FONT, Font("Helvetica", Font.BOLD, 24), 0, string.length)
+
+//            it.color = java.awt.Color.WHITE
+//            it.fillRoundRect(20, 10, 550 , it.fontMetrics.ascent + it.fontMetrics.height + 10, 30, 30)
+            it.color = java.awt.Color.BLACK
+            it.drawString(text.iterator, 40, 40)
         }
         return a
     }
