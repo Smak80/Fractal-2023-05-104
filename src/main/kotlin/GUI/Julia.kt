@@ -50,6 +50,22 @@ fun Julia(selectedPoint: Complex, color: String){
             jp.scoping()
             println(jp.plane)
         }
+
+        SelectionPanel {
+            jp.plane?.let{ plane ->
+                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+
+
+                jp.xMin = xMin
+                jp.xMax = xMax
+                jp.yMin = yMin
+                jp.yMax = yMax
+                jp.refresh = true
+            }
+        }
     }
 }
 
