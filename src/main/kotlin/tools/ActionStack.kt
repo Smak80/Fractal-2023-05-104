@@ -1,6 +1,9 @@
 package tools
 
 import drawing.FractalPainter
+import drawing.convertation.ColorType
+import drawing.convertation.colorFunc
+import math.fractals.Mandelbrot
 import java.util.*
 
 class ActionStack(private val fp: FractalPainter){
@@ -17,6 +20,10 @@ class ActionStack(private val fp: FractalPainter){
                     it.yMax = obj.yMax
                     fp.refresh = true
                 }
+            }
+            is ColorType -> {
+                fp.colorFuncID = obj
+                fp.refresh = true
             }
             else -> throw Exception("В стек попал объект неизвестного типа")
         }

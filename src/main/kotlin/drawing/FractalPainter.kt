@@ -4,8 +4,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
+import drawing.convertation.ColorType
 import drawing.convertation.Converter
 import drawing.convertation.Plane
+import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.AlgebraicFractal
 import tools.ActionStack
@@ -13,7 +15,7 @@ import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 
 class FractalPainter(
-    val fractal: AlgebraicFractal
+    private val fractal: AlgebraicFractal
 ) : Painter {
     var plane: Plane? = null
     override var width: Int
@@ -22,9 +24,11 @@ class FractalPainter(
     override var height: Int
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
-    var colorFunc: (Float) -> Color = {if (it < 1f) Color.White else Color.Black }
+
+    var colorFuncInner: (Float) -> Color = {if (it < 1f) Color.White else Color.Black }
+    var colorFuncID: ColorType = ColorType.Zero
     val actionStack = ActionStack(this)
-    var img = BufferedImage(
+    private var img = BufferedImage(
         1,
         1,
         BufferedImage.TYPE_INT_ARGB,
@@ -56,7 +60,8 @@ class FractalPainter(
                                 Converter.xScr2Crt(i.toFloat(), plane),
                                 Converter.yScr2Crt(j.toFloat(), plane)
                             )
-                            img.setRGB(i, j, colorFunc(fractal.isInSet(x)).toArgb())
+                            val colorFunk = colorFunc(colorFuncID.value)
+                            img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
                         }
                 }
             }.forEach { it.join() }
