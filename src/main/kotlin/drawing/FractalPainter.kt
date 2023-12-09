@@ -1,5 +1,6 @@
 package drawing
 
+import Photo.TakePhoto
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -99,28 +100,5 @@ class FractalPainter(
             }
         }
         scope.drawImage(img.toComposeImageBitmap())
-
-        TakePhoto()
     }
-
-    fun TakePhoto() {
-        val file = File("screenshot2.png")
-        ImageIO.write(img, "png", file)
-        val bufferedImage: BufferedImage = ImageIO.read(File("screenshot2.png"));
-        val newBufferedImage = BufferedImage(
-            bufferedImage.width,
-            bufferedImage.height + 20, BufferedImage.TYPE_INT_RGB
-        )
-        newBufferedImage.createGraphics().drawImage(img, 0, 0, java.awt.Color.WHITE, null);
-        newBufferedImage.createGraphics().composite = AlphaComposite.SrcOut
-        newBufferedImage.createGraphics().drawString(
-            "xMin = ${plane?.xMin}, " +
-                    "xMax = ${plane?.xMax}, " +
-                    "yMin = ${plane?.yMin}, " +
-                    "yMax = ${plane?.yMax}",
-            newBufferedImage.width / 2, newBufferedImage.height - 2
-        )
-        ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
-    }
-
 }

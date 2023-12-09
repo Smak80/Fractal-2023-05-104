@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Добавил сохранение пропорций в Жюлиа.">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="После мержа">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/Julia.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702154982692</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="После мержа">
+      <option name="closed" value="true" />
+      <created>1702159147526</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1702159147526</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -395,7 +407,8 @@
     <MESSAGE value="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку" />
     <MESSAGE value="Множество Жюлиа отображается корректно." />
     <MESSAGE value="Добавил сохранение пропорций в Жюлиа." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил сохранение пропорций в Жюлиа." />
+    <MESSAGE value="После мержа" />
+    <option name="LAST_COMMIT_MESSAGE" value="После мержа" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

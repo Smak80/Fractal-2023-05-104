@@ -1,5 +1,6 @@
 package gui
 
+import Photo.TakePhoto
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.PointerMatcher
@@ -26,7 +27,6 @@ import drawing.colors.colors
 import drawing.convertation.Converter
 import math.Complex
 import math.fractals.funcs
-import javax.print.DocFlavor.STRING
 
 
 @Composable
@@ -157,7 +157,9 @@ fun menu(fp: MutableState<FractalPainter>){
                     DropdownMenu(expanded = expandedMenu, onDismissRequest = {expandedMenu = false}){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {
+                                TakePhoto(fp.value)
+                            }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
@@ -228,7 +230,7 @@ fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: Mutabl
         ){
             pointCoordinates.value?.let {
                 val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                julia(pair, fractalColor.value)
+                Julia(pair, fractalColor.value)
             }
         }
     }
