@@ -1,10 +1,16 @@
 package tools
 
+import drawing.convertation.Plane
+import drawing.convertation.colorFunc
 import math.fractals.FractalData
+import org.jetbrains.skia.Color
+import video.Cadre
+import java.awt.image.BufferedImage
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import javax.imageio.ImageIO
 import javax.swing.JFileChooser
 import javax.swing.JOptionPane
 import javax.swing.filechooser.FileNameExtensionFilter
@@ -71,5 +77,36 @@ object FileManager {
         }
         return null
 
+    }
+
+    fun saveImageData(data: FractalData){
+        val fileSystemView = FileSystemView.getFileSystemView()
+        val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
+            dialogTitle = "Сохранить изображение"
+            fileFilter = FileNameExtensionFilter("Изображение", "jpeg")
+            isAcceptAllFileFilterUsed = false
+            fileSelectionMode = JFileChooser.OPEN_DIALOG
+        }
+        val openDialogResult = fileChooser.showSaveDialog(fileChooser)
+        if (openDialogResult == JFileChooser.APPROVE_OPTION) {
+            val fileAbsolutePath =
+                fileChooser.currentDirectory.absolutePath + "\\" +
+                        fileChooser.selectedFile.nameWithoutExtension + ".jpeg"
+            val image = prepareImg(data)
+            val fileStream = FileOutputStream(fileAbsolutePath)
+            ImageIO.write(image,"jpeg",fileStream)
+            JOptionPane.showMessageDialog(fileChooser, "Изображение '$fileAbsolutePath' успешно сохранен")
+        }
+    }
+
+    private fun prepareImg(data:FractalData):BufferedImage{
+        val plane = Plane(data.xMax,data.xMin,data.yMax,data.yMin,1920f,1080f)
+        val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorFunc(data.colorscheme))
+        a.graphics.also {
+            it.color = java.awt.Color(0, 0, 0)
+            val string = "xMin=${plane.xMin} xMax = ${plane.xMax} yMin = ${plane.yMin}, yMax = ${plane.yMax}"
+            it.drawString(string,30, 30)
+        }
+        return a
     }
 }
