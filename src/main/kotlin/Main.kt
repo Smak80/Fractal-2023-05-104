@@ -101,7 +101,7 @@ fun App(){
                         {
                             //Кнопка Назад
 
-                            IconButton(onClick = {TODO("Отмена действий!")}
+                            IconButton(onClick = {fp.actionStack.pop()}
                             ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
 //                            IconButton(onClick = {
 //                                fp.plane = when(Mandelbrot.funcNum){
