@@ -8,6 +8,7 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
+import tools.ActionStack
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 
@@ -22,7 +23,7 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
     var colorFunc: (Float) -> Color = {if (it < 1f) Color.White else Color.Black }
-
+    val actionStack = ActionStack(this)
     var img = BufferedImage(
         1,
         1,
