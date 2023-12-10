@@ -29,9 +29,23 @@ fun mainFractalWindow(fp:FractalPainter){
     selectionPanel{
         fp.plane?.let{ plane ->
             val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-            val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+            var xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
             val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-            val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+            var yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+            //ширина прямоугольника
+            var rw = it.size.width.toDouble()
+            //высота прямоугольника
+            var rh = it.size.height.toDouble()
+            if(Math.abs(rw/rh - fp.width/fp.height) > 1E-6){
+                if(rw/rh < fp.width/fp.height){
+                    rw = rh * fp.width/fp.height
+                    xMax = xMin + Converter.xScr2Crt(rw.toFloat(), plane)
+                }
+                if(rw/rh > fp.width/fp.height){
+                    rh = rw * fp.height/fp.width
+                    yMin = yMax + Converter.xScr2Crt(rh.toFloat(), plane)
+                }
+            }
             plane.xMin = xMin
             plane.xMax = xMax
             plane.yMin = yMin
