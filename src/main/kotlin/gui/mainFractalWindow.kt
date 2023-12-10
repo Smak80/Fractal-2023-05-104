@@ -27,9 +27,36 @@ fun mainFractalWindow(fp: FractalPainter){
     var juliaDialogVisible by remember { mutableStateOf(false) }
     drawingPanel(fp,
         onResize = { size ->
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
-            fp.refresh = true
+            if(fp.width == 0 || fp.height == 0) {
+                fp.width = size.width.toInt()
+                fp.height = size.height.toInt()
+                fp.refresh = true
+            }
+            else{
+                fp.width = size.width.toInt()
+                fp.height = size.height.toInt()
+                fp.plane?.let {plane ->
+                    var newXMin = plane.xMin
+                    var newXMax = plane.xMax
+                    var newYMin = plane.yMin
+                    var newYMax = plane.yMax
+                    if(plane.dXY < plane.dWH){
+                        val dx = plane.yLen * plane.dWH - plane.xLen
+                        newXMin -= dx/2
+                        newXMax += dx/2
+                    }
+                    if(plane.dXY > plane.dWH){
+                        val dy = plane.xLen / plane.dWH - plane.yLen
+                        newYMin -= dy/2
+                        newYMax += dy/2
+                    }
+                    plane.xMin = newXMin
+                    plane.xMax = newXMax
+                    plane.yMin = newYMin
+                    plane.yMax = newYMax
+                }
+                fp.refresh = true
+            }
         },
     )
     selectionPanel(
@@ -51,9 +78,23 @@ fun mainFractalWindow(fp: FractalPainter){
                     )
                 fp.actionStack.push(currConf)
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
-                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+                var xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
-                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+                var yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+                //ширина прямоугольника
+                var rw = it.size.width.toDouble()
+                //высота прямоугольника
+                var rh = it.size.height.toDouble()
+                if(Math.abs(rw/rh - plane.dWH) > 1E-6){
+                    if(rw/rh < plane.dWH){
+                        rw = rh * plane.dWH
+                        xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)
+                    }
+                    if(rw/rh > plane.dWH){
+                        rh = rw / plane.dWH
+                        yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)
+                    }
+                }
                 plane.xMin = xMin
                 plane.xMax = xMax
                 plane.yMin = yMin
