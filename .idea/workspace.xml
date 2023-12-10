@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="После мержа">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Остается написать код для сохранения фотографии в папку.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/gui/FileSaving/FileDialogWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_12__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/Julia.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,10 +51,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Script" />
         <option value="Kotlin Object" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -369,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702159147526</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Остается написать код для сохранения фотографии в папку.">
+      <option name="closed" value="true" />
+      <created>1702160787314</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1702160787314</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -408,7 +417,8 @@
     <MESSAGE value="Множество Жюлиа отображается корректно." />
     <MESSAGE value="Добавил сохранение пропорций в Жюлиа." />
     <MESSAGE value="После мержа" />
-    <option name="LAST_COMMIT_MESSAGE" value="После мержа" />
+    <MESSAGE value="Остается написать код для сохранения фотографии в папку." />
+    <option name="LAST_COMMIT_MESSAGE" value="Остается написать код для сохранения фотографии в папку." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

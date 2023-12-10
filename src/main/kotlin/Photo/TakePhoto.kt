@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-fun TakePhoto(fp: FractalPainter) {
+fun TakePhoto(fp: FractalPainter): BufferedImage {
     val file = File("screenshot2.png")
     ImageIO.write(fp.img, "png", file)
     val bufferedImage: BufferedImage = ImageIO.read(File("screenshot2.png"));
@@ -25,4 +25,5 @@ fun TakePhoto(fp: FractalPainter) {
     )
     ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"));
     file.delete()
+    return newBufferedImage
 }
