@@ -37,13 +37,13 @@ fun mainFractalWindow(fp:FractalPainter){
                 var newYMax = plane.yMax
                 if(plane.dXY < plane.dWH){
                     val dx = plane.yLen * plane.dWH - plane.xLen
-                    newXMin -= dx
-                    newXMax += dx
+                    newXMin -= dx/2
+                    newXMax += dx/2
                 }
                 if(plane.dXY > plane.dWH){
                     val dy = plane.xLen / plane.dWH - plane.yLen
-                    newYMin -= dy
-                    newYMax += dy
+                    newYMin -= dy/2
+                    newYMax += dy/2
                 }
                 plane.xMin = newXMin
                 plane.xMax = newXMax
@@ -63,14 +63,14 @@ fun mainFractalWindow(fp:FractalPainter){
             var rw = it.size.width.toDouble()
             //высота прямоугольника
             var rh = it.size.height.toDouble()
-            if(Math.abs(rw/rh - fp.width/fp.height) > 1E-6){
-                if(rw/rh < fp.width/fp.height){
-                    rw = rh * fp.width/fp.height
-                    xMax = xMin + Converter.xScr2Crt(rw.toFloat(), plane)
+            if(Math.abs(rw/rh - plane.dWH) > 1E-6){
+                if(rw/rh < plane.dWH){
+                    rw = rh * plane.dWH
+                    xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)
                 }
-                if(rw/rh > fp.width/fp.height){
-                    rh = rw * fp.height/fp.width
-                    yMin = yMax + Converter.xScr2Crt(rh.toFloat(), plane)
+                if(rw/rh > plane.dWH){
+                    rh = rw / plane.dWH
+                    yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)
                 }
             }
             plane.xMin = xMin
