@@ -70,11 +70,9 @@ fun App(){
                                     onDismissRequest = { isMenuExpanded = false }
                                 ) {
                                     SaveOpenMenuItems(
-                                        { isMenuExpanded = false
-                                            fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
-                                                FileManager.saveImageData(fractalData)
-                                            }
+                                        {
+                                            isMenuExpanded = false
+                                            TODO("Реализовать функцию для сохранения изображения")
                                         }, {
                                             fp.plane?.let{
                                                 val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
