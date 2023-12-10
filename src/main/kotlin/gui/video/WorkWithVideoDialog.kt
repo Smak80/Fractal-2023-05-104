@@ -29,11 +29,12 @@ fun workWithVideoDialog(
     imageList: SnapshotStateList<Cadre>,
     close:()->Unit,
 ) {
-    var height by remember { mutableStateOf(600) }
-    var width by remember { mutableStateOf(800) }
-    var fps by remember { mutableStateOf(24) }
-    var duration by remember { mutableStateOf(5) }
+    var height = 600
+    var width = 800
+    var fps = 24
+    var duration = 5
     var vm: VideoMaker
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,16 +78,16 @@ fun workWithVideoDialog(
             verticalAlignment = Alignment.CenterVertically
         ) {
             intTextField(
-                value = height,
-                label = "Высота",
-                onValueChange = {height=it},
+                value = width,
+                label = "Ширина",
+                onValueChange = {width=it},
                 maxValue = 10000,
                 modifier = Modifier.weight(1f)
             )
             intTextField(
-                value = width,
-                label = "Ширина",
-                onValueChange = {width=it},
+                value = height,
+                label = "Высота",
+                onValueChange = {height=it},
                 maxValue = 10000,
                 modifier = Modifier.weight(1f)
             )
