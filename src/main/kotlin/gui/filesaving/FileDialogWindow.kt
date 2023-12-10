@@ -1,6 +1,6 @@
-package gui.FileSaving
+package gui.filesaving
 
-import androidx.compose.runtime.Composable
+
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -11,7 +11,7 @@ import javax.swing.WindowConstants.EXIT_ON_CLOSE
 import javax.swing.filechooser.FileNameExtensionFilter
 
 
-fun FileDialogWindow(photo: BufferedImage) {
+fun fileDialogWindow(photo: BufferedImage) {
     val fileDialogFrame = JFrame()
     fileDialogFrame.defaultCloseOperation = EXIT_ON_CLOSE
     val fileChooser = JFileChooser()
@@ -38,12 +38,14 @@ fun FileDialogWindow(photo: BufferedImage) {
     }
     else{
         try {
-            ImageIO.write(photo, "jpg", File("${fileChooser.selectedFile}.jpg"))
-            JOptionPane.showMessageDialog(
-                fileDialogFrame,
-                "Файл '" + fileChooser.selectedFile +
-                        " сохранен"
-            );
+            if (fileChooser.selectedFile != null) {
+                ImageIO.write(photo, "jpg", File("${fileChooser.selectedFile}.jpg"))
+                JOptionPane.showMessageDialog(
+                    fileDialogFrame,
+                    "Файл '" + fileChooser.selectedFile +
+                            " сохранен"
+                );
+            }
         }
         catch (e: Exception){
             e.printStackTrace()
