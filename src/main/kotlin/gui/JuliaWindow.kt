@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import drawing.FractalPainter
+import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.fractals.JuliaSet
@@ -13,7 +14,7 @@ import math.fractals.JuliaSet
 fun JuliaApp() {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     val fp = remember { FractalPainter(JuliaSet)}
-    fp.colorFuncInner = colorFunc(2)
+    fp.colorFuncID = ColorType.First
     fp.plane = plane
     MaterialTheme {
         Canvas(Modifier.fillMaxSize()) {

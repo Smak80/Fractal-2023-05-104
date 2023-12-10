@@ -1,6 +1,7 @@
 package video
 
 import androidx.compose.ui.graphics.Color
+import drawing.convertation.ColorType
 import math.Complex
 
 data class VideoConfiguration(
@@ -10,5 +11,5 @@ data class VideoConfiguration(
     val fps: Int = 24,
     val file: String,
     val cadres: MutableList<Cadre>,
-    val colorScheme: (Float) -> Color
+    val colorScheme: ColorType
 )

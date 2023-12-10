@@ -86,6 +86,4 @@ class VideoMaker(private val conf: VideoConfiguration) {
                 (it.plane.yMin + it.plane.yMax) * 0.5
             )
     }
-
-
 }
