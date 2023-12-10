@@ -8,7 +8,6 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -16,13 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.window.Window
 import drawing.FractalPainter
-import drawing.Painter
 import drawing.SelectionRect
 import drawing.convertation.Converter
-import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.JuliaSet
-import math.fractals.Mandelbrot
 import tools.ActionStack
 
 
@@ -52,7 +48,7 @@ fun mainFractalWindow(fp: FractalPainter){
                     plane.xMax,
                     plane.yMin,
                     plane.yMax,
-                )
+                    )
                 fp.actionStack.push(currConf)
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)

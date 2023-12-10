@@ -146,7 +146,7 @@ fun App(){
                                     Icon(Icons.Default.Add, "Добавить Кадр")
                                 }
                             }
-                            //Выбор Цветовой Схемы
+                            //Выбор Цветовой Схемы!
                             dropdownMenuIcon(
                                 mapOf(
                                     "Логарифм Папа" to {fp.apply {
