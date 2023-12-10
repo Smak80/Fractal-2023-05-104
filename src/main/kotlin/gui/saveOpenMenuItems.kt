@@ -22,9 +22,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                       close: () -> Unit) {
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    DropdownMenuItem({
-        isDialogVisible = true
-    })
+    DropdownMenuItem({ isDialogVisible = true })
     { Text("Сохранить") }
 
     DropdownMenuItem({
@@ -77,7 +75,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             imageSave()
-                            isDialogVisible = false
+                            close()
                         },
                         modifier = Modifier
                             .weight(1f)
@@ -89,7 +87,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             fractalSave()
-                            isDialogVisible = false
+                            close()
                         },
                         modifier = Modifier
                             .weight(1f)
