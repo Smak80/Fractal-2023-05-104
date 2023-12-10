@@ -20,6 +20,7 @@ import compose.icons.lineawesomeicons.PaletteSolid
 import compose.icons.lineawesomeicons.Save
 import compose.icons.lineawesomeicons.UndoSolid
 import drawing.FractalPainter
+import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import gui.SaveOpenMenuItems
@@ -40,7 +41,7 @@ fun App(){
 //    var fractalSchemeIndex by remember { mutableStateOf(1) }
     val photoList = remember { SnapshotStateList<Cadre>() }
     val fp = remember {FractalPainter(Mandelbrot)}
-    fp.colorFunc = colorFunc(1)
+    fp.colorFuncInner = colorFunc(1)
     Mandelbrot.funcNum = 1
     fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
 
@@ -101,7 +102,7 @@ fun App(){
                         {
                             //Кнопка Назад
 
-                            IconButton(onClick = {TODO("Отмена действий!")}
+                            IconButton(onClick = {fp.actionStack.pop()}
                             ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
 //                            IconButton(onClick = {
 //                                fp.plane = when(Mandelbrot.funcNum){
@@ -130,7 +131,7 @@ fun App(){
                                             onDismissRequest = { showVideoDialogBoolean = false },
                                             properties = DialogProperties(dismissOnClickOutside = true)
                                         ) {
-                                            workWithVideoDialog(fp.colorFunc,photoList) { showVideoDialogBoolean = false }
+                                            workWithVideoDialog(fp.colorFuncInner,photoList) { showVideoDialogBoolean = false }
                                         }
                                     }
                                 }
@@ -138,7 +139,7 @@ fun App(){
                                 IconButton(
                                     onClick = {
                                         fp.plane?.let {
-                                            photoList.add(Cadre(it,fp.colorFunc))
+                                            photoList.add(Cadre(it,fp.colorFuncInner))
                                         }
                                     }
                                 ) {
@@ -149,15 +150,18 @@ fun App(){
                             dropdownMenuIcon(
                                 mapOf(
                                     "Логарифм Папа" to {fp.apply {
-                                        colorFunc= colorFunc(1)
+                                        fp.actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorType.First
                                         refresh = true
                                     }},
                                     "Футболка Денчика" to{fp.apply {
-                                        colorFunc= colorFunc(2)
+                                        fp.actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorType.Second
                                         refresh = true
                                     }},
                                     "Болото Шрека" to {fp.apply {
-                                        colorFunc= colorFunc(3)
+                                        fp.actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorType.Third
                                         refresh = true
                                     }},
                                 ),

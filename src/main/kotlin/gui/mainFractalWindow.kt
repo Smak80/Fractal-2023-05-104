@@ -23,6 +23,8 @@ import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.JuliaSet
 import math.fractals.Mandelbrot
+import tools.ActionStack
+
 
 @Composable
 fun mainFractalWindow(fp: FractalPainter){
@@ -45,6 +47,13 @@ fun mainFractalWindow(fp: FractalPainter){
         },
         onSelected = {
             fp.plane?.let{ plane ->
+                val currConf = ActionStack.CartCords(
+                    plane.xMin,
+                    plane.xMax,
+                    plane.yMin,
+                    plane.yMax,
+                )
+                fp.actionStack.push(currConf)
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
