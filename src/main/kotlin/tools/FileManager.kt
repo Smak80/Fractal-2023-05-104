@@ -1,5 +1,7 @@
 package tools
 
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.TextMeasurer
 import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
@@ -109,20 +111,46 @@ object FileManager {
             JOptionPane.showMessageDialog(fileChooser, "Изображение '$fileAbsolutePath' успешно сохранен")
         }
     }
-    private fun addCartCoordinates(data:FractalData):BufferedImage{
-        val plane = Plane(data.xMin,data.xMax,data.yMax,data.yMin,1920f,1080f)
-        val colorscheme = ColorType.entries.find { it.value == data.colorscheme }
-        val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorscheme ?: ColorType.Zero)
-        a.graphics.also {
-            val string = "xMin=${plane.xMin} xMax = ${plane.xMax} yMin = ${plane.yMin}, yMax = ${plane.yMax}"
-            val text = AttributedString(string)
-            text.addAttribute(TextAttribute.FONT, Font("Helvetica", Font.BOLD, 24), 0, string.length)
+    private fun addCartCoordinates(data: FractalData): BufferedImage {
+        val plane = Plane(data.xMin,data.xMax,data.yMin,data.xMax,1920f,1080f)
+        val image = Cadre.getImageFromPlane(plane,1920f,1080f,ColorType.First)
+        val graphics = image.createGraphics()
+        val font = Font("Futura", Font.BOLD, 24)
+        graphics.font = font
+        graphics.color = java.awt.Color(0,0,0)
 
-//            it.color = java.awt.Color.WHITE
-//            it.fillRoundRect(20, 10, 550 , it.fontMetrics.ascent + it.fontMetrics.height + 10, 30, 30)
-            it.color = java.awt.Color.BLACK
-            it.drawString(text.iterator, 40, 40)
-        }
-        return a
+        val string = "xMin=${data.xMin} xMax=${data.xMax} yMin=${data.yMin} yMax=${data.yMax}"
+
+        val fm = graphics.fontMetrics
+        val stringWidth = fm.stringWidth(string)
+        val stringHeight = fm.height
+        val x = (image.width - stringWidth) / 2
+        val y = image.height - stringHeight - 10
+
+
+        graphics.color = java.awt.Color(255, 255, 255)
+        graphics.fillRoundRect(x - 5, y - fm.ascent - 5, stringWidth + 10, stringHeight + 10,30,30)
+
+
+        graphics.color = java.awt.Color(0,0,0)
+        graphics.drawString(string, x, y)
+        graphics.dispose()
+
+        return image
     }
+
+//    private fun experiment(){
+//        val a = DrawScope
+//        val text = it.measure(
+//            df.format(value),
+//            TextStyle(color = LABELS_COLOR, fontSize = FONT_SIZE, fontWeight = FONT_WEIGHT)
+//        )
+//        plane?.let { plane ->
+//            var y = Converter.yCrt2Scr(0.0, plane).coerceIn(0f, plane.height)
+//            if(y==plane.height) y -= 34f  else y += 17f
+//
+//            val x = Converter.xCrt2Scr(value, plane) - text.size.width / 2
+//            drawText(text, topLeft = Offset(x, y))
+//        }
+//    }
 }

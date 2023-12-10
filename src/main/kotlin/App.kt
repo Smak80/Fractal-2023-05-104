@@ -22,9 +22,9 @@ import compose.icons.lineawesomeicons.UndoSolid
 import drawing.FractalPainter
 import drawing.convertation.ColorType
 import drawing.convertation.Plane
-import gui.saveOpenMenuItems
 import gui.controls.dropdownMenuIcon
 import gui.mainFractalWindow
+import gui.saveOpenMenuItems
 import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
