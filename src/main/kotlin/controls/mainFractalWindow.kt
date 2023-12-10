@@ -22,9 +22,36 @@ import drawing.convertation.Converter
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
     drawingPanel(fp){ size ->
-        fp.width = size.width.toInt()
-        fp.height = size.height.toInt()
-        fp.refresh = true
+        if(fp.width == 0 || fp.height == 0) {
+            fp.width = size.width.toInt()
+            fp.height = size.height.toInt()
+            fp.refresh = true
+        }
+        else{
+            fp.width = size.width.toInt()
+            fp.height = size.height.toInt()
+            fp.plane?.let {plane ->
+                var newXMin = plane.xMin
+                var newXMax = plane.xMax
+                var newYMin = plane.yMin
+                var newYMax = plane.yMax
+                if(plane.dXY < plane.dWH){
+                    val dx = plane.yLen * plane.dWH - plane.xLen
+                    newXMin -= dx
+                    newXMax += dx
+                }
+                if(plane.dXY > plane.dWH){
+                    val dy = plane.xLen / plane.dWH - plane.yLen
+                    newYMin -= dy
+                    newYMax += dy
+                }
+                plane.xMin = newXMin
+                plane.xMax = newXMax
+                plane.yMin = newYMin
+                plane.yMax = newYMax
+            }
+            fp.refresh = true
+        }
     }
     selectionPanel{
         fp.plane?.let{ plane ->
