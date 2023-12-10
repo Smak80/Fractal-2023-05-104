@@ -23,12 +23,10 @@ fun SaveOpenMenuItems(imageSave: () -> Unit,
 
     var isDialogVisible by remember { mutableStateOf(false) }
 
-
     DropdownMenuItem(
         onClick = { isDialogVisible = true }
     ) { Text("Сохранить") }
     DropdownMenuItem(fractalLoad){ Text("Открыть") }
-
     if (isDialogVisible) {
         Dialog(
             onDismissRequest = {
