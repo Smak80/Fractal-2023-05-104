@@ -1,7 +1,6 @@
 package gui
 
 
-import Photo.TakePhoto
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.PointerMatcher
@@ -26,7 +25,7 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
-import gui.filesaving.fileDialogWindow
+//import gui.filesaving.fileDialogWindow
 
 
 import math.Complex
@@ -162,7 +161,7 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                fileDialogWindow(TakePhoto(fp.value))
+                                //fileDialogWindow(TakePhoto(fp.value))
                             }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -217,12 +216,13 @@ fun menu(fp: MutableState<FractalPainter>){
             }
 
         }
-        JuliaFrameOpener(juliaFrame, pointCoordinates, fp, fractalColor)
+        //juliaFrameOpener(juliaFrame, pointCoordinates, fp, fractalColor)
     }
 }
 
+
 @Composable
-fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
+fun juliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
                      fp: MutableState<FractalPainter>, fractalColor: MutableState<String>)
 {
     if (juliaFrame.value){
@@ -234,7 +234,7 @@ fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: Mutabl
         ){
             pointCoordinates.value?.let {
                 val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                julia(pair, fractalColor.value)
+                //julia(pair, fractalColor.value)
             }
         }
     }
@@ -291,8 +291,8 @@ fun DrawingPanel(
 
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
             onResize(size)
-            fp.value.scoping()
         }
+        fp.value.scoping()
         fp.value.paint(this)
     }
 }
