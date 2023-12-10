@@ -30,10 +30,10 @@ class VideoMaker(private val conf: VideoConfiguration) {
     val aspectRatio
         get() = _frameWidth.toDouble() / _frameHeight
 
-    fun getVideo(method:InterpolationMethod) {
+    fun getVideo(method: InterpolationMethod) {
         _frameWidth = conf.width
         _frameHeight = conf.height
-        val images = when(method){
+        val images = when (method) {
             InterpolationMethod.CatmullRom -> getCadresCatmullRom()
             InterpolationMethod.Linear -> getCadresLinear()
         }
@@ -54,14 +54,14 @@ class VideoMaker(private val conf: VideoConfiguration) {
             val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment.toFloat()
             val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment.toFloat()
             for (j in 0 until framesPerSegment) {
-                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height,conf.colorScheme)
+                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
                 cadresList.add(bi)
                 val nxmin = currPlane.xMin + stepDxMin
                 val nxmax = currPlane.xMax + stepDxMax
                 val nymin = currPlane.yMin + stepDyMin
                 val nymax = currPlane.yMax + stepDyMax
 
-                currPlane = Plane(nxmin,nxmax,nymin,nymax,conf.width,conf.height).also {
+                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
                     println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
                 }
 
@@ -69,30 +69,30 @@ class VideoMaker(private val conf: VideoConfiguration) {
         }
         return cadresList
     }
+
     private fun render(data: List<BufferedImage>) {
         val out: SeekableByteChannel? = null
         try {
             val out = NIOUtils.writableFileChannel(conf.file);
             println(out)
             val encoder = AWTSequenceEncoder(out, Rational.R(conf.fps, 1))
-            data.forEach{
+            data.forEach {
                 println("Идём")
                 encoder.encodeImage(it)
             }
             encoder.finish();
-        }
-        finally {
+        } finally {
             NIOUtils.closeQuietly(out);
         }
     }
+
     private fun getCenterOfShots(cadres: MutableList<Cadre>): List<Complex> =
         cadres.map {
             Complex(
                 (it.plane.xMin + it.plane.xMax) * 0.5,
                 (it.plane.yMin + it.plane.yMax) * 0.5
             )
-    }
-
+        }
 
 }
 
