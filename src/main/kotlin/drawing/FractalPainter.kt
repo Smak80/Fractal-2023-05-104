@@ -10,7 +10,6 @@ import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.AlgebraicFractal
-import math.fractals.Mandelbrot
 import tools.ActionStack
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
@@ -35,9 +34,43 @@ class FractalPainter(
         BufferedImage.TYPE_INT_ARGB,
     )
     var refresh = true
-    var dinamycIters = false
-    var s = 6.0
+
+    var xMax: Double
+        get() = plane?.xMax ?: 0.0
+        set(value) {plane?.xMax = value}
+    var xMin: Double
+        get() = plane?.xMin ?: 0.0
+        set(value) {plane?.xMin = value}
+    var yMax: Double
+        get() = plane?.yMax ?: 0.0
+        set(value) {plane?.yMax = value}
+    var yMin: Double
+        get() = plane?.yMin ?: 0.0
+        set(value) {plane?.yMin = value}
+
+    val dwh: Double
+        get() = width * 1.0 / height
+
+    fun proportions(){
+        val xlen = Math.abs(xMax - xMin)
+        val ylen = Math.abs(yMax - yMin)
+        if(Math.abs(xlen/ylen - dwh) > 1E-6){
+            if(xlen/ylen < dwh){
+                val dx = ylen * dwh - xlen
+                xMax += dx/2
+                xMin -= dx/2
+            }
+            if(xlen/ylen > dwh){
+                val dy = xlen / dwh - ylen
+                yMax += dy/2
+                yMin -= dy/2
+            }
+        }
+    }
+
+
     override fun paint(scope: DrawScope) {
+        this.proportions()
         if (refresh) {
             refresh = false
             img = BufferedImage(
@@ -50,13 +83,7 @@ class FractalPainter(
         scope.drawImage(img.toComposeImageBitmap())
     }
 
-    fun retDynIt() {
-        getImageFromPlane(img)
-    }
-
     fun getImageFromPlane(img:BufferedImage): BufferedImage{
-        if (dinamycIters) Mandelbrot.maxIterations = 200 * otherIters(s).toInt()
-        else Mandelbrot.maxIterations = 200
         plane?.let { plane ->
             val tc = Runtime.getRuntime().availableProcessors()
             List(tc) { t ->
@@ -73,12 +100,6 @@ class FractalPainter(
                 }
             }.forEach { it.join() }
         }
-        return img
-    }
-    fun otherIters(s: Double): Double {
-        plane?.let{ plane ->
-            this.s = 0.1 / ((plane.xMax - plane.xMin) * (plane.yMax - plane.yMin))
-        }
-        return s
+        return  img
     }
 }
