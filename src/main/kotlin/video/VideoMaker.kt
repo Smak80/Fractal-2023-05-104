@@ -1,6 +1,8 @@
 package video
 
 import drawing.convertation.Plane
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import math.Complex
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
@@ -8,7 +10,9 @@ import org.jcodec.common.io.SeekableByteChannel
 import org.jcodec.common.model.Rational
 import java.awt.image.BufferedImage
 import java.lang.Exception
+import java.util.stream.Collectors
 import kotlin.math.*
+import kotlin.time.measureTime
 
 
 @Suppress("NAME_SHADOWING")
@@ -17,12 +21,22 @@ class VideoMaker(private val conf: VideoConfiguration) {
         Linear,
         CatmullRom
     }
+
+    private var _frameHeight = 0f
+    private var _frameWidth = 0f
+    private var _planeHeight = 0f
+    private var _planeWidth = 0f
+
+    val aspectRatio
+        get() = _frameWidth.toDouble() / _frameHeight
+
     fun getVideo(method:InterpolationMethod) {
-        val images = when(method){
-            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
-            InterpolationMethod.Linear -> getCadresLinear()
-        }
-        render(images)
+//        val images = when(method){
+//            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
+//            InterpolationMethod.Linear -> getCadresLinear()
+//        }
+//        render(images)
+
     }
     private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
@@ -73,7 +87,5 @@ class VideoMaker(private val conf: VideoConfiguration) {
             )
     }
 
-    private fun getCadresCatmullRom(): List<BufferedImage> {
-        TODO("not yet implementated")
-    }
+
 }
