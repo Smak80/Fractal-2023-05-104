@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Остается написать код для сохранения фотографии в папку.">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/gui/FileSaving/FileDialogWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_08__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_12_2023_23_12__Changes_.xml" beforeDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/FileSaving/FileDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/FileSaving/FileDialogWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/menu.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -378,7 +375,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702160787314</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно">
+      <option name="closed" value="true" />
+      <created>1702209657823</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702209657823</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -393,7 +398,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Complex.kt" />
     <MESSAGE value="Фрактал с неверным умножением" />
     <MESSAGE value="Фрактал раскрашеный" />
     <MESSAGE value="Выделение мышкой" />
@@ -418,7 +422,8 @@
     <MESSAGE value="Добавил сохранение пропорций в Жюлиа." />
     <MESSAGE value="После мержа" />
     <MESSAGE value="Остается написать код для сохранения фотографии в папку." />
-    <option name="LAST_COMMIT_MESSAGE" value="Остается написать код для сохранения фотографии в папку." />
+    <MESSAGE value="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно" />
+    <option name="LAST_COMMIT_MESSAGE" value="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
