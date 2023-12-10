@@ -22,36 +22,9 @@ import drawing.convertation.Converter
 @Composable
 fun mainFractalWindow(fp:FractalPainter){
     drawingPanel(fp){ size ->
-        if(fp.width == 0 || fp.height == 0) {
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
-            fp.refresh = true
-        }
-        else{
-            fp.width = size.width.toInt()
-            fp.height = size.height.toInt()
-            fp.plane?.let {plane ->
-                var newXMin = plane.xMin
-                var newXMax = plane.xMax
-                var newYMin = plane.yMin
-                var newYMax = plane.yMax
-                if(plane.dXY < plane.dWH){
-                    val dx = plane.yLen * plane.dWH - plane.xLen
-                    newXMin -= dx/2
-                    newXMax += dx/2
-                }
-                if(plane.dXY > plane.dWH){
-                    val dy = plane.xLen / plane.dWH - plane.yLen
-                    newYMin -= dy/2
-                    newYMax += dy/2
-                }
-                plane.xMin = newXMin
-                plane.xMax = newXMax
-                plane.yMin = newYMin
-                plane.yMax = newYMax
-            }
-            fp.refresh = true
-        }
+        fp.width = size.width.toInt()
+        fp.height = size.height.toInt()
+        fp.refresh = true
     }
     selectionPanel{
         fp.plane?.let{ plane ->
@@ -63,14 +36,14 @@ fun mainFractalWindow(fp:FractalPainter){
             var rw = it.size.width.toDouble()
             //высота прямоугольника
             var rh = it.size.height.toDouble()
-            if(Math.abs(rw/rh - plane.dWH) > 1E-6){
-                if(rw/rh < plane.dWH){
-                    rw = rh * plane.dWH
-                    xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)
+            if(Math.abs(rw/rh - fp.width/fp.height) > 1E-6){
+                if(rw/rh < fp.width/fp.height){
+                    rw = rh * fp.width/fp.height
+                    xMax = xMin + Converter.xScr2Crt(rw.toFloat(), plane)
                 }
-                if(rw/rh > plane.dWH){
-                    rh = rw / plane.dWH
-                    yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)
+                if(rw/rh > fp.width/fp.height){
+                    rh = rw * fp.height/fp.width
+                    yMin = yMax + Converter.xScr2Crt(rh.toFloat(), plane)
                 }
             }
             plane.xMin = xMin
@@ -105,6 +78,7 @@ fun selectionPanel(
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
     }
 }
+
 @Composable
 fun drawingPanel(
     fp: Painter,
