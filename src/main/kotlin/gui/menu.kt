@@ -26,7 +26,8 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
-import gui.FileSaving.FileDialogWindow
+import gui.filesaving.fileDialogWindow
+
 
 import math.Complex
 import math.fractals.funcs
@@ -161,7 +162,7 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                FileDialogWindow(TakePhoto(fp.value))
+                                fileDialogWindow(TakePhoto(fp.value))
                             }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -233,7 +234,7 @@ fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: Mutabl
         ){
             pointCoordinates.value?.let {
                 val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                //Julia(pair, fractalColor.value)
+                julia(pair, fractalColor.value)
             }
         }
     }
