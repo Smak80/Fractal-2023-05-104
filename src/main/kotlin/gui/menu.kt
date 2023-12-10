@@ -1,5 +1,6 @@
 package gui
 
+
 import Photo.TakePhoto
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -26,6 +27,7 @@ import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
 import gui.FileSaving.FileDialogWindow
+
 import math.Complex
 import math.fractals.funcs
 
@@ -231,7 +233,7 @@ fun JuliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: Mutabl
         ){
             pointCoordinates.value?.let {
                 val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                Julia(pair, fractalColor.value)
+                //Julia(pair, fractalColor.value)
             }
         }
     }
