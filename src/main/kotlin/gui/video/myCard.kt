@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage
 
 
 @Composable
-fun MyCard(bufferedImage: BufferedImage, onDel:()->Unit) {
+fun myCard(bufferedImage: BufferedImage, onDel:()->Unit) {
     val sample = bufferedImage.toComposeImageBitmap()
     Card(
         modifier = Modifier

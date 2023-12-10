@@ -16,23 +16,25 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
 @Composable
-fun SaveOpenMenuItems(imageSave: () -> Unit,
-                   fractalSave: () -> Unit,
-                   fractalLoad: () -> Unit,
-                   close: () -> Unit) {
-
+fun saveOpenMenuItems(imageSave: () -> Unit,
+                      fractalSave: () -> Unit,
+                      fractalLoad: () -> Unit,
+                      close: () -> Unit) {
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    DropdownMenuItem(
-        onClick = { isDialogVisible = true }
-    ) { Text("Сохранить") }
-    DropdownMenuItem(fractalLoad){ Text("Открыть") }
+    DropdownMenuItem({
+        isDialogVisible = true
+    })
+    { Text("Сохранить") }
+
+    DropdownMenuItem({
+        close()
+        fractalLoad()
+    }){ Text("Открыть") }
+
     if (isDialogVisible) {
         Dialog(
-            onDismissRequest = {
-                close()
-                isDialogVisible = false
-            },
+            onDismissRequest = { isDialogVisible = false },
             properties = DialogProperties(dismissOnClickOutside = true)
         ) {
             Column(
@@ -58,10 +60,7 @@ fun SaveOpenMenuItems(imageSave: () -> Unit,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
-                        onClick = {
-                            close()
-                            isDialogVisible = false
-                        },
+                        onClick = { isDialogVisible = false },
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                     ) { Icon(Icons.Default.Close, "Закрыть") }
@@ -78,7 +77,6 @@ fun SaveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             imageSave()
-                            close()
                             isDialogVisible = false
                         },
                         modifier = Modifier
@@ -91,7 +89,6 @@ fun SaveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             fractalSave()
-                            close()
                             isDialogVisible = false
                         },
                         modifier = Modifier

@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage
 import java.lang.Exception
 import java.util.stream.Collectors
 import kotlin.math.*
+import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 
@@ -24,20 +25,25 @@ class VideoMaker(private val conf: VideoConfiguration) {
 
     private var _frameHeight = 0f
     private var _frameWidth = 0f
-    private var _planeHeight = 0f
-    private var _planeWidth = 0f
+
 
     val aspectRatio
         get() = _frameWidth.toDouble() / _frameHeight
 
     fun getVideo(method:InterpolationMethod) {
-//        val images = when(method){
-//            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
-//            InterpolationMethod.Linear -> getCadresLinear()
-//        }
-//        render(images)
-
+        _frameWidth = conf.width
+        _frameHeight = conf.height
+        val images = when(method){
+            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
+            InterpolationMethod.Linear -> getCadresLinear()
+        }
+        render(images)
     }
+
+    private fun getCadresCatmullRom(): List<BufferedImage> {
+        return listOf()
+    }
+
     private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
@@ -86,4 +92,7 @@ class VideoMaker(private val conf: VideoConfiguration) {
                 (it.plane.yMin + it.plane.yMax) * 0.5
             )
     }
+
+
 }
+
