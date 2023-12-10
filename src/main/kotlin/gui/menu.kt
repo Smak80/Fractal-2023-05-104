@@ -25,6 +25,7 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
+import gui.FileSaving.FileDialogWindow
 import math.Complex
 import math.fractals.funcs
 
@@ -158,7 +159,7 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                TakePhoto(fp.value)
+                                FileDialogWindow(TakePhoto(fp.value))
                             }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
