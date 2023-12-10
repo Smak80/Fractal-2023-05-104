@@ -25,7 +25,7 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
-    var colorFuncInner: (Float) -> Color = {if (it < 1f) Color.White else Color.Black }
+
     var colorFuncID: ColorType = ColorType.Zero
     val actionStack = ActionStack(this)
     private var img = BufferedImage(

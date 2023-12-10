@@ -30,6 +30,7 @@ import gui.video.workWithVideoDialog
 import math.fractals.FractalData
 import math.fractals.Mandelbrot
 import tools.FileManager
+import tools.FileManager.saveImageData
 import video.Cadre
 import javax.swing.UIManager
 
@@ -41,7 +42,7 @@ fun App(){
 //    var fractalSchemeIndex by remember { mutableStateOf(1) }
     val photoList = remember { SnapshotStateList<Cadre>() }
     val fp = remember {FractalPainter(Mandelbrot)}
-    fp.colorFuncInner = colorFunc(1)
+    fp.colorFuncID = ColorType.First
     Mandelbrot.funcNum = 1
     fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
 
@@ -71,11 +72,14 @@ fun App(){
                                 ) {
                                     SaveOpenMenuItems(
                                         {
+                                            fp.plane?.let{
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
+                                                saveImageData(fractalData)
+                                            }
                                             isMenuExpanded = false
-                                            TODO("Реализовать функцию для сохранения изображения")
                                         }, {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, 1)
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
                                                 FileManager.saveFractalData(fractalData)
                                             }
                                         }, {
@@ -131,7 +135,7 @@ fun App(){
                                             onDismissRequest = { showVideoDialogBoolean = false },
                                             properties = DialogProperties(dismissOnClickOutside = true)
                                         ) {
-                                            workWithVideoDialog(fp.colorFuncInner,photoList) { showVideoDialogBoolean = false }
+                                            workWithVideoDialog(fp.colorFuncID,photoList) { showVideoDialogBoolean = false }
                                         }
                                     }
                                 }
@@ -139,7 +143,7 @@ fun App(){
                                 IconButton(
                                     onClick = {
                                         fp.plane?.let {
-                                            photoList.add(Cadre(it,fp.colorFuncInner))
+                                            photoList.add(Cadre(it,fp.colorFuncID))
                                         }
                                     }
                                 ) {

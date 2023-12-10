@@ -1,5 +1,6 @@
 package tools
 
+import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.fractals.FractalData
@@ -110,7 +111,8 @@ object FileManager {
     }
     private fun addCartCoordinates(data:FractalData):BufferedImage{
         val plane = Plane(data.xMin,data.xMax,data.yMax,data.yMin,1920f,1080f)
-        val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorFunc(data.colorscheme))
+        val colorscheme = ColorType.entries.find { it.value == data.colorscheme }
+        val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorscheme ?: ColorType.Zero)
         a.graphics.also {
             val string = "xMin=${plane.xMin} xMax = ${plane.xMax} yMin = ${plane.yMin}, yMax = ${plane.yMax}"
             val text = AttributedString(string)
