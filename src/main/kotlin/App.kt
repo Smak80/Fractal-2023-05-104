@@ -44,7 +44,7 @@ fun App(){
     val fp = remember {FractalPainter(Mandelbrot)}
     fp.colorFuncID = ColorType.First
     Mandelbrot.funcNum = 1
-    fp.plane = Plane(-2.0,1.0,-1.0,1.0, 1920f, 1080f)
+    fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
 //    fp.plane?.let {
 //        fp.xMin = it.xMin
 //        fp.xMax = it.xMax
