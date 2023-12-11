@@ -25,6 +25,16 @@ import tools.ActionStack
 @Composable
 fun mainFractalWindow(fp: FractalPainter){
     var juliaDialogVisible by remember { mutableStateOf(false) }
+    fractalWindow(fp) { juliaDialogVisible = true }
+    if (juliaDialogVisible) {
+        Window(
+            onCloseRequest = { juliaDialogVisible = false },
+            title = "Множество Жулиа"
+        ){ JuliaApp(fp) }
+    }
+}
+@Composable
+fun fractalWindow(fp:FractalPainter, funk:(() -> Unit)? = null){
     drawingPanel(fp,
         onResize = { size ->
             fp.width = size.width.toInt()
@@ -33,12 +43,14 @@ fun mainFractalWindow(fp: FractalPainter){
         },
     )
     selectionPanel(
-        onTap = {offset->
-            fp.plane?.let { plane ->
-                val xCart = Converter.xScr2Crt(offset.x,plane)
-                val yCart = Converter.yScr2Crt(offset.y,plane)
-                JuliaSet.selectedPoint = Complex(xCart,yCart)
-                juliaDialogVisible = true
+        onTap = { offset->
+            funk?.let{
+                fp.plane?.let { plane ->
+                    val xCart = Converter.xScr2Crt(offset.x,plane)
+                    val yCart = Converter.yScr2Crt(offset.y,plane)
+                    JuliaSet.selectedPoint = Complex(xCart,yCart)
+                    funk()
+                }
             }
         },
         onSelected = {
@@ -48,7 +60,7 @@ fun mainFractalWindow(fp: FractalPainter){
                     plane.xMax,
                     plane.yMin,
                     plane.yMax,
-                    )
+                )
                 fp.actionStack.push(currConf)
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
@@ -58,18 +70,14 @@ fun mainFractalWindow(fp: FractalPainter){
                 plane.xMax = xMax
                 plane.yMin = yMin
                 plane.yMax = yMax
+                fp.xMin = xMin
+                fp.xMax = xMax
+                fp.yMin = yMin
+                fp.yMax = yMax
                 fp.refresh = true
             }
         }
     )
-    if (juliaDialogVisible) {
-        Window(
-            onCloseRequest = { juliaDialogVisible = false },
-            title = "Множество Жулиа"
-        ){
-            JuliaApp()
-        }
-    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

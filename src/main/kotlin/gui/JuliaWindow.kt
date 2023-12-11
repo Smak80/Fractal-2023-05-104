@@ -8,24 +8,27 @@ import drawing.FractalPainter
 import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
+import gui.fractalWindow
 import math.fractals.JuliaSet
+import math.fractals.Mandelbrot
 
 @Composable
-fun JuliaApp() {
+fun JuliaApp(mandelbrotFp:FractalPainter) {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     val fp = remember { FractalPainter(JuliaSet)}
-    fp.colorFuncID = ColorType.First
+    fp.colorFuncID = mandelbrotFp.colorFuncID
     fp.plane = plane
-    MaterialTheme {
-        Canvas(Modifier.fillMaxSize()) {
-            if(fp.width != size.width.toInt() || fp.height != size.height.toInt()){
-                fp.width = size.width.toInt()
-                fp.height = size.height.toInt()
-                fp.refresh = true
-            }
-            fp.paint(this)
-        }
+    fp.plane?.let {
+        fp.xMin = it.xMin
+        fp.xMax = it.xMax
+        fp.yMax = it.yMax
+        fp.yMin = it.yMin
     }
+
+    MaterialTheme {
+        fractalWindow(fp)
+    }
+
 }
 
 

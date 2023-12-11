@@ -1,6 +1,5 @@
 package drawing
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -13,6 +12,7 @@ import math.fractals.AlgebraicFractal
 import tools.ActionStack
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class FractalPainter(
     private val fractal: AlgebraicFractal
@@ -28,78 +28,102 @@ class FractalPainter(
 
     var colorFuncID: ColorType = ColorType.Zero
     val actionStack = ActionStack(this)
-    private var img = BufferedImage(
+    var img = BufferedImage(
         1,
         1,
         BufferedImage.TYPE_INT_ARGB,
     )
     var refresh = true
 
-    var xMax: Double
-        get() = plane?.xMax ?: 0.0
-        set(value) {plane?.xMax = value}
-    var xMin: Double
-        get() = plane?.xMin ?: 0.0
-        set(value) {plane?.xMin = value}
-    var yMax: Double
-        get() = plane?.yMax ?: 0.0
-        set(value) {plane?.yMax = value}
-    var yMin: Double
-        get() = plane?.yMin ?: 0.0
-        set(value) {plane?.yMin = value}
+    var xMax = 0.0
+
+    var xMin = 0.0
+
+    var yMin = 0.0
+
+    var yMax = 0.0
 
     val dwh: Double
         get() = width * 1.0 / height
 
     fun proportions(){
-        val xlen = Math.abs(xMax - xMin)
-        val ylen = Math.abs(yMax - yMin)
-        if(Math.abs(xlen/ylen - dwh) > 1E-6){
-            if(xlen/ylen < dwh){
-                val dx = ylen * dwh - xlen
+        val xLen = abs(xMax - xMin)
+        val yLen = abs(yMax - yMin)
+        if(abs(xLen/yLen - dwh) > 1E-6){
+            if(xLen/yLen < dwh){
+                val dx = yLen * dwh - xLen
                 xMax += dx/2
                 xMin -= dx/2
             }
-            if(xlen/ylen > dwh){
-                val dy = xlen / dwh - ylen
+            if(xLen/yLen > dwh){
+                val dy = xLen / dwh - yLen
                 yMax += dy/2
                 yMin -= dy/2
             }
         }
     }
 
+    private fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X)
+        {
+            val dx = (width * Y- abs(xMax - xMin))/2
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
 
-    override fun paint(scope: DrawScope) {
-        this.proportions()
+        }
+        else
+        {
+            val dy = (height * X- abs((yMax - yMin)))/2
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
+            }
+        }
+    }
+
+    fun prepareForPaint(width:Int,height:Int){
+        plane?.let {
+            it.width = width.toFloat()
+            it.height = height.toFloat()
+        }
+        scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
-                scope.size.width.toInt(),
-                scope.size.height.toInt(),
+                width,
+                height,
                 BufferedImage.TYPE_INT_ARGB,
             )
-            getImageFromPlane(img)
+            plane?.let { plane ->
+                val tc = Runtime.getRuntime().availableProcessors()
+                List(tc) { t ->
+                    thread {
+                        for (i in t..<width step tc)
+                            for (j in 0..<height) {
+                                val x = Complex(
+                                    Converter.xScr2Crt(i.toFloat(), plane),
+                                    Converter.yScr2Crt(j.toFloat(), plane)
+                                )
+                                val colorFunk = colorFunc(colorFuncID.value)
+                                img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
+                            }
+                    }
+                }.forEach { it.join() }
+            }
         }
+    }
+
+    override fun paint(scope: DrawScope) {
+        prepareForPaint(scope.size.width.toInt(),scope.size.height.toInt())
         scope.drawImage(img.toComposeImageBitmap())
     }
 
-    fun getImageFromPlane(img:BufferedImage): BufferedImage{
-        plane?.let { plane ->
-            val tc = Runtime.getRuntime().availableProcessors()
-            List(tc) { t ->
-                thread {
-                    for (i in t..<width step tc)
-                        for (j in 0..<height) {
-                            val x = Complex(
-                                Converter.xScr2Crt(i.toFloat(), plane),
-                                Converter.yScr2Crt(j.toFloat(), plane)
-                            )
-                            val colorFunk = colorFunc(colorFuncID.value)
-                            img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
-                        }
-                }
-            }.forEach { it.join() }
-        }
-        return  img
-    }
 }
