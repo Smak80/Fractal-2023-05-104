@@ -18,12 +18,12 @@ fun JuliaApp(mandelbrotFp:FractalPainter) {
     val fp = remember { FractalPainter(JuliaSet)}
     fp.colorFuncID = mandelbrotFp.colorFuncID
     fp.plane = plane
-    fp.plane?.let {
-        fp.xMin = it.xMin
-        fp.xMax = it.xMax
-        fp.yMax = it.yMax
-        fp.yMin = it.yMin
-    }
+//    fp.plane?.let {
+//        fp.xMin = it.xMin
+//        fp.xMax = it.xMax
+//        fp.yMax = it.yMax
+//        fp.yMin = it.yMin
+//    }
 
     MaterialTheme {
         fractalWindow(fp)
