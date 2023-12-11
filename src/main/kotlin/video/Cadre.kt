@@ -1,9 +1,5 @@
 package video
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.toComposeImageBitmap
-import com.sun.source.tree.Scope
 import drawing.FractalPainter
 import drawing.convertation.ColorType
 import drawing.convertation.Plane
@@ -22,20 +18,20 @@ class Cadre(plane: Plane,colorType: ColorType) {
     }
 
     companion object{
-        fun getImageFromPlane(plane: Plane, width: Float, height: Float,colorScheme:ColorType): BufferedImage {
+        fun getImageFromPlane(plane: Plane, width: Float, height: Float, colorType: ColorType): BufferedImage {
+            plane.width = width
+            plane.height = height
+
             val fp = FractalPainter(Mandelbrot)
-            fp.colorFuncID = colorScheme
             fp.plane = plane
-            fp.plane?.let {
-                fp.xMin = it.xMin
-                fp.xMax = it.xMax
-                fp.yMax = it.yMax
-                fp.yMin = it.yMin
-            }
-            fp.refresh = true
-            fp.prepareForPaint(width.toInt(),height.toInt())
-            print(plane)
-            return fp.img
+            fp.colorFuncID = colorType
+
+            val img = BufferedImage(
+                width.toInt(),
+                height.toInt(),
+                BufferedImage.TYPE_INT_RGB
+            )
+            return fp.getImageFromPlane(img)
         }
     }
 }

@@ -1,0 +1,282 @@
+Index: src/main/kotlin/gui/mainFractalWindow.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gui\r\n\r\nimport JuliaApp\r\nimport androidx.compose.foundation.Canvas\r\nimport androidx.compose.foundation.ExperimentalFoundationApi\r\nimport androidx.compose.foundation.PointerMatcher\r\nimport androidx.compose.foundation.gestures.detectDragGestures\r\nimport androidx.compose.foundation.gestures.detectTapGestures\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.geometry.Offset\r\nimport androidx.compose.ui.geometry.Size\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.window.Window\r\nimport drawing.FractalPainter\r\nimport drawing.SelectionRect\r\nimport drawing.convertation.Converter\r\nimport math.Complex\r\nimport math.fractals.JuliaSet\r\nimport tools.ActionStack\r\n\r\n\r\n@Composable\r\nfun mainFractalWindow(fp: FractalPainter){\r\n    var juliaDialogVisible by remember { mutableStateOf(false) }\r\n    drawingPanel(fp,\r\n        onResize = { size ->\r\n            fp.width = size.width.toInt()\r\n            fp.height = size.height.toInt()\r\n            fp.refresh = true\r\n        },\r\n    )\r\n    selectionPanel(\r\n        onTap = {offset->\r\n            fp.plane?.let { plane ->\r\n                val xCart = Converter.xScr2Crt(offset.x,plane)\r\n                val yCart = Converter.yScr2Crt(offset.y,plane)\r\n                JuliaSet.selectedPoint = Complex(xCart,yCart)\r\n                juliaDialogVisible = true\r\n            }\r\n        },\r\n        onSelected = {\r\n            fp.plane?.let{ plane ->\r\n                val currConf = ActionStack.CartCords(\r\n                    plane.xMin,\r\n                    plane.xMax,\r\n                    plane.yMin,\r\n                    plane.yMax,\r\n                    )\r\n                fp.actionStack.push(currConf)\r\n                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)\r\n                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)\r\n                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)\r\n                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)\r\n                plane.xMin = xMin\r\n                plane.xMax = xMax\r\n                plane.yMin = yMin\r\n                plane.yMax = yMax\r\n                fp.refresh = true\r\n            }\r\n        }\r\n    )\r\n    if (juliaDialogVisible) {\r\n        Window(\r\n            onCloseRequest = { juliaDialogVisible = false },\r\n            title = \"Множество Жулиа\"\r\n        ){\r\n            JuliaApp()\r\n        }\r\n    }\r\n}\r\n\r\n@OptIn(ExperimentalFoundationApi::class)\r\n@Composable\r\nfun selectionPanel(\r\n    onSelected: (SelectionRect)->Unit,\r\n    onTap: (Offset)->Unit\r\n) {\r\n    var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }\r\n    Canvas(Modifier\r\n        .fillMaxSize()\r\n        .pointerInput(Unit){\r\n        detectDragGestures(\r\n            onDragStart = {\r\n                rect = SelectionRect(it)\r\n            },\r\n            onDrag = {\r\n                rect.addPoint(it)\r\n            },\r\n            onDragEnd = {\r\n                onSelected(rect)\r\n                rect = SelectionRect(Offset.Zero)\r\n            },\r\n            matcher = PointerMatcher.Primary)\r\n        }\r\n        .pointerInput(Unit) { detectTapGestures(onTap = { offset -> onTap(offset) }) }\r\n\r\n    ){\r\n        drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)\r\n    }\r\n}\r\n@Composable\r\nfun drawingPanel(\r\n    fp: FractalPainter,\r\n    onResize: (Size)-> Unit = {},\r\n) {\r\n    Canvas(\r\n        Modifier.fillMaxSize()\r\n    ) {\r\n        if(fp.width != size.width.toInt() || fp.height != size.height.toInt()){\r\n            onResize(size)\r\n        }\r\n        fp.paint(this)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/gui/mainFractalWindow.kt b/src/main/kotlin/gui/mainFractalWindow.kt
+--- a/src/main/kotlin/gui/mainFractalWindow.kt	(revision 97b8ca66d820d915718d973a1933d40fb5fda470)
++++ b/src/main/kotlin/gui/mainFractalWindow.kt	(date 1702222932552)
+@@ -27,9 +27,36 @@
+     var juliaDialogVisible by remember { mutableStateOf(false) }
+     drawingPanel(fp,
+         onResize = { size ->
+-            fp.width = size.width.toInt()
+-            fp.height = size.height.toInt()
+-            fp.refresh = true
++            if(fp.width == 0 || fp.height == 0) {
++                fp.width = size.width.toInt()
++                fp.height = size.height.toInt()
++                fp.refresh = true
++            }
++            else{
++                fp.width = size.width.toInt()
++                fp.height = size.height.toInt()
++                fp.plane?.let {plane ->
++                    var newXMin = plane.xMin
++                    var newXMax = plane.xMax
++                    var newYMin = plane.yMin
++                    var newYMax = plane.yMax
++                    if(plane.dXY < plane.dWH){
++                        val dx = plane.yLen * plane.dWH - plane.xLen
++                        newXMin -= dx/2
++                        newXMax += dx/2
++                    }
++                    if(plane.dXY > plane.dWH){
++                        val dy = plane.xLen / plane.dWH - plane.yLen
++                        newYMin -= dy/2
++                        newYMax += dy/2
++                    }
++                    plane.xMin = newXMin
++                    plane.xMax = newXMax
++                    plane.yMin = newYMin
++                    plane.yMax = newYMax
++                }
++                fp.refresh = true
++            }
+         },
+     )
+     selectionPanel(
+@@ -51,9 +78,23 @@
+                     )
+                 fp.actionStack.push(currConf)
+                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+-                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
++                var xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+-                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
++                var yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
++                //ширина прямоугольника
++                var rw = it.size.width.toDouble()
++                //высота прямоугольника
++                var rh = it.size.height.toDouble()
++                if(Math.abs(rw/rh - plane.dWH) > 1E-6){
++                    if(rw/rh < plane.dWH){
++                        rw = rh * plane.dWH
++                        xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)
++                    }
++                    if(rw/rh > plane.dWH){
++                        rh = rw / plane.dWH
++                        yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)
++                    }
++                }
+                 plane.xMin = xMin
+                 plane.xMax = xMax
+                 plane.yMin = yMin
+@@ -61,6 +102,20 @@
+                 fp.refresh = true
+             }
+         }
++//        onSelected = {
++//            fp.plane?.let{ plane ->
++//
++//                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
++//                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
++//                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
++//                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
++//                plane.xMin = xMin
++//                plane.xMax = xMax
++//                plane.yMin = yMin
++//                plane.yMax = yMax
++//                fp.refresh = true
++//            }
++//        }
+     )
+     if (juliaDialogVisible) {
+         Window(
+Index: src/main/kotlin/controls/mainFractalWindow.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controls\r\n\r\nimport androidx.compose.foundation.Canvas\r\nimport androidx.compose.foundation.ExperimentalFoundationApi\r\nimport androidx.compose.foundation.PointerMatcher\r\nimport androidx.compose.foundation.gestures.detectDragGestures\r\nimport androidx.compose.foundation.layout.Box\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.geometry.Offset\r\nimport androidx.compose.ui.geometry.Size\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.unit.dp\r\nimport drawing.FractalPainter\r\nimport drawing.Painter\r\nimport drawing.SelectionRect\r\nimport drawing.convertation.Converter\r\n\r\n@Composable\r\nfun mainFractalWindow(fp:FractalPainter){\r\n    drawingPanel(fp){ size ->\r\n        if(fp.width == 0 || fp.height == 0) {\r\n            fp.width = size.width.toInt()\r\n            fp.height = size.height.toInt()\r\n            fp.refresh = true\r\n        }\r\n        else{\r\n            fp.width = size.width.toInt()\r\n            fp.height = size.height.toInt()\r\n            fp.plane?.let {plane ->\r\n                var newXMin = plane.xMin\r\n                var newXMax = plane.xMax\r\n                var newYMin = plane.yMin\r\n                var newYMax = plane.yMax\r\n                if(plane.dXY < plane.dWH){\r\n                    val dx = plane.yLen * plane.dWH - plane.xLen\r\n                    newXMin -= dx/2\r\n                    newXMax += dx/2\r\n                }\r\n                if(plane.dXY > plane.dWH){\r\n                    val dy = plane.xLen / plane.dWH - plane.yLen\r\n                    newYMin -= dy/2\r\n                    newYMax += dy/2\r\n                }\r\n                plane.xMin = newXMin\r\n                plane.xMax = newXMax\r\n                plane.yMin = newYMin\r\n                plane.yMax = newYMax\r\n            }\r\n            fp.refresh = true\r\n        }\r\n    }\r\n    selectionPanel{\r\n        fp.plane?.let{ plane ->\r\n            val xMin = Converter.xScr2Crt(it.topLeft.x, plane)\r\n            var xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)\r\n            val yMax = Converter.yScr2Crt(it.topLeft.y, plane)\r\n            var yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)\r\n            //ширина прямоугольника\r\n            var rw = it.size.width.toDouble()\r\n            //высота прямоугольника\r\n            var rh = it.size.height.toDouble()\r\n            if(Math.abs(rw/rh - plane.dWH) > 1E-6){\r\n                if(rw/rh < plane.dWH){\r\n                    rw = rh * plane.dWH\r\n                    xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)\r\n                }\r\n                if(rw/rh > plane.dWH){\r\n                    rh = rw / plane.dWH\r\n                    yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)\r\n                }\r\n            }\r\n            plane.xMin = xMin\r\n            plane.xMax = xMax\r\n            plane.yMin = yMin\r\n            plane.yMax = yMax\r\n            fp.refresh = true\r\n        }\r\n    }\r\n}\r\n\r\n@OptIn(ExperimentalFoundationApi::class)\r\n@Composable\r\nfun selectionPanel(\r\n    onSelected: (SelectionRect)->Unit\r\n) {\r\n    var rect by remember { mutableStateOf(SelectionRect(Offset.Zero)) }\r\n    Canvas(Modifier.fillMaxSize().pointerInput(Unit){\r\n        detectDragGestures(\r\n            onDragStart = {\r\n                rect = SelectionRect(it)\r\n            },\r\n            onDrag = {\r\n                rect.addPoint(it)\r\n            },\r\n            onDragEnd = {\r\n                onSelected(rect)\r\n                rect = SelectionRect(Offset.Zero)\r\n            },\r\n            matcher = PointerMatcher.Primary)\r\n    }){\r\n        drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)\r\n    }\r\n}\r\n@Composable\r\nfun drawingPanel(\r\n    fp: Painter,\r\n    onResize: (Size)-> Unit = {},\r\n) {\r\n    Canvas(Modifier.fillMaxSize()) {\r\n        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )\r\n            onResize(size)\r\n\r\n        fp.paint(this)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/controls/mainFractalWindow.kt b/src/main/kotlin/controls/mainFractalWindow.kt
+--- a/src/main/kotlin/controls/mainFractalWindow.kt	(revision 97b8ca66d820d915718d973a1933d40fb5fda470)
++++ b/src/main/kotlin/controls/mainFractalWindow.kt	(date 1702222908166)
+@@ -21,64 +21,10 @@
+ 
+ @Composable
+ fun mainFractalWindow(fp:FractalPainter){
+-    drawingPanel(fp){ size ->
+-        if(fp.width == 0 || fp.height == 0) {
+-            fp.width = size.width.toInt()
+-            fp.height = size.height.toInt()
+-            fp.refresh = true
+-        }
+-        else{
+-            fp.width = size.width.toInt()
+-            fp.height = size.height.toInt()
+-            fp.plane?.let {plane ->
+-                var newXMin = plane.xMin
+-                var newXMax = plane.xMax
+-                var newYMin = plane.yMin
+-                var newYMax = plane.yMax
+-                if(plane.dXY < plane.dWH){
+-                    val dx = plane.yLen * plane.dWH - plane.xLen
+-                    newXMin -= dx/2
+-                    newXMax += dx/2
+-                }
+-                if(plane.dXY > plane.dWH){
+-                    val dy = plane.xLen / plane.dWH - plane.yLen
+-                    newYMin -= dy/2
+-                    newYMax += dy/2
+-                }
+-                plane.xMin = newXMin
+-                plane.xMax = newXMax
+-                plane.yMin = newYMin
+-                plane.yMax = newYMax
+-            }
+-            fp.refresh = true
+-        }
++    drawingPanel(fp){
+     }
+     selectionPanel{
+-        fp.plane?.let{ plane ->
+-            val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
+-            var xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
+-            val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
+-            var yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
+-            //ширина прямоугольника
+-            var rw = it.size.width.toDouble()
+-            //высота прямоугольника
+-            var rh = it.size.height.toDouble()
+-            if(Math.abs(rw/rh - plane.dWH) > 1E-6){
+-                if(rw/rh < plane.dWH){
+-                    rw = rh * plane.dWH
+-                    xMax = Converter.xScr2Crt(it.topLeft.x + rw.toInt(), plane)
+-                }
+-                if(rw/rh > plane.dWH){
+-                    rh = rw / plane.dWH
+-                    yMin = Converter.yScr2Crt(it.topLeft.y + rh.toInt(), plane)
+-                }
+-            }
+-            plane.xMin = xMin
+-            plane.xMax = xMax
+-            plane.yMin = yMin
+-            plane.yMax = yMax
+-            fp.refresh = true
+-        }
++
+     }
+ }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Kotlin Object\" />\r\n        <option value=\"Kotlin Interface\" />\r\n        <option value=\"Kotlin Class\" />\r\n        <option value=\"Kotlin File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Smak80&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"63d9b16c-360d-454a-b31f-2651873cf1b2\" />\r\n        <option name=\"url\" value=\"https://github.com/Smak80/Fractal-2023-05-104.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2XZAs6xhe1GZhoUiB1MDX62RELf\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;masterA&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/KotlinProjects&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Smak\\Programming\\Idea\\fractalComposable-2023\\src\\main\\kotlin\\drawing\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Kotlin.MainKt\">\r\n    <configuration name=\"fractalComposable-2023 [compileKotlin]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"compileKotlin\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <RunAsTest>false</RunAsTest>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainKt\" />\r\n      <module name=\"fractalComposable-2023.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.MainKt\" />\r\n        <item itemvalue=\"Gradle.fractalComposable-2023 [compileKotlin]\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"\" />\r\n      <created>1698826435830</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1698826435830</updated>\r\n      <workItem from=\"1700824953119\" duration=\"1611000\" />\r\n      <workItem from=\"1700826969182\" duration=\"2115000\" />\r\n      <workItem from=\"1700836806421\" duration=\"13362000\" />\r\n      <workItem from=\"1700925104912\" duration=\"240000\" />\r\n      <workItem from=\"1700925348075\" duration=\"899000\" />\r\n      <workItem from=\"1700926255875\" duration=\"12672000\" />\r\n      <workItem from=\"1700946480391\" duration=\"13945000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Complex.kt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698845263297</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698845263297</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Фрактал с неверным умножением\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698848936222</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698848936222</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Фрактал раскрашеный\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699448279436</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699448279436</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Выделение мышкой\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699453823971</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699453823971</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Кешированная картинка\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700055800048</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700055800048</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"test\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700826638165</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700826638165</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"test\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700827082711</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700827082711</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"Разделил Меню и Фрактал\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700838916029</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700838916029</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"Сделал Разные Controls в Меню.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700855197177</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700855197177</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"Сделал Разные Controls в Меню.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700855605517</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700855605517</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"Добавил Возможность сохранения и Диалоговое Окно\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700905707198</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700905707199</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700907315462</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700907315462</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"Инкапсулировал Меню, чтобы ребятам было проще ориентироваться\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700909297307</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700909297308</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"getBack\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700925469089</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700925469089</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"getBack\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700926192448</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700926192448</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"Переделал Кнопку меню для добавления кадра экскурсии\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700940762752</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700940762753</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"добавил кнопку закрытия для Окна Сохранения\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700948637623</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700948637623</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"сделал чтобы открывалось окно для создания Видео.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700951348348</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700951348348</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"Попытался как-то улучшить меню и интерфейс в целом\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700957424826</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700957424827</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"В классе Plane добавлены 4 свойства.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1702145792837</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1702145792837</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1702195722868</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1702195722868</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"22\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"master\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"masterA\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Complex.kt\" />\r\n    <MESSAGE value=\"Фрактал с неверным умножением\" />\r\n    <MESSAGE value=\"Фрактал раскрашеный\" />\r\n    <MESSAGE value=\"Выделение мышкой\" />\r\n    <MESSAGE value=\"Кешированная картинка\" />\r\n    <MESSAGE value=\"test\" />\r\n    <MESSAGE value=\"Разделил Меню и Фрактал\" />\r\n    <MESSAGE value=\"Сделал Разные Controls в Меню.\" />\r\n    <MESSAGE value=\"Добавил Возможность сохранения и Диалоговое Окно\" />\r\n    <MESSAGE value=\"Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню\" />\r\n    <MESSAGE value=\"Инкапсулировал Меню, чтобы ребятам было проще ориентироваться\" />\r\n    <MESSAGE value=\"getBack\" />\r\n    <MESSAGE value=\"Переделал Кнопку меню для добавления кадра экскурсии\" />\r\n    <MESSAGE value=\"добавил кнопку закрытия для Окна Сохранения\" />\r\n    <MESSAGE value=\"сделал чтобы открывалось окно для создания Видео.\" />\r\n    <MESSAGE value=\"Попытался как-то улучшить меню и интерфейс в целом\" />\r\n    <MESSAGE value=\"В классе Plane добавлены 4 свойства.\" />\r\n    <MESSAGE value=\"В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения.\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 97b8ca66d820d915718d973a1933d40fb5fda470)
++++ b/.idea/workspace.xml	(date 1702223225756)
+@@ -5,8 +5,13 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_08_12_2023_20_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_08_12_2023_20_02__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_12_2023_2_05__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_12_2023_2_05__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_11_20__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_11_20__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_11_28__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_11_28__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controls/mainFractalWindow.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -50,6 +55,7 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="KEEP" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+   &quot;lastFilter&quot;: {
+@@ -80,26 +86,26 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;masterA&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;D:/KotlinProjects&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "git-widget-placeholder": "97b8ca66",
++    "last_opened_file_path": "D:/KotlinProjects",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.48081535",
++    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
+@@ -137,6 +143,8 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Kotlin.MainKt" />
++        <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
+         <item itemvalue="Kotlin.MainKt" />
+         <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
+       </list>
+@@ -352,19 +360,7 @@
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State>
+-              <option name="FILTERS">
+-                <map>
+-                  <entry key="branch">
+-                    <value>
+-                      <list>
+-                        <option value="masterA" />
+-                      </list>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </State>
++            <State />
+           </value>
+         </entry>
+       </map>

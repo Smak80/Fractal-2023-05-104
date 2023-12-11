@@ -23,16 +23,8 @@ class VideoMaker(private val conf: VideoConfiguration) {
         CatmullRom
     }
 
-    private var _frameHeight = 0f
-    private var _frameWidth = 0f
-
-
-    val aspectRatio
-        get() = _frameWidth.toDouble() / _frameHeight
 
     fun getVideo(method: InterpolationMethod) {
-        _frameWidth = conf.width
-        _frameHeight = conf.height
         val images = when (method) {
             InterpolationMethod.CatmullRom -> getCadresCatmullRom()
             InterpolationMethod.Linear -> getCadresLinear()
