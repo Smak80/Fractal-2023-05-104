@@ -2,6 +2,7 @@ package guiforfractal
 
 
 import Photo.TakePhoto
+import Photo.TakePhotoInOwnFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.PointerMatcher
@@ -27,7 +28,8 @@ import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.dynamicalIterations.turnDynamicIterations
-import guiforfractal.filesaving.fileDialogWindow
+import guiforfractal.fileDialogWindow.fileOpeningDialogWindow
+import guiforfractal.fileDialogWindow.fileSavingDialogWindow
 import math.Complex
 import math.fractals.funcs
 
@@ -168,20 +170,24 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                fileDialogWindow(TakePhoto(fp.value))
+                                fileSavingDialogWindow(TakePhoto(fp.value))
                             }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {
+                                fileSavingDialogWindow( TakePhotoInOwnFormat(fp.value, fractalColor.value, fractalFunction.value))
+                            }
                         ) {
                             Text("Сохранить в формате", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {TODO()}
+                            onClick = {
+                                fileOpeningDialogWindow(fp.value)
+                            }
                         ) {
                             Text("Выгрузить фрактал", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
                         }
@@ -320,9 +326,6 @@ fun DrawingPanel(
 
         fp.value.scoping()
         fp.value.paint(this)
-
-
-
     }
 }
 
