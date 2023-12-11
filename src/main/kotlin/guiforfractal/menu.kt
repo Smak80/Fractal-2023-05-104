@@ -46,12 +46,13 @@ fun menu(fp: MutableState<FractalPainter>){
     var expandedFractalFunctions by remember { mutableStateOf(false) }
 
     val checkedState = remember { mutableStateOf(false) }
-    //val dynamicItPlane = remember { mutableStateOf( Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f) ) }
     val dynItBool = remember { mutableStateOf(false) }
     val dynIt = remember { mutableStateOf(5000) }
 
     val juliaButtonState = remember { mutableStateOf(false) }
     val juliaFrame = remember { mutableStateOf(false)}
+
+    val uploadFractal = remember { mutableStateOf(false)}
     Scaffold(
         topBar = {
             TopAppBar(modifier = Modifier.fillMaxWidth().background(Color.Blue)) {
@@ -186,7 +187,9 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                fileOpeningDialogWindow(fp.value)
+                                uploadFractal.value = true
+                                //fileOpeningDialogWindow(fp.value)
+                                println(fp.value.plane)
                             }
                         ) {
                             Text("Выгрузить фрактал", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
