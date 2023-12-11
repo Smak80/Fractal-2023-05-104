@@ -10,7 +10,7 @@ import javax.swing.WindowConstants
 import javax.swing.filechooser.FileNameExtensionFilter
 
 
-fun fileOpeningDialogWindow(fp: FractalPainter) {
+fun fileOpeningDialogWindow(fp: FractalPainter){
     val fileDialogFrame = JFrame()
     fileDialogFrame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
     val fileChooser = JFileChooser()
