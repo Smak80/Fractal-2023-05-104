@@ -26,10 +26,9 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
+import drawing.convertation.Plane
+import drawing.dynamicalIterations.turnDynamicIterations
 import guiforfractal.filesaving.fileDialogWindow
-
-
-
 import math.Complex
 import math.fractals.funcs
 
@@ -44,7 +43,10 @@ fun menu(fp: MutableState<FractalPainter>){
     var expandedMenu by remember { mutableStateOf(false) }
     var expandedMenuColor by remember { mutableStateOf(false) }
     var expandedFractalFunctions by remember { mutableStateOf(false) }
-    val checkedState = remember { mutableStateOf(true) }
+
+    val checkedState = remember { mutableStateOf(false) }
+    val dynamicItPlane = remember { mutableStateOf( Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f) ) }
+    val dynIt = remember { mutableStateOf(5000) }
 
     val juliaButtonState = remember { mutableStateOf(false) }
     val juliaFrame = remember { mutableStateOf(false)}
@@ -150,6 +152,9 @@ fun menu(fp: MutableState<FractalPainter>){
 
                 Spacer(Modifier.weight(0.5f, true))
 
+                Text("${dynIt.value}")
+
+
                 var i = 0                                                                             //i убрать. Сделал так, чтобы ошибка не вылетала
                 IconButton(onClick = {println(fractalColor.value)}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
@@ -198,12 +203,18 @@ fun menu(fp: MutableState<FractalPainter>){
             fp.value.refresh = true
         }
         SelectionPanel(pointCoordinates, juliaButtonState){
+
+            println("Dynamic${ dynamicItPlane.value }")
+
             fp.value.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
 
+                turnDynamicIterations(checkedState, fp, dynamicItPlane)
+
+                println("Fp.plane${ fp.value.plane }")
 
                 plane.xMin = xMin
                 plane.xMax = xMax
@@ -215,6 +226,8 @@ fun menu(fp: MutableState<FractalPainter>){
                 fp.value.yMin = yMin
                 fp.value.yMax = yMax
                 fp.value.refresh = true
+
+                dynIt.value = fp.value.fractal.maxIterations
             }
 
         }
