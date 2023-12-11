@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Пофиксил ошибки">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Есть ошибка в динамических итерациях">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Fractal.kt" afterDir="false" />
     </list>
@@ -400,7 +400,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702226641294</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Есть ошибка в динамических итерациях">
+      <option name="closed" value="true" />
+      <created>1702280591777</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1702280591778</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -415,7 +423,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Выделение мышкой" />
     <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="Создана ветка для решения задачи А" />
     <MESSAGE value="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями." />
@@ -440,7 +447,8 @@
     <MESSAGE value="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно" />
     <MESSAGE value="Создано сохранение картинки. К Жюлиа пока не относится" />
     <MESSAGE value="Пофиксил ошибки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Пофиксил ошибки" />
+    <MESSAGE value="Есть ошибка в динамических итерациях" />
+    <option name="LAST_COMMIT_MESSAGE" value="Есть ошибка в динамических итерациях" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
