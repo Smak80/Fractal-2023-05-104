@@ -26,7 +26,6 @@ import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
-import drawing.convertation.Plane
 import drawing.dynamicalIterations.turnDynamicIterations
 import guiforfractal.filesaving.fileDialogWindow
 import math.Complex
@@ -45,7 +44,8 @@ fun menu(fp: MutableState<FractalPainter>){
     var expandedFractalFunctions by remember { mutableStateOf(false) }
 
     val checkedState = remember { mutableStateOf(false) }
-    val dynamicItPlane = remember { mutableStateOf( Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f) ) }
+    //val dynamicItPlane = remember { mutableStateOf( Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f) ) }
+    val dynItBool = remember { mutableStateOf(false) }
     val dynIt = remember { mutableStateOf(5000) }
 
     val juliaButtonState = remember { mutableStateOf(false) }
@@ -187,10 +187,22 @@ fun menu(fp: MutableState<FractalPainter>){
                         }
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
-                            onClick = {checkedState.value = !checkedState.value}
+                            onClick = {}
                         ) {
                             Text("Динамическое изменение\nчисла итераций", fontSize = 11.sp)
-                            Checkbox(checked = checkedState.value, onCheckedChange = {checkedState.value = it})
+                            Checkbox(checked = checkedState.value, onCheckedChange = {
+                                checkedState.value = it
+                                dynItBool.value = !checkedState.value
+
+                                println("dynItBool.value = ${dynItBool.value}")
+                                println("checkedState.value = ${checkedState.value}")
+
+                                if (!dynItBool.value && checkedState.value){
+                                    turnDynamicIterations(checkedState, fp)
+                                    fp.value.refresh = true
+                                    println("Cработало")
+                                }
+                            })
                         }
                     }
                 }
@@ -203,18 +215,13 @@ fun menu(fp: MutableState<FractalPainter>){
             fp.value.refresh = true
         }
         SelectionPanel(pointCoordinates, juliaButtonState){
-
-            println("Dynamic${ dynamicItPlane.value }")
-
             fp.value.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
 
-                turnDynamicIterations(checkedState, fp, dynamicItPlane)
 
-                println("Fp.plane${ fp.value.plane }")
 
                 plane.xMin = xMin
                 plane.xMax = xMax
@@ -225,9 +232,12 @@ fun menu(fp: MutableState<FractalPainter>){
                 fp.value.xMax = xMax
                 fp.value.yMin = yMin
                 fp.value.yMax = yMax
+
+                turnDynamicIterations(checkedState, fp)
+                dynIt.value = fp.value.fractal.maxIterations
+
                 fp.value.refresh = true
 
-                dynIt.value = fp.value.fractal.maxIterations
             }
 
         }
@@ -294,7 +304,7 @@ fun DrawingPanel(
     fp: MutableState<FractalPainter>,
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
-    onResize: (Size)-> Unit = {},
+    onResize: (Size)-> Unit = {}
 ) {
     Canvas(Modifier
         .fillMaxSize()
@@ -307,8 +317,12 @@ fun DrawingPanel(
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
             onResize(size)
         }
+
         fp.value.scoping()
         fp.value.paint(this)
+
+
+
     }
 }
 
