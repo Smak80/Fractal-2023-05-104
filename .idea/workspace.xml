@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Я ненавижу этот проект !">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_12_2023_17_25__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_12_2023_17_25__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_12_2023_17_25__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_12_2023_17_25__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Reset_at_10_12_2023_18_30__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Reset_at_10_12_2023_18_30__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_18_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_18_24__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_18_47__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_12_2023_18_47__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/App.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +59,18 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
-    {
-      &quot;state&quot;: &quot;OPEN&quot;
-    }
-  ],
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Smak80&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="9c1ccca1-4293-42ab-9cfe-bdf80614106b" />
-        <option name="url" value="https://github.com/LevGrekov/MandelbrotSet.git" />
+        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
+        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -110,10 +112,6 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\KotlinProjects\MandelbrotSet\src\main\kotlin\gui" />
-      <recent name="D:\KotlinProjects\MandelbrotSet\src\main\kotlin\gui\video" />
     </key>
   </component>
   <component name="RunManager" selected="Kotlin.MainKt">
@@ -168,8 +166,6 @@
       <workItem from="1700925348075" duration="899000" />
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
-      <workItem from="1702235675643" duration="321000" />
-      <workItem from="1702252651794" duration="1021000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -339,13 +335,13 @@
       <option name="project" value="LOCAL" />
       <updated>1702195722868</updated>
     </task>
-    <task id="LOCAL-00022" summary="В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения.">
+    <task id="LOCAL-00022" summary="Работающая версия.">
       <option name="closed" value="true" />
-      <created>1702225365929</created>
+      <created>1702202703199</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1702225365929</updated>
+      <updated>1702202703199</updated>
     </task>
     <option name="localTasksCounter" value="23" />
     <servers />
@@ -379,7 +375,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="masterA" />
                       </list>
                     </value>
                   </entry>
@@ -410,7 +406,8 @@
     <MESSAGE value="Попытался как-то улучшить меню и интерфейс в целом" />
     <MESSAGE value="В классе Plane добавлены 4 свойства." />
     <MESSAGE value="В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения." />
-    <option name="LAST_COMMIT_MESSAGE" value="В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения." />
+    <MESSAGE value="Работающая версия." />
+    <option name="LAST_COMMIT_MESSAGE" value="Работающая версия." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

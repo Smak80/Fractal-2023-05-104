@@ -70,10 +70,10 @@ fun fractalWindow(fp:FractalPainter, funk:(() -> Unit)? = null){
                 plane.xMax = xMax
                 plane.yMin = yMin
                 plane.yMax = yMax
-                fp.xMin = xMin
-                fp.xMax = xMax
-                fp.yMin = yMin
-                fp.yMax = yMax
+//                fp.xMin = xMin
+//                fp.xMax = xMax
+//                fp.yMin = yMin
+//                fp.yMax = yMax
                 fp.refresh = true
             }
         }

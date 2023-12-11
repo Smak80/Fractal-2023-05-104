@@ -45,12 +45,12 @@ fun App(){
     fp.colorFuncID = ColorType.First
     Mandelbrot.funcNum = 1
     fp.plane = Plane(-2.0,1.0,-1.0,1.0, 1920f, 1080f)
-    fp.plane?.let {
-        fp.xMin = it.xMin
-        fp.xMax = it.xMax
-        fp.yMax = it.yMax
-        fp.yMin = it.yMin
-    }
+//    fp.plane?.let {
+//        fp.xMin = it.xMin
+//        fp.xMax = it.xMax
+//        fp.yMax = it.yMax
+//        fp.yMin = it.yMin
+//    }
 
     MaterialTheme{
         Scaffold(

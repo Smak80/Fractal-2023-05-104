@@ -34,60 +34,59 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
     )
     var refresh = true
 
-    var xMax = 0.0
+//    var xMax = 0.0
+//
+//    var xMin = 0.0
+//
+//    var yMin = 0.0
+//
+//    var yMax = 0.0
+//
+//    val dwh: Double
+//        get() = width * 1.0 / height
 
-    var xMin = 0.0
-
-    var yMin = 0.0
-
-    var yMax = 0.0
-
-    val dwh: Double
-        get() = width * 1.0 / height
-
-    fun proportions(){
-        val xLen = abs(xMax - xMin)
-        val yLen = abs(yMax - yMin)
-        if(abs(xLen/yLen - dwh) > 1E-6){
-            if(xLen/yLen < dwh){
-                val dx = yLen * dwh - xLen
-                xMax += dx/2
-                xMin -= dx/2
-            }
-            if(xLen/yLen > dwh){
-                val dy = xLen / dwh - yLen
-                yMax += dy/2
-                yMin -= dy/2
-            }
-        }
-    }
-
-    private fun scoping(){
-        val X = abs(xMax - xMin) / width
-        val Y = abs(yMax - yMin) / height
-        if(Y > X) {
-            val dx = (width * Y- abs(xMax - xMin))/2
-            plane?.let {plane->
-                plane.xMin =  xMin - dx
-                plane.xMax = xMax + dx
-                plane.yMax = yMax
-                plane.yMin = yMin
-            }
-
-        }
-        else {
-            val dy = (height * X- abs((yMax - yMin)))/2
-            plane?.let {plane->
-                plane.yMin =  yMin - dy
-                plane.yMax = yMax + dy
-                plane.xMax = xMax
-                plane.xMin = xMin
-            }
-        }
-    }
+//    fun proportions(){
+//        val xLen = abs(xMax - xMin)
+//        val yLen = abs(yMax - yMin)
+//        if(abs(xLen/yLen - dwh) > 1E-6){
+//            if(xLen/yLen < dwh){
+//                val dx = yLen * dwh - xLen
+//                xMax += dx/2
+//                xMin -= dx/2
+//            }
+//            if(xLen/yLen > dwh){
+//                val dy = xLen / dwh - yLen
+//                yMax += dy/2
+//                yMin -= dy/2
+//            }
+//        }
+//    }
+//
+//    private fun scoping(){
+//        val X = abs(xMax - xMin) / width
+//        val Y = abs(yMax - yMin) / height
+//        if(Y > X) {
+//            val dx = (width * Y- abs(xMax - xMin))/2
+//            plane?.let {plane->
+//                plane.xMin =  xMin - dx
+//                plane.xMax = xMax + dx
+//                plane.yMax = yMax
+//                plane.yMin = yMin
+//            }
+//
+//        }
+//        else {
+//            val dy = (height * X- abs((yMax - yMin)))/2
+//            plane?.let {plane->
+//                plane.yMin =  yMin - dy
+//                plane.yMax = yMax + dy
+//                plane.xMax = xMax
+//                plane.xMin = xMin
+//            }
+//        }
+//    }
 
     override fun paint(scope: DrawScope) {
-        scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
