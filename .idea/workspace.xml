@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Куча всего пофиксил">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Наладил Отмену Действий и загрузку Фрактала">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/FractalFunks.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/FractalFunks.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +159,7 @@
       <workItem from="1700925348075" duration="899000" />
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
-      <workItem from="1702327018899" duration="43286000" />
+      <workItem from="1702327018899" duration="45360000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -402,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702420034032</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Наладил Отмену Действий и загрузку Фрактала">
+      <option name="closed" value="true" />
+      <created>1702421902992</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1702421902992</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,7 +454,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Фрактал раскрашеный" />
     <MESSAGE value="Выделение мышкой" />
     <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="test" />
@@ -472,7 +478,8 @@
     <MESSAGE value="Исправил Сохранение Картинки" />
     <MESSAGE value="Изменил функции фрактала" />
     <MESSAGE value="Куча всего пофиксил" />
-    <option name="LAST_COMMIT_MESSAGE" value="Куча всего пофиксил" />
+    <MESSAGE value="Наладил Отмену Действий и загрузку Фрактала" />
+    <option name="LAST_COMMIT_MESSAGE" value="Наладил Отмену Действий и загрузку Фрактала" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
