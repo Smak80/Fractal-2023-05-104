@@ -8,14 +8,14 @@ object JuliaSet : AlgebraicFractal {
         set(value) { field = value.coerceIn(20..10000)}
     private var r = 2.0
     override fun isInSet(c : Complex) : Float {
-        var cnt = 0
-        var zn = c
+        var i = 0
+        var z1 = c
         val r2 = r * r
-        while (cnt++ <= maxIterations){
-            zn = zn*zn + selectedPoint
-            if (zn.abs2() >= r2)
-                return cnt.toFloat() / maxIterations
-        }
-        return 1f
+
+        do { fractalFunks[Mandelbrot.funcNum]?.invoke(z1, selectedPoint)
+        }while (++i < Mandelbrot.maxIterations && z1.abs2() < r2)
+
+        return i / maxIterations.toFloat()
+
     }
 }
