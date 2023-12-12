@@ -1,8 +1,8 @@
 package guiforfractal
 
 
-import Photo.TakePhoto
-import Photo.TakePhotoInOwnFormat
+import fractalphoto.takePhoto
+import fractalphoto.takePhotoInOwnFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.PointerMatcher
@@ -26,12 +26,12 @@ import drawing.painters.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
-import drawing.dynamicalIterations.turnDynamicIterations
+import drawing.convertation.Plane
+import drawing.dynamicIalIterations.turnDynamicIterations
 import guiforfractal.fileDialogWindow.fileOpeningDialogWindow
 import guiforfractal.fileDialogWindow.fileSavingDialogWindow
 import math.fractals.funcs
-import java.util.ArrayDeque
-import java.util.Stack
+
 
 
 @Composable
@@ -54,7 +54,7 @@ fun menu(fp: MutableState<FractalPainter>){
 
     val uploadFractal = remember { mutableStateOf(false)}
 
-    val stack = remember { mutableStateOf(ArrayDeque<Any?>()) }
+    val stepBackCalled = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -162,7 +162,9 @@ fun menu(fp: MutableState<FractalPainter>){
 
 
 
-                IconButton(onClick = {TODO()}){
+                IconButton(onClick = {
+                    stepBackCalled.value = true
+                }){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
                 }
 
@@ -174,7 +176,7 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                fileSavingDialogWindow(TakePhoto(fp.value))
+                                fileSavingDialogWindow(takePhoto(fp.value))
                             }
                         ) {
                             Text("Сохранить", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -182,7 +184,7 @@ fun menu(fp: MutableState<FractalPainter>){
                         DropdownMenuItem(
                             modifier = Modifier.height(35.dp),
                             onClick = {
-                                fileSavingDialogWindow( TakePhotoInOwnFormat(fp.value, fractalColor.value, fractalFunction.value))
+                                fileSavingDialogWindow( takePhotoInOwnFormat(fp.value, fractalColor.value, fractalFunction.value))
                             }
                         ) {
                             Text("Сохранить в формате", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -294,6 +296,8 @@ fun DrawingPanel(
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
     uploadFractal: MutableState<Boolean>,
+//    stepBackCalled: MutableState<Boolean>,
+//    stack: MutableState<ArrayDeque<FractalPainter?>>,
     onResize: (Size)-> Unit = {}
 ) {
     Canvas(Modifier
@@ -302,27 +306,38 @@ fun DrawingPanel(
     ) {
 
         setColor(fp, fpcolors)
+
         setFractal(fp, fpfunctions)
 
         if (uploadFractal.value){
-            fp.value = fileOpeningDialogWindow(fp.value)
+            fp.value = fileOpeningDialogWindow(fp.value, fpcolors, fpfunctions)
             onResize(size)
+            fp.value.scoping()
             fp.value.paint(this)
             uploadFractal.value = false
         }
 
-        if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
+        if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt()) {
             onResize(size)
         }
+
+//        if(stepBackCalled.value){
+//            fp.value = stack.value.pop()!!
+//            println(fp.value.plane)
+//            fp.value.refresh = true
+//            fp.value.scoping()
+//            fp.value.paint(this)
+//            stepBackCalled.value = false
+//        }
 
         fp.value.scoping()
         fp.value.paint(this)
     }
 }
 
-fun setFractal(fp: MutableState<FractalPainter>, fpfunctions: MutableState<String>) {
-    if(fp.value.FRACTAL.function != funcs[fpfunctions.value]) {
-        fp.value.FRACTAL.function = funcs[fpfunctions.value]!!
+fun setFractal(fp: MutableState<FractalPainter>, fpFunctions: MutableState<String>) {
+    if(fp.value.FRACTAL.function != funcs[fpFunctions.value]) {
+        fp.value.FRACTAL.function = funcs[fpFunctions.value]!!
         fp.value.refresh = true
     }
 }
@@ -334,4 +349,25 @@ fun setColor(fp: MutableState<FractalPainter>, cl: MutableState<String>) {
             fp.value.refresh = true
         }
     }
+}
+
+fun copy(fp: MutableState<FractalPainter>): FractalPainter{
+    var newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
+
+    fp.value.plane?.let {
+        newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
+        newFp.FRACTAL = fp.value.FRACTAL
+        newFp.height = fp.value.height
+        newFp.width = fp.value.width
+    }
+
+
+    newFp.xMax = fp.value.xMax
+    newFp.xMin = fp.value.xMin
+    newFp.yMax = fp.value.yMax
+    newFp.yMin = fp.value.yMin
+
+    newFp.refresh = fp.value.refresh
+    newFp.img = fp.value.img
+    return newFp
 }

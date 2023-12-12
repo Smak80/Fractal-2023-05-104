@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Вроде заработало полностью">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="исправил некоторые ошибки">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/stepback/Stack.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/Painter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/Painter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fractalphoto/TakePhoto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fractalphoto/TakePhotoInOwnFormat.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileSavingDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileSavingDialogWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +57,9 @@
       <list>
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Script" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -455,7 +456,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702381813247</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="исправил некоторые ошибки">
+      <option name="closed" value="true" />
+      <created>1702384266871</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1702384266871</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -470,7 +479,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Версия со второй пары" />
     <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
     <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
     <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
@@ -495,7 +503,8 @@
     <MESSAGE value="вроде как параметры fp меняются, но отрисовка не происходит" />
     <MESSAGE value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
     <MESSAGE value="Вроде заработало полностью" />
-    <option name="LAST_COMMIT_MESSAGE" value="Вроде заработало полностью" />
+    <MESSAGE value="исправил некоторые ошибки" />
+    <option name="LAST_COMMIT_MESSAGE" value="исправил некоторые ошибки" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

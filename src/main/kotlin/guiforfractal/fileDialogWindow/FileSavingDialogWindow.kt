@@ -22,10 +22,10 @@ fun fileSavingDialogWindow(photo: BufferedImage) {
 
     fileChooser.fileFilter = filter
     fileChooser.dialogTitle = "Сохранение фрактала"
-    fileChooser.fileSelectionMode = JFileChooser.FILES_ONLY;
+    fileChooser.fileSelectionMode = JFileChooser.FILES_ONLY
 
 
-    var result = fileChooser.showSaveDialog(fileDialogFrame)
+    fileChooser.showSaveDialog(fileDialogFrame)
 
 
     if (File("${fileChooser.selectedFile}.jpg").exists()) {
@@ -44,7 +44,7 @@ fun fileSavingDialogWindow(photo: BufferedImage) {
                     fileDialogFrame,
                     "Файл '" + fileChooser.selectedFile +
                             " сохранен"
-                );
+                )
             }
         }
         catch (e: Exception){
@@ -64,10 +64,10 @@ fun fileSavingDialogWindow(text: String) {
 
     fileChooser.fileFilter = filter
     fileChooser.dialogTitle = "Сохранение фрактала в собственном формате"
-    fileChooser.fileSelectionMode = JFileChooser.FILES_ONLY;
+    fileChooser.fileSelectionMode = JFileChooser.FILES_ONLY
 
 
-    var result = fileChooser.showSaveDialog(fileDialogFrame)
+    fileChooser.showSaveDialog(fileDialogFrame)
 
 
     if (File("${fileChooser.selectedFile}.txt").exists()) {
@@ -88,7 +88,7 @@ fun fileSavingDialogWindow(text: String) {
                     fileDialogFrame,
                     "Файл '" + fileChooser.selectedFile +
                             " сохранен"
-                );
+                )
             }
         }
         catch (e: Exception){

@@ -9,6 +9,7 @@ import drawing.colors.colors
 import drawing.convertation.Plane
 import math.fractals.Fractal
 import java.awt.Dimension
+import java.util.ArrayDeque
 
 
 @Composable
