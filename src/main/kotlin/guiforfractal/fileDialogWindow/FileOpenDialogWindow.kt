@@ -1,5 +1,6 @@
 package guiforfractal.fileDialogWindow
 
+import androidx.compose.runtime.Composable
 import drawing.FractalPainter
 import drawing.colors.colors
 import math.fractals.funcs
@@ -64,6 +65,14 @@ fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter{
                     it.width = width.toFloat()
                     it.height = height.toFloat()
                 }
+
+                fp.let {
+                    it.xMin = xMin.toDouble()
+                    it.xMax = xMax.toDouble()
+                    it.yMin = yMin.toDouble()
+                    it.yMax = yMax.toDouble()
+                }
+
                 fp.width = width.toDouble().toInt()
                 fp.height = height.toDouble().toInt()
                 println("Plane: xMin=$xMin, xMax=$xMax, yMin=$yMin, yMax=$yMax, width=$width, height=$height")

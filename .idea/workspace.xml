@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="вроде как параметры fp меняются, но отрисовка не происходит">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/FractalParameters.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" afterDir="false" />
     </list>
@@ -433,7 +431,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702330987665</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope">
+      <option name="closed" value="true" />
+      <created>1702379677334</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1702379677334</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -448,7 +454,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются" />
     <MESSAGE value="Версия с пары" />
     <MESSAGE value="Версия со второй пары" />
     <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
@@ -473,7 +478,8 @@
     <MESSAGE value="Теперь нет ошибок и сделано 6 номеров" />
     <MESSAGE value="Подключил регулярные выражения." />
     <MESSAGE value="вроде как параметры fp меняются, но отрисовка не происходит" />
-    <option name="LAST_COMMIT_MESSAGE" value="вроде как параметры fp меняются, но отрисовка не происходит" />
+    <MESSAGE value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
+    <option name="LAST_COMMIT_MESSAGE" value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
