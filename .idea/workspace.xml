@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Тщетные попытки">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Ничто не вышло">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +158,7 @@
       <workItem from="1700925348075" duration="899000" />
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
-      <workItem from="1702327018899" duration="8987000" />
+      <workItem from="1702327018899" duration="10759000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -355,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702337709911</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Ничто не вышло">
+      <option name="closed" value="true" />
+      <created>1702339854266</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1702339854266</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +426,8 @@
     <MESSAGE value="Работающая версия." />
     <MESSAGE value="Эксперементы с Plane" />
     <MESSAGE value="Тщетные попытки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Тщетные попытки" />
+    <MESSAGE value="Ничто не вышло" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ничто не вышло" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

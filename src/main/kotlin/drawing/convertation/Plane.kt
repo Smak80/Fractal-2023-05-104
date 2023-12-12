@@ -1,7 +1,8 @@
 package drawing.convertation
 
-import java.awt.Dimension
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 
 class Plane(
@@ -27,7 +28,7 @@ class Plane(
             val correctedEdges = correctEdges(value)
             _xMin = correctedEdges.min
             _xMax = correctedEdges.max
-            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
+            proportions()
         }
     var yEdges: Edges
         get() = Edges(_yMin, _yMax)
@@ -35,21 +36,19 @@ class Plane(
             val correctedEdges = correctEdges(value)
             _yMin = correctedEdges.min
             _yMax = correctedEdges.max
-            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
+            proportions()
         }
 
     var width: Float
         get() = _width + 1
         set(value) {
             _width = (value - 1).coerceAtLeast(1f)
-            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
         }
 
     var height: Float
         get() = _height + 1
         set(value) {
             _height = (value - 1).coerceAtLeast(1f)
-            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
         }
 
     init {
@@ -92,21 +91,21 @@ class Plane(
     fun copy(): Plane = Plane(this)
     data class Edges(var min:Double,var max:Double)
 
-    fun scoping(plane : Plane, x0: Double, x1:Double, y0:Double, y1:Double,width: Float,height: Float)
+    private fun proportions()
     {
-        val x2w = abs(x1-x0) /width
-        val y2h = abs(y1-y0) /height
+        val x2w = abs(_xMax-_xMin) /width
+        val y2h = abs(_yMax-_yMin) /height
         if(y2h>x2w)
         {
-            val dx = (width*y2h- abs(x1-x0))/2.0
-            plane.xEdges= Edges(x0-dx,x1+dx)
-            plane.yEdges= Edges(y0,y1)
+            val dx = (width*y2h- abs(_xMax-_xMin))/2.0
+            _xMin -= dx
+            _yMax += dx
         }
         else
         {
-            val dy = (height*x2w- abs((y1-y0)))/2.0
-            plane.yEdges=Edges(y0.coerceAtLeast(y1) +dy, y1.coerceAtMost(y0) -dy)
-            plane.xEdges=Edges(x0,x1)
+            val dy = (height*x2w- abs((_yMax-_yMin)))/2.0
+            _yMax = max(_yMin,_yMax)+dy
+            _yMin = min(_yMin,_yMax)-dy
         }
     }
 }
