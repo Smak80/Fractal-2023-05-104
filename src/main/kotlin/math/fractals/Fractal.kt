@@ -15,15 +15,14 @@ object Fractal : AlgebraicFractal {
 
 
     override fun isInSet(c: Complex): Float {
-        val z = Complex()
+        var z = Complex()
         val r2 = r * r
         for (i in 1..maxIterations){
-            z*= function(z)
-            z+=c
+            z = function(z)
+            z = z + c
             if (z.abs2() >= r2)
                 return i.toFloat()/ maxIterations
         }
         return 1f
     }
-
 }
