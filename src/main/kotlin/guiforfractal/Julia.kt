@@ -24,8 +24,9 @@ import math.fractals.Julia
 
 
 @Composable
-fun julia(selectedPoint: Complex, color: String){
+fun julia(selectedPoint: Complex, color: String, function: (Complex) -> Complex){
     Julia.selectedPoint = selectedPoint
+    Julia.function = function
 
     val jp = remember { FractalPainter(Julia, colors[color]!!) }
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
@@ -98,8 +99,10 @@ fun selectionPanel(
 
 
 @Composable
-fun juliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
-                     fp: MutableState<FractalPainter>, fractalColor: MutableState<String>)
+fun juliaFrameOpener(
+    juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
+    fp: MutableState<FractalPainter>, fractalColor: MutableState<String>
+)
 {
     if (juliaFrame.value){
         Window(
@@ -110,7 +113,7 @@ fun juliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: Mutabl
         ){
             pointCoordinates.value?.let {
                 val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                julia(pair, fractalColor.value)
+                julia(pair, fractalColor.value, fp.value.FRACTAL.function)
             }
         }
     }

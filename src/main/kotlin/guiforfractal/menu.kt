@@ -26,7 +26,6 @@ import drawing.painters.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
-import drawing.convertation.Plane
 import drawing.dynamicIalIterations.turnDynamicIterations
 import guiforfractal.fileDialogWindow.fileOpeningDialogWindow
 import guiforfractal.fileDialogWindow.fileSavingDialogWindow
