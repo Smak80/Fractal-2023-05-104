@@ -2,6 +2,7 @@ package tools
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
+import drawing.FractalPainter
 import drawing.convertation.ColorType
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
@@ -92,7 +93,7 @@ object FileManager {
 
     }
 
-    fun saveImageData(data: FractalData){
+    fun saveImageData(fp: FractalPainter){
         val fileSystemView = FileSystemView.getFileSystemView()
         val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
             dialogTitle = "Сохранить изображение"
@@ -105,37 +106,36 @@ object FileManager {
             val fileAbsolutePath =
                 fileChooser.currentDirectory.absolutePath + "\\" +
                         fileChooser.selectedFile.nameWithoutExtension + ".png"
-            val image = addCartCoordinates(data)
+            val image = addCartCoordinates(fp)
             val fileStream = FileOutputStream(fileAbsolutePath)
             ImageIO.write(image,"png",fileStream)
             JOptionPane.showMessageDialog(fileChooser, "Изображение '$fileAbsolutePath' успешно сохранен")
         }
     }
-    private fun addCartCoordinates(data: FractalData): BufferedImage {
-        val plane = Plane(data.xMin,data.xMax,data.yMin,data.xMax,1920f,1080f)
-        val image = Cadre.getImageFromPlane(plane,1920f,1080f,ColorType.First)
+    private fun addCartCoordinates(fp:FractalPainter): BufferedImage {
+        val image = fp.img
         val graphics = image.createGraphics()
-        val font = Font("Futura", Font.BOLD, 24)
+        val font = Font("Futura", Font.BOLD, 16)
         graphics.font = font
         graphics.color = java.awt.Color(0,0,0)
 
-        val string = "xMin=${data.xMin} xMax=${data.xMax} yMin=${data.yMin} yMax=${data.yMax}"
-
-        val fm = graphics.fontMetrics
-        val stringWidth = fm.stringWidth(string)
-        val stringHeight = fm.height
-        val x = (image.width - stringWidth) / 2
-        val y = image.height - stringHeight - 10
-
-
-        graphics.color = java.awt.Color(255, 255, 255)
-        graphics.fillRoundRect(x - 5, y - fm.ascent - 5, stringWidth + 10, stringHeight + 10,30,30)
+        fp.plane?.let{
+            val string = "xMin=${it.xMin} xMax=${it.xMax} yMin=${it.yMin} yMax=${it.yMax}"
+            val fm = graphics.fontMetrics
+            val stringWidth = fm.stringWidth(string)
+            val stringHeight = fm.height
+            val x = (image.width - stringWidth) / 2
+            val y = image.height - stringHeight - 10
 
 
-        graphics.color = java.awt.Color(0,0,0)
-        graphics.drawString(string, x, y)
-        graphics.dispose()
+            graphics.color = java.awt.Color(255, 255, 255)
+            graphics.fillRoundRect(x - 5, y - fm.ascent - 5, stringWidth + 10, stringHeight + 10,30,30)
 
+
+            graphics.color = java.awt.Color(0,0,0)
+            graphics.drawString(string, x, y)
+            graphics.dispose()
+        }
         return image
     }
 
