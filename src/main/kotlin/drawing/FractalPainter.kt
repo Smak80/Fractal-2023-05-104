@@ -22,7 +22,7 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
         set(value) { plane?.width = value.toFloat() }
     override var height: Int
         get() = plane?.height?.toInt() ?: 0
-        set(value) {plane?.height = value.toFloat()}
+        set(value) { plane?.height = value.toFloat() }
 
 
     var colorFuncID: ColorType = ColorType.Zero
@@ -34,13 +34,10 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
     )
     var refresh = true
 
-//    var xMax = 0.0
-//
-//    var xMin = 0.0
-//
-//    var yMin = 0.0
-//
-//    var yMax = 0.0
+    var xMax = 1.0
+    var xMin = -2.0
+    var yMin = -1.0
+    var yMax = 1.0
 //
 //    val dwh: Double
 //        get() = width * 1.0 / height
@@ -62,29 +59,29 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 //        }
 //    }
 //
-//    private fun scoping(){
-//        val X = abs(xMax - xMin) / width
-//        val Y = abs(yMax - yMin) / height
-//        if(Y > X) {
-//            val dx = (width * Y- abs(xMax - xMin))/2
-//            plane?.let {plane->
-//                plane.xMin =  xMin - dx
-//                plane.xMax = xMax + dx
-//                plane.yMax = yMax
-//                plane.yMin = yMin
-//            }
-//
-//        }
-//        else {
-//            val dy = (height * X- abs((yMax - yMin)))/2
-//            plane?.let {plane->
-//                plane.yMin =  yMin - dy
-//                plane.yMax = yMax + dy
-//                plane.xMax = xMax
-//                plane.xMin = xMin
-//            }
-//        }
-//    }
+    private fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X) {
+            val dx = (width * Y- abs(xMax - xMin))/2.0
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
+
+        }
+        else {
+            val dy = (height * X- abs((yMax - yMin)))/2.0
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
+            }
+        }
+    }
 
     override fun paint(scope: DrawScope) {
         if (refresh) {
@@ -94,27 +91,13 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
                 height,
                 BufferedImage.TYPE_INT_ARGB,
             )
-            plane?.let { plane ->
-                val tc = Runtime.getRuntime().availableProcessors()
-                List(tc) { t ->
-                    thread {
-                        for (i in t..<width step tc)
-                            for (j in 0..<height) {
-                                val x = Complex(
-                                    Converter.xScr2Crt(i.toFloat(), plane),
-                                    Converter.yScr2Crt(j.toFloat(), plane)
-                                )
-                                val colorFunk = colorFunc(colorFuncID.value)
-                                img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
-                            }
-                    }
-                }.forEach { it.join() }
-            }
+            getImageFromPlane(img)
         }
         scope.drawImage(img.toComposeImageBitmap())
     }
 
     fun getImageFromPlane(img:BufferedImage):BufferedImage{
+        scoping()
         plane?.let { plane ->
             val tc = Runtime.getRuntime().availableProcessors()
             List(tc) { t ->
