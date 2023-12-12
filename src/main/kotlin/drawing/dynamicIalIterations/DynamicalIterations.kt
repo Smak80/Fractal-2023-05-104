@@ -1,10 +1,7 @@
 package drawing.dynamicalIterations
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import drawing.FractalPainter
-import drawing.convertation.Plane
-import kotlin.math.ln
+import drawing.painters.FractalPainter
 
 
 class DynamicalIterations(var fp: MutableState<FractalPainter>) {

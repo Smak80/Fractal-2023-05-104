@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Вроде заработало полностью">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/Painter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/Painter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/Julia.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" afterDir="false" />
     </list>
@@ -61,7 +68,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Task_C_Photo_in_own_format" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -120,6 +127,7 @@
       <recent name="C:\repositories\Fractal_Team2_TaskD\src\main\kotlin\drawing\colors" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="drawing.painters" />
       <recent name="math.fractals" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
@@ -439,7 +447,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702379677334</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Вроде заработало полностью">
+      <option name="closed" value="true" />
+      <created>1702381813247</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1702381813247</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -454,7 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Версия с пары" />
     <MESSAGE value="Версия со второй пары" />
     <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
     <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
@@ -479,7 +494,8 @@
     <MESSAGE value="Подключил регулярные выражения." />
     <MESSAGE value="вроде как параметры fp меняются, но отрисовка не происходит" />
     <MESSAGE value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
-    <option name="LAST_COMMIT_MESSAGE" value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
+    <MESSAGE value="Вроде заработало полностью" />
+    <option name="LAST_COMMIT_MESSAGE" value="Вроде заработало полностью" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
