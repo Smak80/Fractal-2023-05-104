@@ -30,14 +30,18 @@ import tools.ActionStack
 import tools.FileManager
 import tools.FileManager.saveImageData
 import video.Cadre
+import java.io.File
+import java.io.IOException
+import javax.imageio.ImageIO
 import javax.swing.UIManager
 
 @Composable
 @Preview
 fun App(){
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-//    var colorSchemeIndex by remember { mutableStateOf(2) }
-//    var fractalSchemeIndex by remember { mutableStateOf(1) }
+    var dynamicIterationsCheck by remember { mutableStateOf(false) }
+    var isMenuExpanded by remember { mutableStateOf(false) }
+    var reBoot by remember { mutableStateOf(false) }
     val photoList = remember { SnapshotStateList<Cadre>() }
     val fp = remember {FractalPainter(Mandelbrot)}
     fp.colorFuncID = ColorFuncs.First
@@ -55,15 +59,13 @@ fun App(){
                 fp.colorFuncID,
                 Mandelbrot.funcNum
             )
+            reBoot = true
             actionStack.push(currConf)
         }
     }
     MaterialTheme{
         Scaffold(
             topBar = {
-                var dynamicIterationsCheck by remember { mutableStateOf(false) }
-                var isMenuExpanded by remember { mutableStateOf(false) }
-
                 TopAppBar(
                     title = {
                         Text(
@@ -121,13 +123,18 @@ fun App(){
 
                             IconButton(onClick = {actionStack.pop()}
                             ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
-//                            IconButton(onClick = {
-//                                fp.plane = when(Mandelbrot.funcNum){
-//                                    2-> Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
-//                                    else-> Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
-//                                }
-//                            }
-//                            ) { Icon(FontAwesomeIcons.Solid.SyncAlt, "Обновить") }
+                            IconButton(onClick = {
+
+                                val bi = Cadre.getImageFromPlane(fp.plane!!,1920f,1080f,fp.colorFuncID)
+                                try {
+                                    val file = File("C:/Users/Lev Grekov/OneDrive/Изображения/test.png")
+                                    ImageIO.write(bi, "png", file) // Вы можете выбрать другой формат, если это необходимо
+                                    println("Изображение успешно сохранено")
+                                } catch (e: IOException) {
+                                    println("Ошибка при сохранении изображения: ${e.message}")
+                                }
+                            }
+                            ) { Icon(LineAwesomeIcons.PhotoVideoSolid, "Назад") }
                             //Для Вызова Окна с Видео
                             Row(
                                 modifier = Modifier

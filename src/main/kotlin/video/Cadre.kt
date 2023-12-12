@@ -21,18 +21,14 @@ class Cadre(plane: Plane, colorFuncs: ColorFuncs) {
         fun getImageFromPlane(plane: Plane, width: Float, height: Float, colorFuncs: ColorFuncs): BufferedImage {
 
             val fp = FractalPainter(Mandelbrot)
-            fp.plane = plane
-            fp.xMin = plane.xMin
-            fp.xMax = plane.xMax
-            fp.yMin = plane.yMin
-            fp.yMax = plane.yMax
+            fp.initPlane(plane)
             fp.width = width.toInt()
             fp.height = height.toInt()
+            fp.refresh = true
             fp.colorFuncID = colorFuncs
-
             val img = BufferedImage(
-                fp.width.toInt(),
-                fp.width.toInt(),
+                fp.width,
+                fp.height,
                 BufferedImage.TYPE_INT_RGB
             )
             return fp.getImageFromPlane(img)
