@@ -31,6 +31,7 @@ import math.fractals.Mandelbrot
 import tools.FileManager
 import tools.FileManager.saveImageData
 import video.Cadre
+import java.awt.image.BufferedImage
 import javax.swing.UIManager
 
 @Composable
@@ -201,9 +202,12 @@ fun App(){
                             ) {
                                 Checkbox(
                                     checked = dynamicIterationsCheck,
-                                    onCheckedChange = {dynamicIterationsCheck = it},
-                                    modifier = Modifier.padding(start = 8.dp)
+                                    onCheckedChange = { dynamicIterationsCheck = it
+                                                      fp.dinamycIters = dynamicIterationsCheck },
+                                    modifier = Modifier.padding(start = 8.dp),
                                 )
+                                if(dynamicIterationsCheck) fp.retDynIt()
+                                //всё!
                                 Text(
                                     text = "D. итерации",
                                     style = MaterialTheme.typography.body1.copy(
