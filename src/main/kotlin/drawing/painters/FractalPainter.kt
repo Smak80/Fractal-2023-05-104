@@ -46,7 +46,6 @@ class FractalPainter(
                 plane.yMax = yMax
                 plane.yMin = yMin
             }
-
         }
         else
         {

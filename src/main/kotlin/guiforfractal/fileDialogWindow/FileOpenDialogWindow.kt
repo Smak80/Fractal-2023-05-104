@@ -1,5 +1,6 @@
 package guiforfractal.fileDialogWindow
 
+import androidx.compose.runtime.MutableState
 import drawing.painters.FractalPainter
 import drawing.colors.colors
 import math.fractals.funcs
@@ -10,7 +11,7 @@ import javax.swing.WindowConstants
 import javax.swing.filechooser.FileNameExtensionFilter
 
 
-fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter {
+fun fileOpeningDialogWindow(fp: FractalPainter, fpcolors: MutableState<String>, fpfunctions:  MutableState<String>): FractalPainter {
     val fileDialogFrame = JFrame()
     fileDialogFrame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
     val fileChooser = JFileChooser()
@@ -74,23 +75,19 @@ fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter {
                 fp.width = width.toDouble().toInt()
                 fp.height = height.toDouble().toInt()
                 println("Plane: xMin=$xMin, xMax=$xMax, yMin=$yMin, yMax=$yMax, width=$width, height=$height")
-            } else {
-                println("No plane match found")
             }
 
             if (colorMatch != null) {
                 val (colorNumber) = colorMatch.destructured
                 fp.colorFunc = colors[colorNumber]!!
+                fpcolors.value = colorNumber
                 println("Color: $colorNumber")
-            } else {
-                println("No color match found")
             }
 
             if (functionResult != null) {
                 fp.FRACTAL.function = funcs[functionResult.value]!!
+                fpfunctions.value = functionResult.value
                 println("Function: ${functionResult.value}")
-            } else {
-                println("No color match found")
             }
 
             fp.refresh = true

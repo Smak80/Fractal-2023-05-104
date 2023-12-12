@@ -1,8 +1,8 @@
-package Photo
+package fractalphoto
 
 import drawing.painters.FractalPainter
 
-fun TakePhotoInOwnFormat(fp: FractalPainter, color: String, function: String): String{
+fun takePhotoInOwnFormat(fp: FractalPainter, color: String, function: String): String{
     var data = ""
     data += fp.fractal.maxIterations.toString() + "\n"
     data += fp.plane.toString() + "\n"

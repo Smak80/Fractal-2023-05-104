@@ -1,17 +1,16 @@
-package drawing.dynamicalIterations
+package drawing.dynamicIalIterations
 
 import androidx.compose.runtime.MutableState
 import drawing.painters.FractalPainter
 
 
-class DynamicalIterations(var fp: MutableState<FractalPainter>) {
+class DynamicalIterations(private var fp: MutableState<FractalPainter>) {
     private var currentXmin: Double = 0.0
     private var currentXmax: Double = 0.0
     private var currentYmin: Double = 0.0
     private var currentYmax: Double = 0.0
     private var currentPlaneSquare: Double = 0.0
 
-    var maxIterations = 0
     init {
         fp.value.plane?.let { plane ->
             currentXmin = plane.xMin
