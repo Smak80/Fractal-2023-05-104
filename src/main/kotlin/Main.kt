@@ -24,11 +24,9 @@ fun App() {
         fp.value.yMin = it.yMin
     }
 
-    var stack = java.util.Stack<FractalPainter>()
-
 
     MaterialTheme {
-        menu(fp, stack)
+        menu(fp)
     }
 }
 

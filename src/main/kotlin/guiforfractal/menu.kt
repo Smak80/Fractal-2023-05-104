@@ -34,7 +34,7 @@ import java.util.Stack
 
 
 @Composable
-fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
+fun menu(fp: MutableState<FractalPainter>){
 
     val fractalColor = remember { mutableStateOf("color1")  }
     val fractalFunction = remember { mutableStateOf("Mandelbrot") }
@@ -52,8 +52,6 @@ fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
     val juliaFrame = remember { mutableStateOf(false)}
 
     val uploadFractal = remember { mutableStateOf(false)}
-
-    val stepBackCalled = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -158,15 +156,7 @@ fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
 
 
 
-                IconButton(onClick = {
-                    stepBackCalled.value = true
-
-                    stack.pop()
-                    fp.value = fp.value.copy(fp)
-
-                    println(fp.value.plane)
-                    stepBackCalled.value = false
-                }){
+                IconButton(onClick = {TODO()}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
 
                 }
@@ -224,12 +214,12 @@ fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
             }
         }
     ) {
-        DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal, stepBackCalled, stack){size ->
+        DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal){size ->
             fp.value.width = size.width.toInt()
             fp.value.height = size.height.toInt()
             fp.value.refresh = true
         }
-        SelectionPanel(pointCoordinates, juliaButtonState, stack){
+        SelectionPanel(pointCoordinates, juliaButtonState){
             fp.value.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
@@ -248,20 +238,14 @@ fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
                 fp.value.yMin = yMin
                 fp.value.yMax = yMax
 
-
-
                 turnDynamicIterations(checkedState, fp)
                 dynIt.value = fp.value.fractal.maxIterations
 
-
-
                 fp.value.refresh = true
-
-                stack.push(fp.value.copy(fp))
             }
 
         }
-        juliaFrameOpener(juliaFrame, pointCoordinates, fp, fractalColor)
+        juliaFrameOpener(juliaFrame, pointCoordinates, fp)
     }
 }
 
@@ -270,7 +254,6 @@ fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
 fun SelectionPanel(
     pointCoordinates: MutableState<Offset?>,
     juliaButton: MutableState<Boolean>,
-    stack: Stack<FractalPainter>,
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}
@@ -305,8 +288,6 @@ fun DrawingPanel(
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
     uploadFractal: MutableState<Boolean>,
-    stepBackCalled: MutableState<Boolean>,
-    stack: Stack<FractalPainter>,
     onResize: (Size)-> Unit = {}
 ) {
     Canvas(Modifier
@@ -315,27 +296,19 @@ fun DrawingPanel(
     ) {
 
         setColor(fp, fpcolors)
-        //stack.push(fp.value)
-
-
         setFractal(fp, fpfunctions)
-        stack.push(fp.value.copy(fp))
 
 
         if (uploadFractal.value){
             fp.value = fileOpeningDialogWindow(fp.value, fpcolors, fpfunctions)
             onResize(size)
 
-            stack.push(fp.value.copy(fp))
-            //fp.value.scoping()
             uploadFractal.value = false
 
         }
 
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt()) {
             onResize(size)
-
-            stack.push(fp.value.copy(fp))
         }
 
 
@@ -345,16 +318,18 @@ fun DrawingPanel(
 }
 
 fun setFractal(fp: MutableState<FractalPainter>, fpFunctions: MutableState<String>) {
-    if(fp.value.FRACTAL.function != funcs[fpFunctions.value]) {
-        fp.value.FRACTAL.function = funcs[fpFunctions.value]!!
-        fp.value.refresh = true
+    if(fp.value.fractal.function != funcs[fpFunctions.value]) {
+        funcs[fpFunctions.value]?.let {function->
+            fp.value.fractal.function = function
+            fp.value.refresh = true
+        }
     }
 }
 
 fun setColor(fp: MutableState<FractalPainter>, cl: MutableState<String>) {
     if(fp.value.colorFunc != colors[cl.value]) {
-        colors[cl.value]?.let {
-            fp.value.colorFunc = colors[cl.value]!!
+        colors[cl.value]?.let {color->
+            fp.value.colorFunc = color
             fp.value.refresh = true
         }
     }

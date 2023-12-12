@@ -24,11 +24,11 @@ import math.fractals.Julia
 
 
 @Composable
-fun julia(selectedPoint: Complex, color: String, function: (Complex) -> Complex){
+fun julia(selectedPoint: Complex, fp: MutableState<FractalPainter>){
     Julia.selectedPoint = selectedPoint
-    Julia.function = function
+    Julia.function = fp.value.fractal.function
 
-    val jp = remember { FractalPainter(Julia, colors[color]!!) }
+    val jp = remember { FractalPainter(Julia, fp.value.colorFunc) }
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     jp.plane?.let {
         jp.xMin = it.xMin
@@ -101,7 +101,7 @@ fun selectionPanel(
 @Composable
 fun juliaFrameOpener(
     juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
-    fp: MutableState<FractalPainter>, fractalColor: MutableState<String>
+    fp: MutableState<FractalPainter>
 )
 {
     if (juliaFrame.value){
@@ -111,9 +111,11 @@ fun juliaFrameOpener(
             title = "Множество Жюлиа по точке (${pointCoordinates.value?.let { Converter.xScr2Crt(it.x, fp.value.plane!!) }}, " +
                     "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
         ){
-            pointCoordinates.value?.let {
-                val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                julia(pair, fractalColor.value, fp.value.FRACTAL.function)
+            pointCoordinates.value?.let {coordinates->
+                fp.value.plane?.let {plane->
+                    val pair = Complex(Converter.xScr2Crt(coordinates.x, plane), Converter.yScr2Crt(coordinates.y, plane))
+                    julia(pair, fp)
+                }
             }
         }
     }

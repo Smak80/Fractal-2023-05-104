@@ -1,5 +1,6 @@
 package fractalphoto
 
+import drawing.colors.colors
 import drawing.painters.FractalPainter
 
 fun takePhotoInOwnFormat(fp: FractalPainter, color: String, function: String): String{

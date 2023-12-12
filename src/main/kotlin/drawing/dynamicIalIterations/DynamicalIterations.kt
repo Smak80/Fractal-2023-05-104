@@ -27,7 +27,7 @@ class DynamicalIterations(private var fp: MutableState<FractalPainter>) {
 //    }
 
     fun changeIterations(){
-        val newMaxIterations = ( (2000 / currentPlaneSquare)).toInt()
+        val newMaxIterations = ( (1000 / currentPlaneSquare)).toInt()
         fp.value.fractal.maxIterations = newMaxIterations
     }
 
