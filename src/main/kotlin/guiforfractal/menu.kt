@@ -302,16 +302,26 @@ fun DrawingPanel(
         setColor(fp, fpcolors)
         setFractal(fp, fpfunctions)
 
-
-        if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
-            onResize(size)
-        }
-
         if (uploadFractal.value){
-            fileOpeningDialogWindow(fp.value)
+            fp.value = fileOpeningDialogWindow(fp.value)
+            onResize(size)
+            println("Плоскость фотографии: ")
+            println(fp.value.plane)
+            println("-------------------------------------")
             fp.value.paint(this)
             uploadFractal.value = false
         }
+
+
+        if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
+            println("Плоскость после изменения размера экрана:")
+            println(fp.value.plane)
+            println("-------------------------------------")
+            onResize(size)
+        }
+
+
+
         fp.value.scoping()
         fp.value.paint(this)
     }
