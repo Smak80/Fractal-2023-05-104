@@ -312,8 +312,7 @@ fun DrawingPanel(
         if (uploadFractal.value){
             fp.value = fileOpeningDialogWindow(fp.value, fpcolors, fpfunctions)
             onResize(size)
-            fp.value.scoping()
-            fp.value.paint(this)
+            //fp.value.scoping()
             uploadFractal.value = false
         }
 
@@ -352,7 +351,8 @@ fun setColor(fp: MutableState<FractalPainter>, cl: MutableState<String>) {
 }
 
 fun copy(fp: MutableState<FractalPainter>): FractalPainter{
-    var newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
+
+    val newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
 
     fp.value.plane?.let {
         newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
@@ -360,7 +360,6 @@ fun copy(fp: MutableState<FractalPainter>): FractalPainter{
         newFp.height = fp.value.height
         newFp.width = fp.value.width
     }
-
 
     newFp.xMax = fp.value.xMax
     newFp.xMin = fp.value.xMin

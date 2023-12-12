@@ -23,7 +23,7 @@ fun takePhoto(fp: FractalPainter): BufferedImage {
                 "yMax = ${fp.plane?.yMax}",
         10, newBufferedImage.height - 2
     )
-    ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"))
+    //ImageIO.write(newBufferedImage, "jpg", File("screen.jpg"))
     file.delete()
     return newBufferedImage
 }
