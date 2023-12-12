@@ -4,7 +4,7 @@ import math.Complex
 object Mandelbrot : AlgebraicFractal {
     var funcNum: Int = 0
     val r = 2.0
-    override var maxIterations: Int = 200
+    override var maxIterations: Int = 100
     override fun isInSet(c: Complex): Float {
         var i = 0
         val z1 = Complex()
