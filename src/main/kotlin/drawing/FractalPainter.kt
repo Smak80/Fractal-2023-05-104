@@ -10,6 +10,7 @@ import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.AlgebraicFractal
+import math.fractals.Mandelbrot
 import tools.ActionStack
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
@@ -34,8 +35,8 @@ class FractalPainter(
         BufferedImage.TYPE_INT_ARGB,
     )
     var refresh = true
-
-
+    var dinamycIters = false
+    var s = 6.0
     override fun paint(scope: DrawScope) {
         if (refresh) {
             refresh = false
@@ -49,7 +50,13 @@ class FractalPainter(
         scope.drawImage(img.toComposeImageBitmap())
     }
 
+    fun retDynIt() {
+        getImageFromPlane(img)
+    }
+
     fun getImageFromPlane(img:BufferedImage): BufferedImage{
+        if (dinamycIters) Mandelbrot.maxIterations = 200 * otherIters(s).toInt()
+        else Mandelbrot.maxIterations = 200
         plane?.let { plane ->
             val tc = Runtime.getRuntime().availableProcessors()
             List(tc) { t ->
@@ -66,6 +73,12 @@ class FractalPainter(
                 }
             }.forEach { it.join() }
         }
-        return  img
+        return img
+    }
+    fun otherIters(s: Double): Double {
+        plane?.let{ plane ->
+            this.s = 0.1 / ((plane.xMax - plane.xMin) * (plane.yMax - plane.yMin))
+        }
+        return s
     }
 }
