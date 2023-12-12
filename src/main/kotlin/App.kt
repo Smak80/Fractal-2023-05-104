@@ -77,7 +77,7 @@ fun App(){
                                             isMenuExpanded = false
                                         }, {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value,Mandelbrot.funcNum)
                                                 FileManager.saveFractalData(fractalData)
                                             }
                                         }, {

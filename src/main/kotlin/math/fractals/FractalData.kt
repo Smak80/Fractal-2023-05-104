@@ -8,5 +8,6 @@ data class FractalData(
     val xMax:Double,
     val yMin:Double,
     val yMax:Double,
-    val colorscheme: Int
+    val colorscheme: Int,
+    val fractalFunk: Int,
 ) : Serializable

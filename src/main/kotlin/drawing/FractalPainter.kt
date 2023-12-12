@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
-class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
+class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
 
     var plane: Plane? = null
     override var width: Int
@@ -26,6 +26,8 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 
 
     var colorFuncID: ColorType = ColorType.Zero
+    var fractalFunkID: Int = 1
+
     val actionStack = ActionStack(this)
     var img = BufferedImage(
         1,
@@ -109,7 +111,7 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
                                 Converter.yScr2Crt(j.toFloat(), plane)
                             )
                             val colorFunk = colorFunc(colorFuncID.value)
-                            img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
+                            img.setRGB(i, j, colorFunk(isInSet(x)).toArgb())
                         }
                 }
             }.forEach { it.join() }

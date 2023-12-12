@@ -47,4 +47,13 @@ class Complex(var re: Double = 0.0, var im: Double = 0.0) {
         }
 
     }
+
+    fun sin(): Complex {
+        return Complex(kotlin.math.sin(re) * kotlin.math.cosh(im), kotlin.math.cos(re) * kotlin.math.sinh(im))
+    }
+
+    fun cos(): Complex {
+        return Complex(kotlin.math.cos(re) * kotlin.math.cosh(im), -kotlin.math.sin(re) * kotlin.math.sinh(im))
+    }
+
 }
