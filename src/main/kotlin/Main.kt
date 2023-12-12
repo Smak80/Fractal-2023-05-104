@@ -5,7 +5,7 @@ import java.awt.Dimension
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Множество Мандельброта",
+        title = "FractaLAB 2.0",
         state = rememberWindowState(
             width = 800.dp,
             height = 600.dp,

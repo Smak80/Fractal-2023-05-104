@@ -1,24 +1,24 @@
 package video
 
 import drawing.FractalPainter
-import drawing.convertation.ColorType
+import drawing.convertation.ColorFuncs
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import java.awt.image.BufferedImage
 
-class Cadre(plane: Plane,colorType: ColorType) {
+class Cadre(plane: Plane, colorFuncs: ColorFuncs) {
 
     val plane: Plane
     var preRenderImg: BufferedImage
 
     init {
         this.plane = plane.copy()
-        preRenderImg = getImageFromPlane(this.plane,150f, 150f,colorType)
+        preRenderImg = getImageFromPlane(this.plane,150f, 150f,colorFuncs)
        // img = getImageFromPlane(this.plane, 0f, 0f)
     }
 
     companion object{
-        fun getImageFromPlane(plane: Plane, width: Float, height: Float, colorType: ColorType): BufferedImage {
+        fun getImageFromPlane(plane: Plane, width: Float, height: Float, colorFuncs: ColorFuncs): BufferedImage {
 
             val fp = FractalPainter(Mandelbrot)
             fp.plane = plane
@@ -28,7 +28,7 @@ class Cadre(plane: Plane,colorType: ColorType) {
             fp.yMax = plane.yMax
             fp.width = width.toInt()
             fp.height = height.toInt()
-            fp.colorFuncID = colorType
+            fp.colorFuncID = colorFuncs
 
             val img = BufferedImage(
                 fp.width.toInt(),

@@ -9,11 +9,12 @@ object JuliaSet : AlgebraicFractal {
     private var r = 2.0
     override fun isInSet(c : Complex) : Float {
         var i = 0
-        var z1 = c
         val r2 = r * r
 
-        do { fractalFunks[Mandelbrot.funcNum]?.invoke(z1, selectedPoint)
-        }while (++i < Mandelbrot.maxIterations && z1.abs2() < r2)
+        do {
+            fractalFunks[Mandelbrot.funcNum.value]?.invoke(c)
+            c += selectedPoint
+        }while (++i < Mandelbrot.maxIterations && c.abs2() < r2)
 
         return i / maxIterations.toFloat()
 

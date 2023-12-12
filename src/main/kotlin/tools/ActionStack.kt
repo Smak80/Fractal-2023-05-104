@@ -1,9 +1,8 @@
 package tools
 
 import drawing.FractalPainter
-import drawing.convertation.ColorType
-import drawing.convertation.colorFunc
-import math.fractals.Mandelbrot
+import drawing.convertation.ColorFuncs
+import math.fractals.FractalData
 import java.util.*
 
 class ActionStack(private val fp: FractalPainter){
@@ -18,19 +17,28 @@ class ActionStack(private val fp: FractalPainter){
                     it.xMax = obj.xMax
                     it.yMin = obj.yMin
                     it.yMax = obj.yMax
-                    fp.refresh = true
                 }
                 fp.xMin = obj.xMin
                 fp.xMax = obj.xMax
                 fp.yMin = obj.yMin
                 fp.yMax = obj.yMax
+                fp.refresh = true
             }
-            is ColorType -> {
+            is ColorFuncs -> {
                 fp.colorFuncID = obj
                 fp.refresh = true
             }
+            is FractalData -> {
+                fp.colorFuncID = obj.colorscheme
+            }
             else -> throw Exception("В стек попал объект неизвестного типа")
         }
+
+    }
+    fun copy(): ActionStack {
+        val a = ActionStack(fp)
+        a.stack.addAll(stack)
+        return a
     }
     data class CartCords(
         val xMin:Double,
@@ -38,5 +46,6 @@ class ActionStack(private val fp: FractalPainter){
         val yMin:Double,
         val yMax:Double,
     )
+
 }
 

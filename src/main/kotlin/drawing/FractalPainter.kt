@@ -3,18 +3,17 @@ package drawing
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
-import drawing.convertation.ColorType
+import drawing.convertation.ColorFuncs
 import drawing.convertation.Converter
 import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.Complex
 import math.fractals.AlgebraicFractal
-import tools.ActionStack
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
-class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
+class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 
     var plane: Plane? = null
     override var width: Int
@@ -25,10 +24,9 @@ class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
         set(value) { plane?.height = value.toFloat() }
 
 
-    var colorFuncID: ColorType = ColorType.Zero
-    var fractalFunkID: Int = 1
+    var colorFuncID: ColorFuncs = ColorFuncs.Zero
 
-    val actionStack = ActionStack(this)
+
     var img = BufferedImage(
         1,
         1,
@@ -36,6 +34,13 @@ class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
     )
     var refresh = true
 
+    fun initPlane(plane: Plane){
+        this.plane = plane
+        this.xMin = plane.xMin
+        this.xMax = plane.xMax
+        this.yMin = plane.yMin
+        this.yMax = plane.yMax
+    }
     var xMax = 1.0
     var xMin = -2.0
     var yMin = -1.0
@@ -86,6 +91,7 @@ class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
     }
 
     override fun paint(scope: DrawScope) {
+        scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
@@ -111,7 +117,7 @@ class FractalPainter(private val isInSet: (Complex) -> Float) : Painter {
                                 Converter.yScr2Crt(j.toFloat(), plane)
                             )
                             val colorFunk = colorFunc(colorFuncID.value)
-                            img.setRGB(i, j, colorFunk(isInSet(x)).toArgb())
+                            img.setRGB(i, j, colorFunk(fractal.isInSet(x)).toArgb())
                         }
                 }
             }.forEach { it.join() }

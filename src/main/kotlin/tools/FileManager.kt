@@ -1,33 +1,18 @@
 package tools
 
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.text.TextMeasurer
 import drawing.FractalPainter
-import drawing.convertation.ColorType
-import drawing.convertation.Plane
-import drawing.convertation.colorFunc
 import math.fractals.FractalData
-import org.jetbrains.skia.Color
-import video.Cadre
 import java.awt.Font
-import java.awt.FontMetrics
-import java.awt.font.LineMetrics
-import java.awt.font.TextAttribute
 import java.awt.image.BufferedImage
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.text.AttributedString
 import javax.imageio.ImageIO
 import javax.swing.JFileChooser
 import javax.swing.JOptionPane
 import javax.swing.filechooser.FileNameExtensionFilter
 import javax.swing.filechooser.FileSystemView
-import java.awt.Graphics2D
-
-
-
 
 
 object FileManager {
