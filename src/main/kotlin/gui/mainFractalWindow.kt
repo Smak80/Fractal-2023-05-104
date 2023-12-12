@@ -17,6 +17,7 @@ import androidx.compose.ui.window.Window
 import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.convertation.Converter
+import drawing.convertation.Plane
 import math.Complex
 import math.fractals.JuliaSet
 import tools.ActionStack
@@ -66,10 +67,12 @@ fun fractalWindow(fp:FractalPainter, funk:(() -> Unit)? = null){
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)
                 val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)
-                plane.xMin = xMin
-                plane.xMax = xMax
-                plane.yMin = yMin
-                plane.yMax = yMax
+                plane.xEdges = Plane.Edges(xMin,xMax)
+                plane.yEdges = Plane.Edges(yMin,yMax)
+//                plane.xMin = xMin
+//                plane.xMax = xMax
+//                plane.yMin = yMin
+//                plane.yMax = yMax
 //                fp.xMin = xMin
 //                fp.xMax = xMax
 //                fp.yMin = yMin

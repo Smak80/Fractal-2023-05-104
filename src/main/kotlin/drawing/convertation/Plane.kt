@@ -1,92 +1,113 @@
 package drawing.convertation
 
+import java.awt.Dimension
 import kotlin.math.abs
 
-data class Plane(
-    private  val _xMin: Double,
-    private  val _xMax: Double,
-    private  val _yMin: Double,
-    private  val _yMax: Double,
-    private var _width: Float,
-    private var _height: Float,
+
+class Plane(
+    xMin: Double,
+    xMax: Double,
+    yMin: Double,
+    yMax: Double,
+    width: Float,
+    height: Float
 ) {
 
-    var xMin: Double = 0.0
-        get() = field
+    private var _xMin = xMin
+    private var _xMax = xMax
+    private var _yMin = yMin
+    private var _yMax = yMax
+    private var _width = width.coerceAtLeast(1f) - 1f
+    private var _height = height.coerceAtLeast(1f) - 1f
+
+    //Изменяемые Истории (С доступом к изменению)
+    var xEdges: Edges
+        get() = Edges(_xMin, _xMax)
         set(value) {
-            field = value
-            // Можно добавить дополнительные действия при установке значения, если необходимо
+            val correctedEdges = correctEdges(value)
+            _xMin = correctedEdges.min
+            _xMax = correctedEdges.max
+            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
+        }
+    var yEdges: Edges
+        get() = Edges(_yMin, _yMax)
+        set(value) {
+            val correctedEdges = correctEdges(value)
+            _yMin = correctedEdges.min
+            _yMax = correctedEdges.max
+            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
         }
 
-    var xMax: Double = 0.0
-        get() = field
-        set(value) {
-            field = value
-            // Дополнительные действия при установке значения
-        }
-
-    var yMin: Double = 0.0
-        get() = field
-        set(value) {
-            field = value
-            // Дополнительные действия при установке значения
-        }
-
-    var yMax: Double = 0.0
-        get() = field
-        set(value) {
-            field = value
-            // Дополнительные действия при установке значения
-        }
     var width: Float
-        get() = _width
+        get() = _width + 1
         set(value) {
-            val centerX = (xMin + xMax) / 2.0
-            val halfNewWidth = value / 2.0
-
-            // Изменяем границы xMin и xMax относительно центра и новой ширины
-            xMin = centerX - halfNewWidth
-            xMax = centerX + halfNewWidth
-
-            // Обновляем ширину
-            _width = value
+            _width = (value - 1).coerceAtLeast(1f)
+            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
         }
 
     var height: Float
-        get() = _height
+        get() = _height + 1
         set(value) {
-            val centerY = (yMin + yMax) / 2.0
-            val halfNewHeight = value / 2.0
-
-            // Изменяем границы yMin и yMax относительно центра и новой высоты
-            yMin = centerY - halfNewHeight
-            yMax = centerY + halfNewHeight
-
-            // Обновляем высоту
-            _height = value
+            _height = (value - 1).coerceAtLeast(1f)
+            scoping(this,_xMin,_xMax,_yMin,_yMax,_width,_height)
         }
 
-    private fun scoping() {
-        val X = abs(xMax - xMin) / width
-        val Y = abs(yMax - yMin) / height
-        if (Y > X) {
-            val dx = (width * Y - abs(xMax - xMin)) / 2
-            xMin = _xMin - dx
-            xMax = _xMax + dx
-            yMax = yMax
-            yMin = yMin
-        } else {
-            val dy = (height * X - abs((yMax - yMin))) / 2
-            yMin = yMin - dy
-            yMax = yMax + dy
-            xMax = xMax
-            xMin = xMin
-        }
+    init {
+        xEdges = Edges(xMin,xMax)
+        yEdges = Edges(yMin,yMax)
+        this.width = width
+        this.height = height
+
     }
+    constructor(plane: Plane) : this(
+        plane.xMin,
+        plane.xMax,
+        plane.yMin,
+        plane.yMax,
+        plane.width + 1,
+        plane.height + 1
+    )
+
+    val xMin: Double
+        get() = _xMin
+
+    val xMax: Double
+        get() = _xMax
+
+    val yMin: Double
+        get() = _yMin
+
+    val yMax: Double
+        get() = _yMax
 
     val xDen: Double
-        get() = _width / (xMax - xMin)
+        get() = _width.toDouble() / (_xMax - _xMin)
 
     val yDen: Double
-        get() = _height / (yMax - yMin)
+        get() = _height.toDouble() / (_yMax - _yMin)
+
+    private fun correctEdges(p: Edges): Edges =
+        if (p.min > p.max) Edges(p.max, p.min) else Edges(p.min, p.max)
+
+    fun copy(): Plane = Plane(this)
+    data class Edges(var min:Double,var max:Double)
+
+    fun scoping(plane : Plane, x0: Double, x1:Double, y0:Double, y1:Double,width: Float,height: Float)
+    {
+        val x2w = abs(x1-x0) /width
+        val y2h = abs(y1-y0) /height
+        if(y2h>x2w)
+        {
+            val dx = (width*y2h- abs(x1-x0))/2.0
+            plane.xEdges= Edges(x0-dx,x1+dx)
+            plane.yEdges= Edges(y0,y1)
+        }
+        else
+        {
+            val dy = (height*x2w- abs((y1-y0)))/2.0
+            plane.yEdges=Edges(y0.coerceAtLeast(y1) +dy, y1.coerceAtMost(y0) -dy)
+            plane.xEdges=Edges(x0,x1)
+        }
+    }
 }
+
