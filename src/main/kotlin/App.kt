@@ -15,10 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
 import compose.icons.LineAwesomeIcons
-import compose.icons.lineawesomeicons.GalacticRepublic
-import compose.icons.lineawesomeicons.PaletteSolid
-import compose.icons.lineawesomeicons.Save
-import compose.icons.lineawesomeicons.UndoSolid
+import compose.icons.lineawesomeicons.*
 import drawing.FractalPainter
 import drawing.convertation.ColorFuncs
 import drawing.convertation.Plane
@@ -46,8 +43,21 @@ fun App(){
     fp.colorFuncID = ColorFuncs.First
     Mandelbrot.funcNum = FractalFunks.Classic
     fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
-    val actionStack: ActionStack = ActionStack(fp)
+    val actionStack = ActionStack(fp)
 
+    fun preSaveFractalData(){
+        fp.plane?.let {
+            val currConf = FractalData(
+                it.xMin,
+                it.xMax,
+                it.yMin,
+                it.yMax,
+                fp.colorFuncID,
+                Mandelbrot.funcNum
+            )
+            actionStack.push(currConf)
+        }
+    }
     MaterialTheme{
         Scaffold(
             topBar = {
@@ -79,14 +89,17 @@ fun App(){
                                             isMenuExpanded = false
                                         }, {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value,Mandelbrot.funcNum.value)
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID,Mandelbrot.funcNum)
                                                 FileManager.saveFractalData(fractalData)
                                             }
                                         }, {
                                             val resData = FileManager.loadFractalData()
                                             resData?.let { fd ->
                                                 fp.plane?.let { plane ->
-                                                    fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)
+                                                    preSaveFractalData()
+                                                    fp.initPlane(Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height))
+                                                    fp.colorFuncID = fd.colorscheme
+                                                    Mandelbrot.funcNum = fd.fractalFunk
                                                 }
                                             }
                                             fp.refresh = true
@@ -174,19 +187,19 @@ fun App(){
                             dropdownMenuIcon(
                                 mapOf(
                                     "Оригинал" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Classic
                                         initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Кубический" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Cube
                                         initPlane(Plane(-1.0,1.0,-1.5,1.5, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Четверка" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         initPlane(Plane(-2.0,1.0,-1.1,1.1, 0f, 0f))
                                         Mandelbrot.funcNum = FractalFunks.FourthP
                                         refresh = true
@@ -196,37 +209,37 @@ fun App(){
 //                                        refresh = true
 //                                    }},
                                     "Жора" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
                                         Mandelbrot.funcNum = FractalFunks.Jora
                                         refresh = true
                                     }},
                                     "Синус" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Sin
                                         initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Птеродактель" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Dino
                                         initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Толстяк" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Fat
                                         initPlane(Plane(-1.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Дурацкий Кружок" to {fp.apply {
-                                        actionStack.push(actionStack.copy())
+                                        preSaveFractalData()
                                         Mandelbrot.funcNum = FractalFunks.Zero
                                         initPlane(Plane(-1.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                 ),
-                                LineAwesomeIcons.GalacticRepublic
+                                LineAwesomeIcons.DrawPolygonSolid
                             )
                             // Checkbox для динамических итераций
                             Row(
@@ -259,5 +272,7 @@ fun App(){
             }
         }
     }
+
+
 }
 

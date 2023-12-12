@@ -36,8 +36,8 @@ val fractalFunks: Map<Int, (Complex) -> Unit> = mapOf(
     },
     6 to { z ->
         val zSquared = z * z
-        z.re = kotlin.math.sin(zSquared.re) * kotlin.math.cosh(2 * zSquared.im)
-        z.im = kotlin.math.cos(2 * z.re) * kotlin.math.sinh(zSquared.im)
+        z.re = sin(zSquared.re) * cosh(2 * zSquared.im)
+        z.im = cos(2 * z.re) * sinh(zSquared.im)
     },
     7 to { z ->
         z *= z*z*z*z*z*z*z*z*z*z*z*z*z
