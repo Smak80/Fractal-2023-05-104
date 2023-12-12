@@ -1,18 +1,16 @@
 package guiforfractal.fileDialogWindow
 
-import androidx.compose.runtime.Composable
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 import drawing.colors.colors
 import math.fractals.funcs
 import java.io.File
-import java.util.Stack
 import javax.swing.JFileChooser
 import javax.swing.JFrame
 import javax.swing.WindowConstants
 import javax.swing.filechooser.FileNameExtensionFilter
 
 
-fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter{
+fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter {
     val fileDialogFrame = JFrame()
     fileDialogFrame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
     val fileChooser = JFileChooser()

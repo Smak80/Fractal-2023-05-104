@@ -22,16 +22,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Window
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
 import drawing.dynamicalIterations.turnDynamicIterations
 import guiforfractal.fileDialogWindow.fileOpeningDialogWindow
 import guiforfractal.fileDialogWindow.fileSavingDialogWindow
-import math.Complex
 import math.fractals.funcs
+import java.util.ArrayDeque
+import java.util.Stack
 
 
 @Composable
@@ -53,6 +53,9 @@ fun menu(fp: MutableState<FractalPainter>){
     val juliaFrame = remember { mutableStateOf(false)}
 
     val uploadFractal = remember { mutableStateOf(false)}
+
+    val stack = remember { mutableStateOf(ArrayDeque<Any?>()) }
+
     Scaffold(
         topBar = {
             TopAppBar(modifier = Modifier.fillMaxWidth().background(Color.Blue)) {
@@ -158,8 +161,8 @@ fun menu(fp: MutableState<FractalPainter>){
                 Text("${dynIt.value}")
 
 
-                var i = 0                                                                             //i убрать. Сделал так, чтобы ошибка не вылетала
-                IconButton(onClick = {println(fractalColor.value)}){
+
+                IconButton(onClick = {TODO()}){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
                 }
 
@@ -219,7 +222,6 @@ fun menu(fp: MutableState<FractalPainter>){
         DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal){size ->
             fp.value.width = size.width.toInt()
             fp.value.height = size.height.toInt()
-
             fp.value.refresh = true
         }
         SelectionPanel(pointCoordinates, juliaButtonState){
@@ -305,22 +307,13 @@ fun DrawingPanel(
         if (uploadFractal.value){
             fp.value = fileOpeningDialogWindow(fp.value)
             onResize(size)
-            println("Плоскость фотографии: ")
-            println(fp.value.plane)
-            println("-------------------------------------")
             fp.value.paint(this)
             uploadFractal.value = false
         }
 
-
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
-            println("Плоскость после изменения размера экрана:")
-            println(fp.value.plane)
-            println("-------------------------------------")
             onResize(size)
         }
-
-
 
         fp.value.scoping()
         fp.value.paint(this)

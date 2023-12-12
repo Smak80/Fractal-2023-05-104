@@ -1,4 +1,4 @@
-package drawing
+package drawing.painters
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
 

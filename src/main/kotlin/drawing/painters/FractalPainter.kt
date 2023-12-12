@@ -1,10 +1,6 @@
-package drawing
+package drawing.painters
 
-import Photo.TakePhoto
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -13,10 +9,7 @@ import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
 import math.fractals.Fractal
-import java.awt.AlphaComposite
 import java.awt.image.BufferedImage
-import java.io.File
-import javax.imageio.ImageIO
 import kotlin.concurrent.thread
 import kotlin.math.abs
 

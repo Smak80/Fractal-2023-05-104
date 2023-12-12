@@ -1,6 +1,6 @@
 package Photo
 
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 import java.awt.AlphaComposite
 import java.awt.image.BufferedImage
 import java.io.File

@@ -1,6 +1,6 @@
 package Photo
 
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 
 fun TakePhotoInOwnFormat(fp: FractalPainter, color: String, function: String): String{
     var data = ""

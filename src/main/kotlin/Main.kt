@@ -4,7 +4,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 import drawing.colors.colors
 import drawing.convertation.Plane
 import math.fractals.Fractal

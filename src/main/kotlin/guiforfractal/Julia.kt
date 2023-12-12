@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
-import drawing.FractalPainter
+import drawing.painters.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
 import drawing.convertation.Converter
@@ -27,7 +27,7 @@ import math.fractals.Julia
 fun julia(selectedPoint: Complex, color: String){
     Julia.selectedPoint = selectedPoint
 
-    val jp = remember {FractalPainter(Julia, colors[color]!!)}
+    val jp = remember { FractalPainter(Julia, colors[color]!!) }
     jp.plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     jp.plane?.let {
         jp.xMin = it.xMin
@@ -45,8 +45,8 @@ fun julia(selectedPoint: Complex, color: String){
                 jp.refresh = true
 
             }
-            jp.paint(this)
             jp.scoping()
+            jp.paint(this)
         }
 
         selectionPanel {
