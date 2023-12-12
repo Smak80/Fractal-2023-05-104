@@ -188,8 +188,6 @@ fun menu(fp: MutableState<FractalPainter>){
                             modifier = Modifier.height(35.dp),
                             onClick = {
                                 uploadFractal.value = true
-                                //fileOpeningDialogWindow(fp.value)
-                                println(fp.value.plane)
                             }
                         ) {
                             Text("Выгрузить фрактал", fontSize = 11.sp, modifier = Modifier.padding(10.dp))
@@ -218,9 +216,10 @@ fun menu(fp: MutableState<FractalPainter>){
             }
         }
     ) {
-        DrawingPanel(fp, fractalColor, fractalFunction){size ->
+        DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal){size ->
             fp.value.width = size.width.toInt()
             fp.value.height = size.height.toInt()
+
             fp.value.refresh = true
         }
         SelectionPanel(pointCoordinates, juliaButtonState){
@@ -253,27 +252,6 @@ fun menu(fp: MutableState<FractalPainter>){
         juliaFrameOpener(juliaFrame, pointCoordinates, fp, fractalColor)
     }
 }
-
-
-@Composable
-fun juliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
-                     fp: MutableState<FractalPainter>, fractalColor: MutableState<String>)
-{
-    if (juliaFrame.value){
-        Window(
-            visible = true,
-            onCloseRequest = {juliaFrame.value = false},
-            title = "Множество Жюлиа по точке (${pointCoordinates.value?.let { Converter.xScr2Crt(it.x, fp.value.plane!!) }}, " +
-                    "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
-        ){
-            pointCoordinates.value?.let {
-                val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
-                julia(pair, fractalColor.value)
-            }
-        }
-    }
-}
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -313,6 +291,7 @@ fun DrawingPanel(
     fp: MutableState<FractalPainter>,
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
+    uploadFractal: MutableState<Boolean>,
     onResize: (Size)-> Unit = {}
 ) {
     Canvas(Modifier
@@ -323,10 +302,16 @@ fun DrawingPanel(
         setColor(fp, fpcolors)
         setFractal(fp, fpfunctions)
 
+
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt() ) {
             onResize(size)
         }
 
+        if (uploadFractal.value){
+            fileOpeningDialogWindow(fp.value)
+            fp.value.paint(this)
+            uploadFractal.value = false
+        }
         fp.value.scoping()
         fp.value.paint(this)
     }

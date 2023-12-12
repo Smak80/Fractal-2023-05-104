@@ -4,13 +4,14 @@ import drawing.FractalPainter
 import drawing.colors.colors
 import math.fractals.funcs
 import java.io.File
+import java.util.Stack
 import javax.swing.JFileChooser
 import javax.swing.JFrame
 import javax.swing.WindowConstants
 import javax.swing.filechooser.FileNameExtensionFilter
 
 
-fun fileOpeningDialogWindow(fp: FractalPainter){
+fun fileOpeningDialogWindow(fp: FractalPainter): FractalPainter{
     val fileDialogFrame = JFrame()
     fileDialogFrame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
     val fileChooser = JFileChooser()
@@ -63,6 +64,8 @@ fun fileOpeningDialogWindow(fp: FractalPainter){
                     it.width = width.toFloat()
                     it.height = height.toFloat()
                 }
+                fp.width = width.toDouble().toInt()
+                fp.height = height.toDouble().toInt()
                 println("Plane: xMin=$xMin, xMax=$xMax, yMin=$yMin, yMax=$yMax, width=$width, height=$height")
             } else {
                 println("No plane match found")
@@ -88,4 +91,5 @@ fun fileOpeningDialogWindow(fp: FractalPainter){
     } catch (e: Exception) {
         e.printStackTrace()
     }
+    return fp
 }

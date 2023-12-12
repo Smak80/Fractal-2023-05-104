@@ -13,6 +13,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Window
 import drawing.FractalPainter
 import drawing.SelectionRect
 import drawing.colors.colors
@@ -92,6 +93,26 @@ fun selectionPanel(
             matcher = PointerMatcher.Primary)
     }){
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
+    }
+}
+
+
+@Composable
+fun juliaFrameOpener(juliaFrame: MutableState<Boolean>, pointCoordinates: MutableState<Offset?>,
+                     fp: MutableState<FractalPainter>, fractalColor: MutableState<String>)
+{
+    if (juliaFrame.value){
+        Window(
+            visible = true,
+            onCloseRequest = {juliaFrame.value = false},
+            title = "Множество Жюлиа по точке (${pointCoordinates.value?.let { Converter.xScr2Crt(it.x, fp.value.plane!!) }}, " +
+                    "${pointCoordinates.value?.let { Converter.yScr2Crt(it.y, fp.value.plane!!) }})"
+        ){
+            pointCoordinates.value?.let {
+                val pair = Complex(Converter.xScr2Crt(it.x, fp.value.plane!!), Converter.yScr2Crt(it.y, fp.value.plane!!))
+                julia(pair, fractalColor.value)
+            }
+        }
     }
 }
 
