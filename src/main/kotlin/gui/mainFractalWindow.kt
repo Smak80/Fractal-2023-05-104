@@ -23,9 +23,9 @@ import tools.ActionStack
 
 
 @Composable
-fun mainFractalWindow(fp: FractalPainter){
+fun mainFractalWindow(fp: FractalPainter,actionStack: ActionStack){
     var juliaDialogVisible by remember { mutableStateOf(false) }
-    fractalWindow(fp) { juliaDialogVisible = true }
+    fractalWindow(fp,actionStack) { juliaDialogVisible = true }
     if (juliaDialogVisible) {
         Window(
             onCloseRequest = { juliaDialogVisible = false },
@@ -34,7 +34,7 @@ fun mainFractalWindow(fp: FractalPainter){
     }
 }
 @Composable
-fun fractalWindow(fp:FractalPainter, JiliaInvoker:(() -> Unit)? = null){
+fun fractalWindow(fp:FractalPainter,actionStack: ActionStack ,jiliaInvoker:(() -> Unit)? = null){
     drawingPanel(fp,
         onResize = { size ->
             fp.width = size.width.toInt()
@@ -44,12 +44,12 @@ fun fractalWindow(fp:FractalPainter, JiliaInvoker:(() -> Unit)? = null){
     )
     selectionPanel(
         onTap = { offset->
-            JiliaInvoker?.let{
+            jiliaInvoker?.let{
                 fp.plane?.let { plane ->
                     val xCart = Converter.xScr2Crt(offset.x,plane)
                     val yCart = Converter.yScr2Crt(offset.y,plane)
                     JuliaSet.selectedPoint = Complex(xCart,yCart)
-                    JiliaInvoker()
+                    jiliaInvoker()
                 }
             }
         },
@@ -61,7 +61,7 @@ fun fractalWindow(fp:FractalPainter, JiliaInvoker:(() -> Unit)? = null){
                     plane.yMin,
                     plane.yMax,
                 )
-                fp.actionStack.push(currConf)
+                actionStack.push(currConf)
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
                 val yMax = Converter.yScr2Crt(it.topLeft.y, plane)

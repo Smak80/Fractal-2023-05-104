@@ -1,21 +1,17 @@
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import drawing.FractalPainter
-import drawing.convertation.ColorType
 import drawing.convertation.Plane
-import drawing.convertation.colorFunc
 import gui.fractalWindow
 import math.fractals.JuliaSet
-import math.fractals.Mandelbrot
+import tools.ActionStack
 
 @Composable
 fun JuliaApp(mandelbrotFp:FractalPainter) {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     val fp = remember { FractalPainter(JuliaSet)}
+    val actionStack: ActionStack = ActionStack(fp)
     fp.colorFuncID = mandelbrotFp.colorFuncID
     fp.plane = plane
     fp.xMin = plane.xMin
@@ -30,7 +26,7 @@ fun JuliaApp(mandelbrotFp:FractalPainter) {
 //    }
 
     MaterialTheme {
-        fractalWindow(fp)
+        fractalWindow(fp,actionStack)
     }
 
 }

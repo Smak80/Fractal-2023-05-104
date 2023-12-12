@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import drawing.convertation.ColorType
+import drawing.convertation.ColorFuncs
 import gui.controls.intTextField
 import tools.FileManager
 import video.Cadre
@@ -25,7 +25,7 @@ import video.VideoMaker
 
 @Composable
 fun workWithVideoDialog(
-    colorScheme: ColorType,
+    colorScheme: ColorFuncs,
     imageList: SnapshotStateList<Cadre>,
     close:()->Unit,
 ) {
