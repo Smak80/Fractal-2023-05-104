@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="исправил некоторые ошибки">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/stepback/Stack.kt" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Исправил искажение фрактала при загрузке">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhoto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fractalphoto/TakePhoto.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Photo/TakePhotoInOwnFormat.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fractalphoto/TakePhotoInOwnFormat.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/dynamicIalIterations/DynamicalIterations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/painters/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileOpenDialogWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileSavingDialogWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/fileDialogWindow/FileSavingDialogWindow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/guiforfractal/menu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -464,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702384266871</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Исправил искажение фрактала при загрузке">
+      <option name="closed" value="true" />
+      <created>1702402551133</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1702402551134</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -479,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением" />
     <MESSAGE value="Пол работы сделано, но можно было бы и лучше. Разобраться с окном" />
     <MESSAGE value="Готовая версия задания. Остается только, мб, оптимизировать код." />
     <MESSAGE value="добавил поддержку разных цветов и фракталов" />
@@ -504,7 +502,8 @@
     <MESSAGE value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
     <MESSAGE value="Вроде заработало полностью" />
     <MESSAGE value="исправил некоторые ошибки" />
-    <option name="LAST_COMMIT_MESSAGE" value="исправил некоторые ошибки" />
+    <MESSAGE value="Исправил искажение фрактала при загрузке" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправил искажение фрактала при загрузке" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
