@@ -85,7 +85,7 @@ fun fileOpeningDialogWindow(fp: FractalPainter, fpcolors: MutableState<String>, 
             }
 
             if (functionResult != null) {
-                fp.FRACTAL.function = funcs[functionResult.value]!!
+                fp.fractal.function = funcs[functionResult.value]!!
                 fpfunctions.value = functionResult.value
                 println("Function: ${functionResult.value}")
             }

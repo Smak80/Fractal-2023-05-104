@@ -49,6 +49,9 @@ fun fileSavingDialogWindow(photo: BufferedImage) {
         }
         catch (e: Exception){
             e.printStackTrace()
+            JOptionPane.showMessageDialog(
+                fileDialogFrame, e.message
+            )
         }
     }
 }
@@ -93,6 +96,9 @@ fun fileSavingDialogWindow(text: String) {
         }
         catch (e: Exception){
             e.printStackTrace()
+            JOptionPane.showMessageDialog(
+                fileDialogFrame, e.localizedMessage
+            )
         }
     }
 }

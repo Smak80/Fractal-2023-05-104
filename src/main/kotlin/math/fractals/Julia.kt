@@ -3,7 +3,7 @@ import math.Complex
 
 object Julia : AlgebraicFractal {
     var selectedPoint = Complex(0.0,0.0)
-    var function: (Complex) -> Complex = { value:Complex -> value }
+    override var function: (Complex) -> Complex = { value:Complex -> value }
         set(value) {
             if(funcs.containsValue(value)){
                 field = value

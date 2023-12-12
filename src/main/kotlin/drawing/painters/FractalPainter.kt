@@ -18,7 +18,6 @@ class FractalPainter(
     var fractal: AlgebraicFractal,
     var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
-    var FRACTAL = Fractal
     var plane: Plane? = null
     override var width: Int
         get() = plane?.width?.toInt() ?: 0
@@ -73,7 +72,7 @@ class FractalPainter(
 
         fp.value.plane?.let {
             newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
-            newFp.FRACTAL = fp.value.FRACTAL
+            newFp.fractal = fp.value.fractal
             newFp.height = fp.value.height
             newFp.width = fp.value.width
         }
