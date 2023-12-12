@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Ничто не вышло">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Попробоывал изменить внтуреннюю реалзизацию Plane">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/mainFractalWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/tools/ActionStack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +164,7 @@
       <workItem from="1700925348075" duration="899000" />
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
-      <workItem from="1702327018899" duration="10759000" />
+      <workItem from="1702327018899" duration="21022000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -360,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702339854266</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Попробоывал изменить внтуреннюю реалзизацию Plane">
+      <option name="closed" value="true" />
+      <created>1702370470643</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702370470643</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +441,28 @@
     <MESSAGE value="Эксперементы с Plane" />
     <MESSAGE value="Тщетные попытки" />
     <MESSAGE value="Ничто не вышло" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ничто не вышло" />
+    <MESSAGE value="Попробоывал изменить внтуреннюю реалзизацию Plane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Попробоывал изменить внтуреннюю реалзизацию Plane" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt</url>
+          <line>67</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt</url>
+          <line>144</line>
+          <properties>
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

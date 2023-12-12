@@ -2,7 +2,6 @@ package tools
 
 import drawing.FractalPainter
 import drawing.convertation.ColorType
-import drawing.convertation.Plane
 import drawing.convertation.colorFunc
 import math.fractals.Mandelbrot
 import java.util.*
@@ -15,10 +14,16 @@ class ActionStack(private val fp: FractalPainter){
         when (val obj: Any = stack.pop()) {
             is CartCords -> {
                 fp.plane?.let{
-                    it.xEdges = Plane.Edges(obj.xMin,obj.xMax)
-                    it.yEdges = Plane.Edges(obj.yMin,obj.yMax)
+                    it.xMin = obj.xMin
+                    it.xMax = obj.xMax
+                    it.yMin = obj.yMin
+                    it.yMax = obj.yMax
                     fp.refresh = true
                 }
+                fp.xMin = obj.xMin
+                fp.xMax = obj.xMax
+                fp.yMin = obj.yMin
+                fp.yMax = obj.yMax
             }
             is ColorType -> {
                 fp.colorFuncID = obj
