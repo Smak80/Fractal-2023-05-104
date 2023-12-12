@@ -1,10 +1,19 @@
 package drawing.stepback
 
-import androidx.compose.runtime.MutableState
-import drawing.painters.FractalPainter
+import java.util.Stack
 
-class Stack(fp: FractalPainter, stack: MutableState<ArrayDeque<FractalPainter?>>) {
-    fun push(){
-
+class Stack {
+    private var stack = Stack<Any?>()
+    fun push(elem: Any?){
+        stack.push(elem)
+    }
+    fun pop(elem: Any?): Any? {
+        val top: Any?
+        if (!stack.isEmpty()) {
+            top = stack.pop()
+        }else{
+            return null
+        }
+        return top
     }
 }

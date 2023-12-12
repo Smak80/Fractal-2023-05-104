@@ -31,11 +31,11 @@ import drawing.dynamicIalIterations.turnDynamicIterations
 import guiforfractal.fileDialogWindow.fileOpeningDialogWindow
 import guiforfractal.fileDialogWindow.fileSavingDialogWindow
 import math.fractals.funcs
-
+import java.util.Stack
 
 
 @Composable
-fun menu(fp: MutableState<FractalPainter>){
+fun menu(fp: MutableState<FractalPainter>, stack: Stack<FractalPainter>){
 
     val fractalColor = remember { mutableStateOf("color1")  }
     val fractalFunction = remember { mutableStateOf("Mandelbrot") }
@@ -149,10 +149,7 @@ fun menu(fp: MutableState<FractalPainter>){
 
                 Spacer(Modifier.weight(1f, true))
 
-                Button(onClick = {
-                    juliaFrame.value = true
-                }
-                    , enabled = juliaButtonState.value){
+                Button(onClick = { juliaFrame.value = true }, enabled = juliaButtonState.value){
                     Text("Построить множество Жюлиа")
                 }
 
@@ -164,8 +161,15 @@ fun menu(fp: MutableState<FractalPainter>){
 
                 IconButton(onClick = {
                     stepBackCalled.value = true
+
+                    stack.pop()
+                    fp.value = fp.value.copy(fp)
+
+                    println(fp.value.plane)
+                    stepBackCalled.value = false
                 }){
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Вернуться на шаг назад")
+
                 }
 
                 Box {
@@ -221,12 +225,12 @@ fun menu(fp: MutableState<FractalPainter>){
             }
         }
     ) {
-        DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal){size ->
+        DrawingPanel(fp, fractalColor, fractalFunction, uploadFractal, stepBackCalled, stack){size ->
             fp.value.width = size.width.toInt()
             fp.value.height = size.height.toInt()
             fp.value.refresh = true
         }
-        SelectionPanel(pointCoordinates, juliaButtonState){
+        SelectionPanel(pointCoordinates, juliaButtonState, stack){
             fp.value.plane?.let{ plane ->
                 val xMin = Converter.xScr2Crt(it.topLeft.x, plane)
                 val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)
@@ -245,11 +249,16 @@ fun menu(fp: MutableState<FractalPainter>){
                 fp.value.yMin = yMin
                 fp.value.yMax = yMax
 
+
+
                 turnDynamicIterations(checkedState, fp)
                 dynIt.value = fp.value.fractal.maxIterations
 
+
+
                 fp.value.refresh = true
 
+                stack.push(fp.value.copy(fp))
             }
 
         }
@@ -262,6 +271,7 @@ fun menu(fp: MutableState<FractalPainter>){
 fun SelectionPanel(
     pointCoordinates: MutableState<Offset?>,
     juliaButton: MutableState<Boolean>,
+    stack: Stack<FractalPainter>,
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}
@@ -296,8 +306,8 @@ fun DrawingPanel(
     fpcolors:  MutableState<String>,
     fpfunctions:  MutableState<String>,
     uploadFractal: MutableState<Boolean>,
-//    stepBackCalled: MutableState<Boolean>,
-//    stack: MutableState<ArrayDeque<FractalPainter?>>,
+    stepBackCalled: MutableState<Boolean>,
+    stack: Stack<FractalPainter>,
     onResize: (Size)-> Unit = {}
 ) {
     Canvas(Modifier
@@ -306,28 +316,29 @@ fun DrawingPanel(
     ) {
 
         setColor(fp, fpcolors)
+        //stack.push(fp.value)
+
 
         setFractal(fp, fpfunctions)
+        stack.push(fp.value.copy(fp))
+
 
         if (uploadFractal.value){
             fp.value = fileOpeningDialogWindow(fp.value, fpcolors, fpfunctions)
             onResize(size)
+
+            stack.push(fp.value.copy(fp))
             //fp.value.scoping()
             uploadFractal.value = false
+
         }
 
         if(fp.value.width != size.width.toInt() || fp.value.height != size.height.toInt()) {
             onResize(size)
+
+            stack.push(fp.value.copy(fp))
         }
 
-//        if(stepBackCalled.value){
-//            fp.value = stack.value.pop()!!
-//            println(fp.value.plane)
-//            fp.value.refresh = true
-//            fp.value.scoping()
-//            fp.value.paint(this)
-//            stepBackCalled.value = false
-//        }
 
         fp.value.scoping()
         fp.value.paint(this)
@@ -348,25 +359,4 @@ fun setColor(fp: MutableState<FractalPainter>, cl: MutableState<String>) {
             fp.value.refresh = true
         }
     }
-}
-
-fun copy(fp: MutableState<FractalPainter>): FractalPainter{
-
-    val newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
-
-    fp.value.plane?.let {
-        newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
-        newFp.FRACTAL = fp.value.FRACTAL
-        newFp.height = fp.value.height
-        newFp.width = fp.value.width
-    }
-
-    newFp.xMax = fp.value.xMax
-    newFp.xMin = fp.value.xMin
-    newFp.yMax = fp.value.yMax
-    newFp.yMin = fp.value.yMin
-
-    newFp.refresh = fp.value.refresh
-    newFp.img = fp.value.img
-    return newFp
 }

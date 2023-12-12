@@ -1,5 +1,6 @@
 package drawing.painters
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
@@ -34,6 +35,13 @@ class FractalPainter(
 
     var yMax = 0.0
 
+    var img = BufferedImage(
+        1,
+        1,
+        BufferedImage.TYPE_INT_ARGB,
+    )
+    var refresh = true
+
     fun scoping(){
         val X = abs(xMax - xMin) / width
         val Y = abs(yMax - yMin) / height
@@ -59,13 +67,28 @@ class FractalPainter(
         }
     }
 
+    fun copy(fp: MutableState<FractalPainter>): FractalPainter{
 
-    var img = BufferedImage(
-        1,
-        1,
-        BufferedImage.TYPE_INT_ARGB,
-    )
-    var refresh = true
+        val newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
+
+        fp.value.plane?.let {
+            newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
+            newFp.FRACTAL = fp.value.FRACTAL
+            newFp.height = fp.value.height
+            newFp.width = fp.value.width
+        }
+
+        newFp.xMax = fp.value.xMax
+        newFp.xMin = fp.value.xMin
+        newFp.yMax = fp.value.yMax
+        newFp.yMin = fp.value.yMin
+
+        newFp.refresh = fp.value.refresh
+        newFp.img = fp.value.img
+        return newFp
+    }
+
+
 
     override fun paint(scope: DrawScope) {
         if (refresh) {
