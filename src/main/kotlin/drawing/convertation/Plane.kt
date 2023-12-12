@@ -1,7 +1,5 @@
 package drawing.convertation
 
-
-
 data class Plane(
     var xMin: Double,
     var xMax: Double,

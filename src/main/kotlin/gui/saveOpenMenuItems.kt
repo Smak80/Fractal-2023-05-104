@@ -32,7 +32,10 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
 
     if (isDialogVisible) {
         Dialog(
-            onDismissRequest = { isDialogVisible = false },
+            onDismissRequest = {
+                close()
+                isDialogVisible = false
+                               },
             properties = DialogProperties(dismissOnClickOutside = true)
         ) {
             Column(

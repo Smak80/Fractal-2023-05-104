@@ -72,8 +72,7 @@ fun App(){
                                     saveOpenMenuItems(
                                         {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
-                                                saveImageData(fractalData)
+                                                saveImageData(fp)
                                             }
                                             isMenuExpanded = false
                                         }, {

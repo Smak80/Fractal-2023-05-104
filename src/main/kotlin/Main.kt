@@ -1,5 +1,6 @@
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
+import java.awt.Dimension
 
 fun main() = application {
     Window(
@@ -13,6 +14,7 @@ fun main() = application {
             isMinimized = false
         ),
     ) {
+        this.window.minimumSize = Dimension(800, 600)
         App()
     }
 }

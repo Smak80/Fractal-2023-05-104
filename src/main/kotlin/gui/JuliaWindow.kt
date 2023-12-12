@@ -18,6 +18,10 @@ fun JuliaApp(mandelbrotFp:FractalPainter) {
     val fp = remember { FractalPainter(JuliaSet)}
     fp.colorFuncID = mandelbrotFp.colorFuncID
     fp.plane = plane
+    fp.xMin = plane.xMin
+    fp.xMax = plane.xMax
+    fp.yMax = plane.yMax
+    fp.yMin = plane.yMin
 //    fp.plane?.let {
 //        fp.xMin = it.xMin
 //        fp.xMax = it.xMax
