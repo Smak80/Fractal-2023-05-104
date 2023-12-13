@@ -28,12 +28,28 @@ class VideoMaker(private val conf: VideoConfiguration) {
         render(images)
     }
 
-    private fun getCadresCatmullRom(): List<BufferedImage> {
-        return getData()
-    }
+//    private fun getCadresCatmullRom(): List<BufferedImage> {
+//
+//    }
     private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
+        val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         val centers = getCenterOfShots(conf.cadres)
+        var currPlane = conf.cadres[0].plane.copy()
+        for (i in 0 until conf.cadres.size - 1) {
+            val currCenter = centers[i]
+            val zoom = calculateZoom(centers[i],centers[i+1])
+            for (j in 0 until framesPerSegment) {
+                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
+                cadresList.add(bi)
+
+
+//                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
+//                    println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
+//                }
+
+            }
+    }
 
         return cadresList
     }

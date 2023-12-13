@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Я снова хочу жить !">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Всё отменяется...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/saveOpenMenuItems.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/saveOpenMenuItems.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +159,7 @@
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
       <workItem from="1702327018899" duration="46099000" />
-      <workItem from="1702424970687" duration="4216000" />
+      <workItem from="1702424970687" duration="4669000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -422,7 +417,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702424001868</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Всё отменяется...">
+      <option name="closed" value="true" />
+      <created>1702429226010</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1702429226010</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,7 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="test" />
     <MESSAGE value="Разделил Меню и Фрактал" />
     <MESSAGE value="Сделал Разные Controls в Меню." />
@@ -492,7 +494,8 @@
     <MESSAGE value="Куча всего пофиксил" />
     <MESSAGE value="Наладил Отмену Действий и загрузку Фрактала" />
     <MESSAGE value="Я снова хочу жить !" />
-    <option name="LAST_COMMIT_MESSAGE" value="Я снова хочу жить !" />
+    <MESSAGE value="Всё отменяется..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Всё отменяется..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
