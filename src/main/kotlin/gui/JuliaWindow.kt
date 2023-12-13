@@ -41,6 +41,7 @@ fun JuliaApp(mandelbrotFp:FractalPainter) {
     val plane = Plane(-2.0, 2.0, -2.0, 2.0, 0f, 0f)
     val fp = remember { FractalPainter(JuliaSet)}
     val actionStack = ActionStack(fp)
+    var dynamicIterationsCheck by remember { mutableStateOf(false) }
     var isMenuExpanded by remember { mutableStateOf(false) }
     fp.colorFuncID = mandelbrotFp.colorFuncID
     fp.initPlane(plane)
@@ -156,6 +157,29 @@ fun JuliaApp(mandelbrotFp:FractalPainter) {
 //                                }
 //                            }
                         }
+                        // Checkbox для динамических итераций
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Checkbox(
+                                checked = dynamicIterationsCheck,
+                                onCheckedChange = { dynamicIterationsCheck = it
+                                    fp.dynamicIterations = dynamicIterationsCheck },
+                                modifier = Modifier.padding(start = 8.dp),
+                            )
+                            fp.refresh = true
+                            //fp.retDynIt()
+                            //всё!
+                            Text(
+                                text = "D. итерации",
+                                style = MaterialTheme.typography.body1.copy(
+                                    fontSize = 18.sp,
+                                    color = Color.White
+                                )
+                            )
+                        }
+
                     },
                     modifier = Modifier.height(65.dp)
                 )
