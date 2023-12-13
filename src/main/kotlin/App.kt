@@ -62,8 +62,6 @@ fun App(){
     MaterialTheme{
         Scaffold(
             topBar = {
-                var dynamicIterationsCheck by remember { mutableStateOf(false) }
-                var isMenuExpanded by remember { mutableStateOf(false) }
 
                 TopAppBar(
                     title = {
@@ -258,7 +256,8 @@ fun App(){
                                                       fp.dinamycIters = dynamicIterationsCheck },
                                     modifier = Modifier.padding(start = 8.dp),
                                 )
-                                if(dynamicIterationsCheck) fp.retDynIt()
+                                fp.refresh = true
+                                //fp.retDynIt()
                                 //всё!
                                 Text(
                                     text = "D. итерации",

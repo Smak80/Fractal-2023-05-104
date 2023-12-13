@@ -6,6 +6,7 @@ import drawing.convertation.Plane
 import math.fractals.Mandelbrot
 import java.awt.image.BufferedImage
 
+
 class Cadre(plane: Plane, colorFuncs: ColorFuncs) {
 
     val plane: Plane
@@ -14,7 +15,7 @@ class Cadre(plane: Plane, colorFuncs: ColorFuncs) {
     init {
         this.plane = plane.copy()
         preRenderImg = getImageFromPlane(this.plane,120f, 130f,colorFuncs)
-       // img = getImageFromPlane(this.plane, 0f, 0f)
+        // img = getImageFromPlane(this.plane, 0f, 0f)
     }
 
     companion object{
