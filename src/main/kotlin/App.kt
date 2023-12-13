@@ -30,7 +30,6 @@ import tools.ActionStack
 import tools.FileManager
 import tools.FileManager.saveImageData
 import video.Cadre
-import javax.swing.UIManager
 
 @Composable
 @Preview
@@ -253,7 +252,7 @@ fun App(){
                                 Checkbox(
                                     checked = dynamicIterationsCheck,
                                     onCheckedChange = { dynamicIterationsCheck = it
-                                                      fp.dinamycIters = dynamicIterationsCheck },
+                                                      fp.dynamicIterations = dynamicIterationsCheck },
                                     modifier = Modifier.padding(start = 8.dp),
                                 )
                                 fp.refresh = true

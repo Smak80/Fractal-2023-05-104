@@ -22,8 +22,6 @@ class SelectionRect(p: Offset) {
             sz.width.absoluteValue,
             sz.height.absoluteValue
         )
-    fun addPoint(p:Offset)
-    {
-        sz = Size(sz.width + p.x, sz.height + p.y)
-    }
+
+    fun addPoint(p:Offset) { sz = Size(sz.width + p.x, sz.height + p.y) }
 }
