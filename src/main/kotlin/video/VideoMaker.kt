@@ -1,5 +1,6 @@
 package video
 
+import drawing.convertation.ColorFuncs
 import drawing.convertation.Plane
 import math.CatmullRomInterpolation
 import math.Complex
@@ -20,6 +21,8 @@ class VideoMaker(private val conf: VideoConfiguration) {
         //CatmullRom
     }
 
+    var rendered = 0
+    var toRenderAndCreate = conf.duration * conf.fps * 2
 
     fun getVideo(method: InterpolationMethod) {
         val images = when (method) {
@@ -29,86 +32,59 @@ class VideoMaker(private val conf: VideoConfiguration) {
         render(images)
     }
 
-//    private fun getCadresCatmullRom(): List<BufferedImage> {
-//
-//    }
     private fun getCadresLinear(): List<BufferedImage> {
         var cadres = conf.cadres
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
-
+        //val intermediateFrames = VideoMakerHelperSmooth.createIntermediateFrames(cadres, conf.duration * conf.fps,conf.width.toInt(),conf.height.toInt())
         for (i in 0 until conf.cadres.size - 1) {
             val intermediateFrames = VideoMakerHelper.createIntermediateFrames(cadres[i].plane, cadres[i+1].plane, framesPerSegment,conf.width.toInt(),conf.height.toInt())
             cadresList.addAll(intermediateFrames)
         }
         return cadresList
     }
+    fun createIntermediateFrames(frame1: Plane, frame2: Plane, numFrames: Int,width:Int,height:Int): List<BufferedImage> {
+        val intermediateFrames = ArrayList<BufferedImage>()
 
-    fun calculateDistance(p1: Complex, p2: Complex): Double {
-        return sqrt((p2.re - p1.re).pow(2) + (p2.im - p1.im).pow(2))
-    }
-
-    fun calculateZoom(initialPoint1: Complex, finalPoint1: Complex): Double {
-        val initialDistance = calculateDistance(initialPoint1, Complex(0.0, 0.0))
-        val finalDistance = calculateDistance(finalPoint1, Complex(0.0, 0.0))
-
-        return initialDistance / finalDistance
-    }
-
-    private fun getCadresLinear2(): List<BufferedImage> {
-        val cadresList: MutableList<BufferedImage> = mutableListOf()
-        val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
-        var currPlane = conf.cadres[0].plane.copy()
-        for (i in 0 until conf.cadres.size - 1) {
-            val stepDxMax = (conf.cadres[i + 1].plane.xMax - conf.cadres[i].plane.xMax) / framesPerSegment.toFloat()
-            val stepDxMin = (conf.cadres[i + 1].plane.xMin - conf.cadres[i].plane.xMin) / framesPerSegment.toFloat()
-            val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment.toFloat()
-            val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment.toFloat()
-            for (j in 0 until framesPerSegment) {
-                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
-                cadresList.add(bi)
-                val nxmin = currPlane.xMin + stepDxMin
-                val nxmax = currPlane.xMax + stepDxMax
-                val nymin = currPlane.yMin + stepDyMin
-                val nymax = currPlane.yMax + stepDyMax
-
-                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
-                    println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
-                }
-
-            }
+        for (i in 0..numFrames) {
+            val alpha = i.toDouble() / numFrames
+            val blendedFrame = blendFrames(frame1, frame2, alpha)
+            intermediateFrames.add(blendedFrame)
+            rendered+=1
         }
-        return cadresList
+
+        return intermediateFrames
     }
 
+    private fun blendFrames(frame1: Plane, frame2: Plane, alpha: Double): BufferedImage {
+        val xMin = interpolate(frame1.xMin, frame2.xMin, alpha)
+        val yMin = interpolate(frame1.yMin, frame2.yMin, alpha)
+        val xMax = interpolate(frame1.xMax, frame2.xMax, alpha)
+        val yMax = interpolate(frame1.yMax, frame2.yMax, alpha)
+        val plane = Plane(xMin, xMax, yMin, yMax, 0f, 0f)
+
+        return Cadre.getImageFromPlane(plane, conf.width.toFloat(), conf.height.toFloat(), ColorFuncs.First)
+    }
+
+    private fun interpolate(value1: Double, value2: Double, alpha: Double): Double {
+        return value1 * (1 - alpha) + value2 * alpha
+    }
     private fun render(data: List<BufferedImage>) {
         val out: SeekableByteChannel? = null
         try {
             val out = NIOUtils.writableFileChannel(conf.file);
             println(out)
             val encoder = AWTSequenceEncoder(out, Rational.R(conf.fps, 1))
+
             data.forEach {
                 println("Идём")
                 encoder.encodeImage(it)
+                rendered += 1
             }
             encoder.finish();
         } finally {
             NIOUtils.closeQuietly(out);
         }
     }
-
-    private fun getCenterOfShots(cadres: MutableList<Cadre>): List<Complex> =
-        cadres.map {
-            Complex(
-                (it.plane.xMin + it.plane.xMax) * 0.5,
-                (it.plane.yMin + it.plane.yMax) * 0.5
-            )
-        }
-
-    val aspectRatio
-        get() = conf.width.toDouble() / conf.height
-
-
-
 }
 

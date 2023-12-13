@@ -4,16 +4,22 @@ import drawing.convertation.ColorFuncs
 import drawing.convertation.Plane
 import java.awt.image.BufferedImage
 
-object VideoMakerHelper{
-    fun createIntermediateFrames(frame1: Plane, frame2: Plane, numFrames: Int,width:Int,height:Int): List<BufferedImage> {
+object VideoMakerHelperSmooth {
+
+
+    fun createIntermediateFrames(frames: List<Cadre>, numFramesPerTransition: Int,width:Int, height:Int): List<BufferedImage> {
         val intermediateFrames = ArrayList<BufferedImage>()
 
-        for (i in 0..numFrames) {
-            val alpha = i.toDouble() / numFrames
-            val blendedFrame = blendFrames(frame1, frame2, alpha,width,height)
-            intermediateFrames.add(blendedFrame)
-        }
+        for (i in 0 until frames.size - 1) {
+            val frame1 = frames[i]
+            val frame2 = frames[i + 1]
 
+            for (j in 0..numFramesPerTransition) {
+                val alpha = j.toDouble() / numFramesPerTransition
+                val blendedFrame = blendFrames(frame1.plane, frame2.plane, alpha,width,height)
+                intermediateFrames.add(blendedFrame)
+            }
+        }
         return intermediateFrames
     }
 
