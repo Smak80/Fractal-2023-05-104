@@ -30,9 +30,6 @@ import tools.ActionStack
 import tools.FileManager
 import tools.FileManager.saveImageData
 import video.Cadre
-import java.io.File
-import java.io.IOException
-import javax.imageio.ImageIO
 import javax.swing.UIManager
 
 @Composable
@@ -65,6 +62,7 @@ fun App(){
     MaterialTheme{
         Scaffold(
             topBar = {
+
                 TopAppBar(
                     title = {
                         Text(
@@ -254,9 +252,13 @@ fun App(){
                             ) {
                                 Checkbox(
                                     checked = dynamicIterationsCheck,
-                                    onCheckedChange = {dynamicIterationsCheck = it},
-                                    modifier = Modifier.padding(start = 8.dp)
+                                    onCheckedChange = { dynamicIterationsCheck = it
+                                                      fp.dinamycIters = dynamicIterationsCheck },
+                                    modifier = Modifier.padding(start = 8.dp),
                                 )
+                                fp.refresh = true
+                                //fp.retDynIt()
+                                //всё!
                                 Text(
                                     text = "D. итерации",
                                     style = MaterialTheme.typography.body1.copy(
