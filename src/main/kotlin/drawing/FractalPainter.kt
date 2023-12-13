@@ -111,8 +111,8 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 
     fun getImageFromPlane(img: BufferedImage): BufferedImage {
         scoping()
-        if (dynamicIterations) Mandelbrot.maxIterations = otherIters().toInt()
-        else Mandelbrot.maxIterations = 200
+        if (dynamicIterations) fractal.maxIterations = otherIters().toInt()
+        else fractal.maxIterations = 200
         plane?.let { plane ->
             val tc = Runtime.getRuntime().availableProcessors()
             List(tc) { t ->
