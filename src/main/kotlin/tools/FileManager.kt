@@ -1,30 +1,18 @@
 package tools
 
-import drawing.convertation.ColorType
-import drawing.convertation.Plane
-import drawing.convertation.colorFunc
+import drawing.FractalPainter
 import math.fractals.FractalData
-import org.jetbrains.skia.Color
-import video.Cadre
 import java.awt.Font
-import java.awt.FontMetrics
-import java.awt.font.LineMetrics
-import java.awt.font.TextAttribute
 import java.awt.image.BufferedImage
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.text.AttributedString
 import javax.imageio.ImageIO
 import javax.swing.JFileChooser
 import javax.swing.JOptionPane
 import javax.swing.filechooser.FileNameExtensionFilter
 import javax.swing.filechooser.FileSystemView
-import java.awt.Graphics2D
-
-
-
 
 
 object FileManager {
@@ -90,7 +78,7 @@ object FileManager {
 
     }
 
-    fun saveImageData(data: FractalData){
+    fun saveImageData(fp: FractalPainter){
         val fileSystemView = FileSystemView.getFileSystemView()
         val fileChooser = JFileChooser(fileSystemView.defaultDirectory, fileSystemView).apply {
             dialogTitle = "Сохранить изображение"
@@ -103,26 +91,51 @@ object FileManager {
             val fileAbsolutePath =
                 fileChooser.currentDirectory.absolutePath + "\\" +
                         fileChooser.selectedFile.nameWithoutExtension + ".png"
-            val image = addCartCoordinates(data)
+            val image = addCartCoordinates(fp)
             val fileStream = FileOutputStream(fileAbsolutePath)
             ImageIO.write(image,"png",fileStream)
             JOptionPane.showMessageDialog(fileChooser, "Изображение '$fileAbsolutePath' успешно сохранен")
         }
     }
-    private fun addCartCoordinates(data:FractalData):BufferedImage{
-        val plane = Plane(data.xMin,data.xMax,data.yMax,data.yMin,1920f,1080f)
-        val colorscheme = ColorType.entries.find { it.value == data.colorscheme }
-        val a = Cadre.getImageFromPlane(plane,1920f,1080f, colorscheme ?: ColorType.Zero)
-        a.graphics.also {
-            val string = "xMin=${plane.xMin} xMax = ${plane.xMax} yMin = ${plane.yMin}, yMax = ${plane.yMax}"
-            val text = AttributedString(string)
-            text.addAttribute(TextAttribute.FONT, Font("Helvetica", Font.BOLD, 24), 0, string.length)
+    private fun addCartCoordinates(fp:FractalPainter): BufferedImage {
+        val image = fp.img
+        val graphics = image.createGraphics()
+        val font = Font("Futura", Font.BOLD, 16)
+        graphics.font = font
+        graphics.color = java.awt.Color(0,0,0)
 
-//            it.color = java.awt.Color.WHITE
-//            it.fillRoundRect(20, 10, 550 , it.fontMetrics.ascent + it.fontMetrics.height + 10, 30, 30)
-            it.color = java.awt.Color.BLACK
-            it.drawString(text.iterator, 40, 40)
+        fp.plane?.let{
+            val string = "xMin=${it.xMin} xMax=${it.xMax} yMin=${it.yMin} yMax=${it.yMax}"
+            val fm = graphics.fontMetrics
+            val stringWidth = fm.stringWidth(string)
+            val stringHeight = fm.height
+            val x = (image.width - stringWidth) / 2
+            val y = image.height - stringHeight - 10
+
+
+            graphics.color = java.awt.Color(255, 255, 255)
+            graphics.fillRoundRect(x - 5, y - fm.ascent - 5, stringWidth + 10, stringHeight + 10,30,30)
+
+
+            graphics.color = java.awt.Color(0,0,0)
+            graphics.drawString(string, x, y)
+            graphics.dispose()
         }
-        return a
+        return image
     }
+
+//    private fun experiment(){
+//        val a = DrawScope
+//        val text = it.measure(
+//            df.format(value),
+//            TextStyle(color = LABELS_COLOR, fontSize = FONT_SIZE, fontWeight = FONT_WEIGHT)
+//        )
+//        plane?.let { plane ->
+//            var y = Converter.yCrt2Scr(0.0, plane).coerceIn(0f, plane.height)
+//            if(y==plane.height) y -= 34f  else y += 17f
+//
+//            val x = Converter.xCrt2Scr(value, plane) - text.size.width / 2
+//            drawText(text, topLeft = Offset(x, y))
+//        }
+//    }
 }

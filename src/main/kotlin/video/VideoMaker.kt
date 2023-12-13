@@ -1,8 +1,6 @@
 package video
 
 import drawing.convertation.Plane
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import math.Complex
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
@@ -12,39 +10,62 @@ import java.awt.image.BufferedImage
 import java.lang.Exception
 import java.util.stream.Collectors
 import kotlin.math.*
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 
 
 @Suppress("NAME_SHADOWING")
 class VideoMaker(private val conf: VideoConfiguration) {
     enum class InterpolationMethod {
-        Linear,
-        CatmullRom
+        CatmullRom,
+        //CatmullRom
     }
 
-    private var _frameHeight = 0f
-    private var _frameWidth = 0f
 
-
-    val aspectRatio
-        get() = _frameWidth.toDouble() / _frameHeight
-
-    fun getVideo(method:InterpolationMethod) {
-        _frameWidth = conf.width
-        _frameHeight = conf.height
-        val images = when(method){
-            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
-            InterpolationMethod.Linear -> getCadresLinear()
+    fun getVideo(method: InterpolationMethod) {
+        val images = when (method) {
+           // InterpolationMethod.CatmullRom -> getCadresCatmullRom()
+            InterpolationMethod.CatmullRom -> getCadresLinear()
         }
         render(images)
     }
 
-    private fun getCadresCatmullRom(): List<BufferedImage> {
-        return listOf()
+//    private fun getCadresCatmullRom(): List<BufferedImage> {
+//
+//    }
+    private fun getCadresLinear(): List<BufferedImage> {
+        val cadresList: MutableList<BufferedImage> = mutableListOf()
+        val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
+        val centers = getCenterOfShots(conf.cadres)
+        var currPlane = conf.cadres[0].plane.copy()
+        for (i in 0 until conf.cadres.size - 1) {
+            val currCenter = centers[i]
+            val zoom = calculateZoom(centers[i],centers[i+1])
+            for (j in 0 until framesPerSegment) {
+                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
+                cadresList.add(bi)
+
+
+//                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
+//                    println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
+//                }
+
+            }
     }
 
-    private fun getCadresLinear(): List<BufferedImage> {
+        return cadresList
+    }
+
+    fun calculateDistance(p1: Complex, p2: Complex): Double {
+        return sqrt((p2.re - p1.re).pow(2) + (p2.im - p1.im).pow(2))
+    }
+
+    fun calculateZoom(initialPoint1: Complex, finalPoint1: Complex): Double {
+        val initialDistance = calculateDistance(initialPoint1, Complex(0.0, 0.0))
+        val finalDistance = calculateDistance(finalPoint1, Complex(0.0, 0.0))
+
+        return initialDistance / finalDistance
+    }
+
+    private fun getCadresLinear2(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         var currPlane = conf.cadres[0].plane.copy()
@@ -54,14 +75,14 @@ class VideoMaker(private val conf: VideoConfiguration) {
             val stepDyMax = (conf.cadres[i + 1].plane.yMax - conf.cadres[i].plane.yMax) / framesPerSegment.toFloat()
             val stepDyMin = (conf.cadres[i + 1].plane.yMin - conf.cadres[i].plane.yMin) / framesPerSegment.toFloat()
             for (j in 0 until framesPerSegment) {
-                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height,conf.colorScheme)
+                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
                 cadresList.add(bi)
                 val nxmin = currPlane.xMin + stepDxMin
                 val nxmax = currPlane.xMax + stepDxMax
                 val nymin = currPlane.yMin + stepDyMin
                 val nymax = currPlane.yMax + stepDyMax
 
-                currPlane = Plane(nxmin,nxmax,nymin,nymax,conf.width,conf.height).also {
+                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
                     println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
                 }
 
@@ -69,29 +90,34 @@ class VideoMaker(private val conf: VideoConfiguration) {
         }
         return cadresList
     }
+
     private fun render(data: List<BufferedImage>) {
         val out: SeekableByteChannel? = null
         try {
             val out = NIOUtils.writableFileChannel(conf.file);
             println(out)
             val encoder = AWTSequenceEncoder(out, Rational.R(conf.fps, 1))
-            data.forEach{
+            data.forEach {
                 println("Идём")
                 encoder.encodeImage(it)
             }
             encoder.finish();
-        }
-        finally {
+        } finally {
             NIOUtils.closeQuietly(out);
         }
     }
+
     private fun getCenterOfShots(cadres: MutableList<Cadre>): List<Complex> =
         cadres.map {
             Complex(
                 (it.plane.xMin + it.plane.xMax) * 0.5,
                 (it.plane.yMin + it.plane.yMax) * 0.5
             )
-    }
+        }
+
+    val aspectRatio
+        get() = conf.width.toDouble() / conf.height
+
 
 
 }

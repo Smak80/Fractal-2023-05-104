@@ -4,98 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74dc3592-2e49-4813-8ad7-f3e0083f1d1a" name="Changes" comment="Какие-то манипуляции с видео">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" beforeDir="false" />
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Попытался как-то улучшить меню и интерфейс в целом">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Всё отменяется...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
-        <projects_view />
-      </state>
-    </system>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
-  <component name="ProjectId" id="2ZE2b3fIE9MzuLlSH0nZRFAHVNL" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
-  }
-}]]></component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="74dc3592-2e49-4813-8ad7-f3e0083f1d1a" name="Changes" comment="Какие-то манипуляции с видео" />
-      <created>1701972985873</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1701972985873</updated>
-    </task>
-    <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Какие-то манипуляции с видео" />
-    <option name="LAST_COMMIT_MESSAGE" value="Какие-то манипуляции с видео" />
-  </component>
-</project>
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
-  <component name="ChangeListManager">
-    <list default="true" id="25f612e5-f1d7-4655-8c9c-5e6ea16aa2f5" name="Changes" comment="Какие-то манипуляции с видео">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/gui/video/myCard.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/tools/AWTUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/Cadre.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoConfiguration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Rebasing_at_29_11_2023_5_48__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,15 +38,16 @@
       <list>
         <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -175,7 +87,6 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/KotlinProjects&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -247,6 +158,8 @@
       <workItem from="1700925348075" duration="899000" />
       <workItem from="1700926255875" duration="12672000" />
       <workItem from="1700946480391" duration="13945000" />
+      <workItem from="1702327018899" duration="46099000" />
+      <workItem from="1702424970687" duration="4669000" />
     </task>
     <task id="LOCAL-00001" summary="Complex.kt">
       <option name="closed" value="true" />
@@ -400,7 +313,119 @@
       <option name="project" value="LOCAL" />
       <updated>1700957424827</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="В классе Plane добавлены 4 свойства.">
+      <option name="closed" value="true" />
+      <created>1702145792837</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1702145792837</updated>
+    </task>
+    <task id="LOCAL-00021" summary="В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения.">
+      <option name="closed" value="true" />
+      <created>1702195722868</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1702195722868</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Работающая версия.">
+      <option name="closed" value="true" />
+      <created>1702202703199</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1702202703199</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Эксперементы с Plane">
+      <option name="closed" value="true" />
+      <created>1702317336728</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1702317336728</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Тщетные попытки">
+      <option name="closed" value="true" />
+      <created>1702337709911</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1702337709911</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Ничто не вышло">
+      <option name="closed" value="true" />
+      <created>1702339854266</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1702339854266</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Попробоывал изменить внтуреннюю реалзизацию Plane">
+      <option name="closed" value="true" />
+      <created>1702370470643</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702370470643</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Что-то сделал с плоскостью">
+      <option name="closed" value="true" />
+      <created>1702399351812</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1702399351812</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Исправил Сохранение Картинки">
+      <option name="closed" value="true" />
+      <created>1702401880847</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1702401880847</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Изменил функции фрактала">
+      <option name="closed" value="true" />
+      <created>1702409631146</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1702409631146</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Куча всего пофиксил">
+      <option name="closed" value="true" />
+      <created>1702420034032</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1702420034032</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Наладил Отмену Действий и загрузку Фрактала">
+      <option name="closed" value="true" />
+      <created>1702421902992</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1702421902992</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Я снова хочу жить !">
+      <option name="closed" value="true" />
+      <created>1702424001868</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1702424001868</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Всё отменяется...">
+      <option name="closed" value="true" />
+      <created>1702429226010</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1702429226010</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,11 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Complex.kt" />
-    <MESSAGE value="Фрактал с неверным умножением" />
-    <MESSAGE value="Фрактал раскрашеный" />
-    <MESSAGE value="Выделение мышкой" />
-    <MESSAGE value="Кешированная картинка" />
     <MESSAGE value="test" />
     <MESSAGE value="Разделил Меню и Фрактал" />
     <MESSAGE value="Сделал Разные Controls в Меню." />
@@ -461,7 +481,50 @@
     <MESSAGE value="добавил кнопку закрытия для Окна Сохранения" />
     <MESSAGE value="сделал чтобы открывалось окно для создания Видео." />
     <MESSAGE value="Попытался как-то улучшить меню и интерфейс в целом" />
-    <option name="LAST_COMMIT_MESSAGE" value="Попытался как-то улучшить меню и интерфейс в целом" />
+    <MESSAGE value="В классе Plane добавлены 4 свойства." />
+    <MESSAGE value="В mainFractalWindow добавлен метод, сохраняющий пропорции при масштабировании изображения." />
+    <MESSAGE value="Работающая версия." />
+    <MESSAGE value="Эксперементы с Plane" />
+    <MESSAGE value="Тщетные попытки" />
+    <MESSAGE value="Ничто не вышло" />
+    <MESSAGE value="Попробоывал изменить внтуреннюю реалзизацию Plane" />
+    <MESSAGE value="Что-то сделал с плоскостью" />
+    <MESSAGE value="Исправил Сохранение Картинки" />
+    <MESSAGE value="Изменил функции фрактала" />
+    <MESSAGE value="Куча всего пофиксил" />
+    <MESSAGE value="Наладил Отмену Действий и загрузку Фрактала" />
+    <MESSAGE value="Я снова хочу жить !" />
+    <MESSAGE value="Всё отменяется..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Всё отменяется..." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt</url>
+          <line>65</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/convertation/Plane.kt</url>
+          <line>142</line>
+          <properties>
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt</url>
+          <line>68</line>
+          <properties class="drawing.FractalPainter" method="scoping">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

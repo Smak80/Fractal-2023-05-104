@@ -1,6 +1,6 @@
 package math.fractals
 
-import androidx.compose.ui.graphics.Color
+import drawing.convertation.ColorFuncs
 import java.io.Serializable
 
 data class FractalData(
@@ -8,5 +8,6 @@ data class FractalData(
     val xMax:Double,
     val yMin:Double,
     val yMax:Double,
-    val colorscheme: Int
+    val colorscheme: ColorFuncs,
+    val fractalFunk: FractalFunks,
 ) : Serializable

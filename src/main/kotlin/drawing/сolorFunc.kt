@@ -3,7 +3,7 @@ package drawing.convertation
 import androidx.compose.ui.graphics.Color
 import kotlin.math.*
 
-enum class ColorType(val value: Int) {
+enum class ColorFuncs(val value: Int) {
     Zero(0),
     First(1),
     Second(2),

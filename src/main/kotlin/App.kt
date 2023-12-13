@@ -15,38 +15,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.*
 import compose.icons.LineAwesomeIcons
-import compose.icons.lineawesomeicons.GalacticRepublic
-import compose.icons.lineawesomeicons.PaletteSolid
-import compose.icons.lineawesomeicons.Save
-import compose.icons.lineawesomeicons.UndoSolid
+import compose.icons.lineawesomeicons.*
 import drawing.FractalPainter
-import drawing.convertation.ColorType
+import drawing.convertation.ColorFuncs
 import drawing.convertation.Plane
-import gui.saveOpenMenuItems
 import gui.controls.dropdownMenuIcon
 import gui.mainFractalWindow
+import gui.saveOpenMenuItems
 import gui.video.workWithVideoDialog
 import math.fractals.FractalData
+import math.fractals.FractalFunks
 import math.fractals.Mandelbrot
+import tools.ActionStack
 import tools.FileManager
 import tools.FileManager.saveImageData
 import video.Cadre
-import java.awt.image.BufferedImage
 import javax.swing.UIManager
 
 @Composable
 @Preview
 fun App(){
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-//    var colorSchemeIndex by remember { mutableStateOf(2) }
-//    var fractalSchemeIndex by remember { mutableStateOf(1) }
+    var dynamicIterationsCheck by remember { mutableStateOf(false) }
+    var isMenuExpanded by remember { mutableStateOf(false) }
+    var reBoot by remember { mutableStateOf(false) }
     val photoList = remember { SnapshotStateList<Cadre>() }
     val fp = remember {FractalPainter(Mandelbrot)}
-    fp.colorFuncID = ColorType.First
-    Mandelbrot.funcNum = 1
+    fp.colorFuncID = ColorFuncs.First
+    Mandelbrot.funcNum = FractalFunks.Classic
     fp.plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+    val actionStack = ActionStack(fp)
 
-
+    fun preSaveFractalData(){
+        fp.plane?.let {
+            val currConf = FractalData(
+                it.xMin,
+                it.xMax,
+                it.yMin,
+                it.yMax,
+                fp.colorFuncID,
+                Mandelbrot.funcNum
+            )
+            reBoot = true
+            actionStack.push(currConf)
+        }
+    }
     MaterialTheme{
         Scaffold(
             topBar = {
@@ -73,20 +85,22 @@ fun App(){
                                     saveOpenMenuItems(
                                         {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
-                                                saveImageData(fractalData)
+                                                saveImageData(fp)
                                             }
                                             isMenuExpanded = false
                                         }, {
                                             fp.plane?.let{
-                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID.value)
+                                                val fractalData = FractalData(it.xMin,it.xMax,it.yMin,it.yMax, fp.colorFuncID,Mandelbrot.funcNum)
                                                 FileManager.saveFractalData(fractalData)
                                             }
                                         }, {
                                             val resData = FileManager.loadFractalData()
                                             resData?.let { fd ->
                                                 fp.plane?.let { plane ->
-                                                    fp.plane = Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height)
+                                                    preSaveFractalData()
+                                                    fp.initPlane(Plane(fd.xMin, fd.xMax, fd.yMin, fd.yMax, plane.width, plane.height))
+                                                    fp.colorFuncID = fd.colorscheme
+                                                    Mandelbrot.funcNum = fd.fractalFunk
                                                 }
                                             }
                                             fp.refresh = true
@@ -106,15 +120,20 @@ fun App(){
                         {
                             //Кнопка Назад
 
-                            IconButton(onClick = {fp.actionStack.pop()}
+                            IconButton(onClick = {actionStack.pop()}
                             ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
 //                            IconButton(onClick = {
-//                                fp.plane = when(Mandelbrot.funcNum){
-//                                    2-> Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
-//                                    else-> Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
+//
+//                                val bi = Cadre.getImageFromPlane(fp.plane!!,1920f,1080f,fp.colorFuncID)
+//                                try {
+//                                    val file = File("C:/Users/Lev Grekov/OneDrive/Изображения/test.png")
+//                                    ImageIO.write(bi, "png", file) // Вы можете выбрать другой формат, если это необходимо
+//                                    println("Изображение успешно сохранено")
+//                                } catch (e: IOException) {
+//                                    println("Ошибка при сохранении изображения: ${e.message}")
 //                                }
 //                            }
-//                            ) { Icon(FontAwesomeIcons.Solid.SyncAlt, "Обновить") }
+//                            ) { Icon(LineAwesomeIcons.PhotoVideoSolid, "Назад") }
                             //Для Вызова Окна с Видео
                             Row(
                                 modifier = Modifier
@@ -154,18 +173,18 @@ fun App(){
                             dropdownMenuIcon(
                                 mapOf(
                                     "Логарифм Папа" to {fp.apply {
-                                        fp.actionStack.push(fp.colorFuncID)
-                                        colorFuncID= ColorType.First
+                                        actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorFuncs.First
                                         refresh = true
                                     }},
-                                    "Футболка Денчика" to{fp.apply {
-                                        fp.actionStack.push(fp.colorFuncID)
-                                        colorFuncID= ColorType.Second
+                                    "Tame Impala" to{fp.apply {
+                                        actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorFuncs.Second
                                         refresh = true
                                     }},
                                     "Болото Шрека" to {fp.apply {
-                                        fp.actionStack.push(fp.colorFuncID)
-                                        colorFuncID= ColorType.Third
+                                        actionStack.push(fp.colorFuncID)
+                                        colorFuncID= ColorFuncs.Third
                                         refresh = true
                                     }},
                                 ),
@@ -174,26 +193,59 @@ fun App(){
                             dropdownMenuIcon(
                                 mapOf(
                                     "Оригинал" to {fp.apply {
-                                        Mandelbrot.funcNum = 1
-                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
-                                        refresh = true
-                                    }},
-                                    "Перевертыш" to {fp.apply {
-                                        Mandelbrot.funcNum = 2
-                                        plane = Plane(-1.0,2.0,-1.0,1.0, 0f, 0f)
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Classic
+                                        initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Кубический" to {fp.apply {
-                                        plane = Plane(-2.0,1.0,-1.0,1.0, 0f, 0f)
-                                        Mandelbrot.funcNum = 3
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Cube
+                                        initPlane(Plane(-1.0,1.0,-1.5,1.5, 0f, 0f))
+                                        refresh = true
+                                    }},
+                                    "Четверка" to {fp.apply {
+                                        preSaveFractalData()
+                                        initPlane(Plane(-2.0,1.0,-1.1,1.1, 0f, 0f))
+                                        Mandelbrot.funcNum = FractalFunks.FourthP
+                                        refresh = true
+                                    }},
+//                                    "Дурацкий Кружок" to {fp.apply {
+//                                        Mandelbrot.funcNum = 4
+//                                        refresh = true
+//                                    }},
+                                    "Жора" to {fp.apply {
+                                        preSaveFractalData()
+                                        initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
+                                        Mandelbrot.funcNum = FractalFunks.Jora
+                                        refresh = true
+                                    }},
+                                    "Синус" to {fp.apply {
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Sin
+                                        initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
+                                        refresh = true
+                                    }},
+                                    "Птеродактель" to {fp.apply {
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Dino
+                                        initPlane(Plane(-2.0,1.0,-1.0,1.0, 0f, 0f))
+                                        refresh = true
+                                    }},
+                                    "Толстяк" to {fp.apply {
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Fat
+                                        initPlane(Plane(-1.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                     "Дурацкий Кружок" to {fp.apply {
-                                        Mandelbrot.funcNum = 4
+                                        preSaveFractalData()
+                                        Mandelbrot.funcNum = FractalFunks.Zero
+                                        initPlane(Plane(-1.0,1.0,-1.0,1.0, 0f, 0f))
                                         refresh = true
                                     }},
                                 ),
-                                LineAwesomeIcons.GalacticRepublic
+                                LineAwesomeIcons.DrawPolygonSolid
                             )
                             // Checkbox для динамических итераций
                             Row(
@@ -225,9 +277,11 @@ fun App(){
             Box(
                 Modifier.fillMaxSize()
             ){
-                mainFractalWindow(fp)
+                mainFractalWindow(fp,actionStack)
             }
         }
     }
+
+
 }
 

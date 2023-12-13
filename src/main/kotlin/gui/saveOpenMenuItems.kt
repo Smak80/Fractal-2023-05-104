@@ -22,9 +22,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                       close: () -> Unit) {
     var isDialogVisible by remember { mutableStateOf(false) }
 
-    DropdownMenuItem({
-        isDialogVisible = true
-    })
+    DropdownMenuItem({ isDialogVisible = true })
     { Text("Сохранить") }
 
     DropdownMenuItem({
@@ -34,7 +32,10 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
 
     if (isDialogVisible) {
         Dialog(
-            onDismissRequest = { isDialogVisible = false },
+            onDismissRequest = {
+                close()
+                isDialogVisible = false
+                               },
             properties = DialogProperties(dismissOnClickOutside = true)
         ) {
             Column(
@@ -60,7 +61,9 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
-                        onClick = { isDialogVisible = false },
+                        onClick = {
+                            close()
+                            isDialogVisible = false },
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                     ) { Icon(Icons.Default.Close, "Закрыть") }
@@ -77,7 +80,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             imageSave()
-                            isDialogVisible = false
+                            close()
                         },
                         modifier = Modifier
                             .weight(1f)
@@ -89,7 +92,7 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                     Button(
                         onClick = {
                             fractalSave()
-                            isDialogVisible = false
+                            close()
                         },
                         modifier = Modifier
                             .weight(1f)
