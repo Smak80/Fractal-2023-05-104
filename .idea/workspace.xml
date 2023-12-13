@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="изм 13.12">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Почистил код" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +23,17 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="fractalComposable-2023" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -35,29 +43,48 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Object" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin Script" />
+        <option value="Kotlin File" />
         <option value="Kotlin Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="Task_G_StepsBack" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Task_C_Photo_in_own_format" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "state": "OPEN"
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;assignee&quot;: &quot;MBMustafin&quot;
+    },
+    {
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;author&quot;: &quot;MBMustafin&quot;
     }
   ],
-  "lastFilter": {
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;author&quot;: &quot;MBMustafin&quot;
+
   }
 }]]></component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="e8609d17-bc2c-44fa-bf65-f244eef156f3" />
-        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
+        <option name="accountId" value="b27be8d8-b3ce-4928-96fa-f63cf56f4026" />
+        <option name="url" value="https://github.com/MBMustafin/Fractal_Team2.git" />
+
       </UrlAndAccount>
     </option>
   </component>
@@ -71,27 +98,43 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2XZAs6xhe1GZhoUiB1MDX62RELf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.48081535",
-    "settings.editor.selected.configurable": "project.kotlinCompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/repositories&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\repositories\Fractal_Team2_TaskD\src\main\kotlin\drawing\colors" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="drawing.painters" />
+      <recent name="math.fractals" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="math.fractals.notMandelbrotFractals" />
     </key>
   </component>
   <component name="RunManager" selected="Kotlin.MainKt">
@@ -114,7 +157,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -128,6 +171,9 @@
       <list>
         <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
+        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.fractalComposable-2023 [compileKotlin]" />
+        <item itemvalue="Kotlin.MainKt" />
       </list>
     </recent_temporary>
   </component>
@@ -187,48 +233,362 @@
       <option name="project" value="LOCAL" />
       <updated>1700055800048</updated>
     </task>
-    <task id="LOCAL-00006" summary="Последние изменения перед разделением на группы">
+    <task id="LOCAL-00006" summary="Создана ветка для решения задачи А">
       <option name="closed" value="true" />
-      <created>1700662847433</created>
+      <created>1701190923425</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1700662847433</updated>
+      <updated>1701190923425</updated>
     </task>
-    <task id="LOCAL-00007" summary="изм 13.12">
+    <task id="LOCAL-00007" summary="Написан алгоритм. Не работает, потому что параметры width и height плоскости по умолчанию проинициализированы нулями.">
       <option name="closed" value="true" />
-      <created>1702452682041</created>
+      <created>1701194331941</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1702452682041</updated>
+      <updated>1701194331942</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Предыдущий коммит содержал ошибки. Этот выполняет сжатие и растяжение фрактала, но при сильном сжатии окна фрактал в окне появляется не полностью, но пропорции &quot;отображаемого&quot; сохраняются">
+      <option name="closed" value="true" />
+      <created>1701199843924</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701199843924</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Версия с пары">
+      <option name="closed" value="true" />
+      <created>1701247150392</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701247150392</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Версия со второй пары">
+      <option name="closed" value="true" />
+      <created>1701264231550</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701264231550</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Работает с фракталом, не работает с выделенным фрагментом фрактала. Доработать свойства в fpainter'e  и сделать работу с приближением">
+      <option name="closed" value="true" />
+      <created>1701444130436</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1701444130437</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Пол работы сделано, но можно было бы и лучше. Разобраться с окном">
+      <option name="closed" value="true" />
+      <created>1701448061595</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701448061595</updated>
+    </task>
+    <task id="LOCAL-00013" summary="добавил поддержку разных цветов и фракталов">
+      <option name="closed" value="true" />
+      <created>1701900683428</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1701900683428</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Обновляется цвет, но не работает масштабирование, и наоборот">
+      <option name="closed" value="true" />
+      <created>1701950212447</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701950212447</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается">
+      <option name="closed" value="true" />
+      <created>1701977505471</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701977505471</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Корректно работает смена цвета фрактала. Функции фрактала не подкручены">
+      <option name="closed" value="true" />
+      <created>1702026584434</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1702026584434</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно.">
+      <option name="closed" value="true" />
+      <created>1702029071341</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702029071341</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Теперь все работает корректно и относительно быстро">
+      <option name="closed" value="true" />
+      <created>1702043005593</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1702043005593</updated>
+    </task>
+    <task id="LOCAL-00019" summary="что-то еще">
+      <option name="closed" value="true" />
+      <created>1702146248309</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1702146248309</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
+      <option name="closed" value="true" />
+      <created>1702151622060</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1702151622060</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку">
+      <option name="closed" value="true" />
+      <created>1702151958153</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1702151958153</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Множество Жюлиа отображается корректно.">
+      <option name="closed" value="true" />
+      <created>1702154685470</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1702154685470</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Добавил сохранение пропорций в Жюлиа.">
+      <option name="closed" value="true" />
+      <created>1702154982692</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1702154982692</updated>
+    </task>
+    <task id="LOCAL-00024" summary="После мержа">
+      <option name="closed" value="true" />
+      <created>1702159147526</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1702159147526</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Остается написать код для сохранения фотографии в папку.">
+      <option name="closed" value="true" />
+      <created>1702160787314</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1702160787314</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно">
+      <option name="closed" value="true" />
+      <created>1702209657823</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1702209657823</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Создано сохранение картинки. К Жюлиа пока не относится">
+      <option name="closed" value="true" />
+      <created>1702217142337</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1702217142337</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Пофиксил ошибки">
+      <option name="closed" value="true" />
+      <created>1702226641294</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1702226641294</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Есть ошибка в динамических итерациях">
+      <option name="closed" value="true" />
+      <created>1702280591777</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1702280591778</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Теперь нет ошибок и сделано 6 номеров">
+      <option name="closed" value="true" />
+      <created>1702322936919</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1702322936919</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Подключил регулярные выражения.">
+      <option name="closed" value="true" />
+      <created>1702330039352</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1702330039352</updated>
+    </task>
+    <task id="LOCAL-00032" summary="вроде как параметры fp меняются, но отрисовка не происходит">
+      <option name="closed" value="true" />
+      <created>1702330987665</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1702330987665</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope">
+      <option name="closed" value="true" />
+      <created>1702379677334</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1702379677334</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Вроде заработало полностью">
+      <option name="closed" value="true" />
+      <created>1702381813247</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1702381813247</updated>
+    </task>
+    <task id="LOCAL-00035" summary="исправил некоторые ошибки">
+      <option name="closed" value="true" />
+      <created>1702384266871</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1702384266871</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Исправил искажение фрактала при загрузке">
+      <option name="closed" value="true" />
+      <created>1702402551133</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1702402551134</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Еще изменил">
+      <option name="closed" value="true" />
+      <created>1702404967618</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1702404967618</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Пока 7 заданий.">
+      <option name="closed" value="true" />
+      <created>1702415187845</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1702415187845</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Пофиксил Жюлиа">
+      <option name="closed" value="true" />
+      <created>1702418018107</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1702418018107</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Почистил код">
+      <option name="closed" value="true" />
+      <created>1702422260477</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1702422260477</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
+
     <servers />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Complex.kt" />
-    <MESSAGE value="Фрактал с неверным умножением" />
-    <MESSAGE value="Фрактал раскрашеный" />
-    <MESSAGE value="Выделение мышкой" />
-    <MESSAGE value="Кешированная картинка" />
-    <MESSAGE value="Последние изменения перед разделением на группы" />
-    <MESSAGE value="изм 13.12" />
-    <option name="LAST_COMMIT_MESSAGE" value="изм 13.12" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/Main.kt</url>
-          <line>94</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Меняется цвет, работает масштабирование, но при масштабированном объекте при смене цвета все сбрасывается" />
+    <MESSAGE value="Корректно работает смена цвета фрактала. Функции фрактала не подкручены" />
+    <MESSAGE value="Подключена смена цвета и функций фрактала при запуске и при масштабировании, но лично у меня работает медленно." />
+    <MESSAGE value="Теперь все работает корректно и относительно быстро" />
+    <MESSAGE value="что-то еще" />
+    <MESSAGE value="Если закомментировать this.scope, то фрактал отирсовывется. Надо исправить ошибку" />
+    <MESSAGE value="Множество Жюлиа отображается корректно." />
+    <MESSAGE value="Добавил сохранение пропорций в Жюлиа." />
+    <MESSAGE value="После мержа" />
+    <MESSAGE value="Остается написать код для сохранения фотографии в папку." />
+    <MESSAGE value="Работает, за исключением того, что создается в папке проекта фотка и нет обработки исключительных ситуаций при сохранении фотографии. И еще Julia и еще одна функция не запускаются нормаьлно" />
+    <MESSAGE value="Создано сохранение картинки. К Жюлиа пока не относится" />
+    <MESSAGE value="Пофиксил ошибки" />
+    <MESSAGE value="Есть ошибка в динамических итерациях" />
+    <MESSAGE value="Теперь нет ошибок и сделано 6 номеров" />
+    <MESSAGE value="Подключил регулярные выражения." />
+    <MESSAGE value="вроде как параметры fp меняются, но отрисовка не происходит" />
+    <MESSAGE value="Заработало за исключением того, что при масштабировании изображения фото сбрасывается и ничего возвращается к предыдущему состоянию Scope" />
+    <MESSAGE value="Вроде заработало полностью" />
+    <MESSAGE value="исправил некоторые ошибки" />
+    <MESSAGE value="Исправил искажение фрактала при загрузке" />
+    <MESSAGE value="Еще изменил" />
+    <MESSAGE value="Пока 7 заданий." />
+    <MESSAGE value="Пофиксил Жюлиа" />
+    <MESSAGE value="Почистил код" />
+    <option name="LAST_COMMIT_MESSAGE" value="Почистил код" />
+
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/fractalComposable_2023$MainKt.ic" NAME="MainKt Coverage Results" MODIFIED="1702421636608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

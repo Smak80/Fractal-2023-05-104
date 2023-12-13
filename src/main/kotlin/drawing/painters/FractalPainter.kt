@@ -1,9 +1,7 @@
-package drawing
+package drawing.painters
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -11,12 +9,14 @@ import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.Complex
 import math.fractals.AlgebraicFractal
+import math.fractals.Fractal
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class FractalPainter(
-    val fractal: AlgebraicFractal,
-    val colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
+    var fractal: AlgebraicFractal,
+    var colorFunc: (Float) -> Color = {if (it< 1f) Color.White else Color.Black}
 ) : Painter {
     var plane: Plane? = null
     override var width: Int
@@ -26,12 +26,68 @@ class FractalPainter(
         get() = plane?.height?.toInt() ?: 0
         set(value) {plane?.height = value.toFloat()}
 
+    var xMax = 0.0
+
+    var xMin = 0.0
+
+    var yMin = 0.0
+
+    var yMax = 0.0
+
     var img = BufferedImage(
         1,
         1,
         BufferedImage.TYPE_INT_ARGB,
     )
     var refresh = true
+
+    fun scoping(){
+        val X = abs(xMax - xMin) / width
+        val Y = abs(yMax - yMin) / height
+        if(Y > X)
+        {
+            val dx = (width * Y- abs(xMax - xMin))/2
+            plane?.let {plane->
+                plane.xMin =  xMin - dx
+                plane.xMax = xMax + dx
+                plane.yMax = yMax
+                plane.yMin = yMin
+            }
+        }
+        else
+        {
+            val dy = (height * X- abs((yMax - yMin)))/2
+            plane?.let {plane->
+                plane.yMin =  yMin - dy
+                plane.yMax = yMax + dy
+                plane.xMax = xMax
+                plane.xMin = xMin
+            }
+        }
+    }
+
+    fun copy(fp: MutableState<FractalPainter>): FractalPainter{
+
+        val newFp = FractalPainter(fp.value.fractal, fp.value.colorFunc)
+
+        fp.value.plane?.let {
+            newFp.plane = Plane(it.xMin, it.xMax, it.yMin, it.yMax, it.width, it.height)
+            newFp.fractal = fp.value.fractal
+            newFp.height = fp.value.height
+            newFp.width = fp.value.width
+        }
+
+        newFp.xMax = fp.value.xMax
+        newFp.xMin = fp.value.xMin
+        newFp.yMax = fp.value.yMax
+        newFp.yMin = fp.value.yMin
+
+        newFp.refresh = fp.value.refresh
+        newFp.img = fp.value.img
+        return newFp
+    }
+
+
 
     override fun paint(scope: DrawScope) {
         if (refresh) {
@@ -59,5 +115,4 @@ class FractalPainter(
         }
         scope.drawImage(img.toComposeImageBitmap())
     }
-
 }

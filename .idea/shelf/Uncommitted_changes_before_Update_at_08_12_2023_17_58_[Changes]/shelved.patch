@@ -1,0 +1,239 @@
+Index: src/main/kotlin/math/fractals/Mandelbrot.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package math.fractals\r\n\r\nimport math.Complex\r\n\r\nobject Mandelbrot : AlgebraicFractal {\r\n    override var maxIterations: Int = 5000\r\n        set(value) { field = value.coerceIn(20..10000)}\r\n    var r = 2.0\r\n    override fun isInSet(c: Complex): Float {\r\n        val z = Complex()\r\n        val r2 = r*r\r\n        for (i in 1..maxIterations){\r\n            z*=z\r\n            z+=c\r\n            if (z.abs2() >= r2)\r\n                return i.toFloat()/ maxIterations\r\n        }\r\n        return 1f\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/math/fractals/Mandelbrot.kt b/src/main/kotlin/math/fractals/Mandelbrot.kt
+--- a/src/main/kotlin/math/fractals/Mandelbrot.kt	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/src/main/kotlin/math/fractals/Mandelbrot.kt	(date 1701342275405)
+@@ -5,7 +5,7 @@
+ object Mandelbrot : AlgebraicFractal {
+     override var maxIterations: Int = 5000
+         set(value) { field = value.coerceIn(20..10000)}
+-    var r = 2.0
++         private var r = 2.0
+     override fun isInSet(c: Complex): Float {
+         val z = Complex()
+         val r2 = r*r
+@@ -18,4 +18,4 @@
+         return 1f
+     }
+ 
+-}
+\ No newline at end of file
++}
+Index: src/main/kotlin/Main.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import androidx.compose.desktop.ui.tooling.preview.Preview\r\nimport androidx.compose.foundation.*\r\nimport androidx.compose.foundation.gestures.detectDragGestures\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.material.MaterialTheme\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.compose.ui.geometry.Offset\r\nimport androidx.compose.ui.geometry.Size\r\nimport androidx.compose.ui.graphics.*\r\nimport androidx.compose.ui.input.pointer.pointerInput\r\nimport androidx.compose.ui.unit.dp\r\nimport androidx.compose.ui.window.Window\r\nimport androidx.compose.ui.window.application\r\nimport drawing.FractalPainter\r\nimport drawing.Painter\r\nimport drawing.SelectionRect\r\nimport drawing.convertation.Converter\r\nimport drawing.convertation.Plane\r\nimport math.fractals.Mandelbrot\r\nimport kotlin.math.*\r\n\r\n@Composable\r\n@Preview\r\nfun App() {\r\n    val fp = remember { FractalPainter(Mandelbrot){\r\n        if (it == 1f) Color.Black\r\n        else {\r\n            val r = sin(it*15f).absoluteValue\r\n            val g = (sin(-8f*it)* cos(it*5f+12f)).absoluteValue\r\n            val b = log2(2f - cos(sin(18*-it)))\r\n            Color(r, g, b)\r\n        }\r\n    }}\r\n    fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)\r\n    MaterialTheme {\r\n        DrawingPanel(fp){size ->\r\n            fp.width = size.width.toInt()\r\n            fp.height = size.height.toInt()\r\n            fp.refresh = true\r\n        }\r\n        SelectionPanel{\r\n            fp.plane?.let{ plane ->\r\n                val xMin = Converter.xScr2Crt(it.topLeft.x, plane)\r\n                val xMax = Converter.xScr2Crt(it.topLeft.x+it.size.width, plane)\r\n                val yMax = Converter.yScr2Crt(it.topLeft.y, plane)\r\n                val yMin = Converter.yScr2Crt(it.topLeft.y+it.size.height, plane)\r\n                plane.xMin = xMin\r\n                plane.xMax = xMax\r\n                plane.yMin = yMin\r\n                plane.yMax = yMax\r\n                fp.refresh = true\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n@OptIn(ExperimentalFoundationApi::class)\r\n@Composable\r\nfun SelectionPanel(\r\n    onSelected: (SelectionRect)->Unit\r\n) {\r\n    var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}\r\n    Canvas(Modifier.fillMaxSize().padding(8.dp).pointerInput(Unit){\r\n        detectDragGestures(\r\n            onDragStart = {\r\n                rect = SelectionRect(it)\r\n            },\r\n            onDrag = {\r\n                rect.addPoint(it)\r\n            },\r\n            onDragEnd = {\r\n                onSelected(rect)\r\n                rect = SelectionRect(Offset.Zero)\r\n            },\r\n            matcher = PointerMatcher.Primary)\r\n    }){\r\n        drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)\r\n    }\r\n}\r\n\r\n@Composable\r\nfun DrawingPanel(\r\n    fp: Painter,\r\n    onResize: (Size)-> Unit = {},\r\n) {\r\n    Canvas(Modifier.fillMaxSize().padding(8.dp)) {\r\n        if(fp.width != size.width.toInt() || fp.height != size.height.toInt() )\r\n            onResize(size)\r\n\r\n        fp.paint(this)\r\n    }\r\n}\r\n\r\n\r\nfun main() = application {\r\n    Window(\r\n        onCloseRequest = ::exitApplication,\r\n        title = \"Множество Мандельброта\"\r\n    ) {\r\n        App()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/Main.kt b/src/main/kotlin/Main.kt
+--- a/src/main/kotlin/Main.kt	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/src/main/kotlin/Main.kt	(date 1701351527812)
+@@ -17,6 +17,7 @@
+ import drawing.SelectionRect
+ import drawing.convertation.Converter
+ import drawing.convertation.Plane
++import math.fractals.Julia
+ import math.fractals.Mandelbrot
+ import kotlin.math.*
+ 
+@@ -33,6 +34,9 @@
+         }
+     }}
+     fp.plane = Plane(-2.0, 1.0, -1.0, 1.0, 0f, 0f)
++
++
++
+     MaterialTheme {
+         DrawingPanel(fp){size ->
+             fp.width = size.width.toInt()
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"Кешированная картинка\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Kotlin Object\" />\r\n        <option value=\"Kotlin Interface\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Smak80&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"63d9b16c-360d-454a-b31f-2651873cf1b2\" />\r\n        <option name=\"url\" value=\"https://github.com/Smak80/Fractal-2023-05-104.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 6\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2XZAs6xhe1GZhoUiB1MDX62RELf\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;project.kotlinCompiler&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Smak\\Programming\\Idea\\fractalComposable-2023\\src\\main\\kotlin\\drawing\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Kotlin.MainKt\">\r\n    <configuration name=\"fractalComposable-2023 [compileKotlin]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\r\n      <ExternalSystemSettings>\r\n        <option name=\"executionName\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\r\n        <option name=\"scriptParameters\" />\r\n        <option name=\"taskDescriptions\">\r\n          <list />\r\n        </option>\r\n        <option name=\"taskNames\">\r\n          <list>\r\n            <option value=\"compileKotlin\" />\r\n          </list>\r\n        </option>\r\n        <option name=\"vmOptions\" />\r\n      </ExternalSystemSettings>\r\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\r\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\r\n      <DebugAllEnabled>false</DebugAllEnabled>\r\n      <RunAsTest>false</RunAsTest>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainKt\" />\r\n      <module name=\"fractalComposable-2023.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.MainKt\" />\r\n        <item itemvalue=\"Gradle.fractalComposable-2023 [compileKotlin]\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"156e1906-a271-4d82-9a2e-9e6ebbc1d4d4\" name=\"Changes\" comment=\"\" />\r\n      <created>1698826435830</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1698826435830</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Complex.kt\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698845263297</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698845263297</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Фрактал с неверным умножением\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1698848936222</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1698848936222</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Фрактал раскрашеный\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699448279436</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699448279436</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Выделение мышкой\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1699453823971</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1699453823971</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Кешированная картинка\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1700055800048</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700055800048</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"6\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Complex.kt\" />\r\n    <MESSAGE value=\"Фрактал с неверным умножением\" />\r\n    <MESSAGE value=\"Фрактал раскрашеный\" />\r\n    <MESSAGE value=\"Выделение мышкой\" />\r\n    <MESSAGE value=\"Кешированная картинка\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Кешированная картинка\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/.idea/workspace.xml	(date 1702047424298)
+@@ -4,9 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Кешированная картинка">
++    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Как будто всё">
++      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/math/fractals/Mandelbrot.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -39,24 +42,37 @@
+       <list>
+         <option value="Kotlin Object" />
+         <option value="Kotlin Interface" />
++        <option value="Kotlin Data Class" />
+         <option value="Kotlin Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="master" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="MIXED" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory">{
+-  &quot;lastFilter&quot;: {
+-    &quot;state&quot;: &quot;OPEN&quot;,
+-    &quot;assignee&quot;: &quot;Smak80&quot;
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "history": [
++    {
++      "state": "OPEN",
++      "author": "anvartaziev"
++    }
++  ],
++  "lastFilter": {
++    "state": "OPEN",
++    "author": "anvartaziev"
+   }
+-}</component>
++}]]></component>
+   <component name="GithubPullRequestsUISettings">
+     <option name="selectedUrlAndAccountId">
+       <UrlAndAccount>
+-        <option name="accountId" value="63d9b16c-360d-454a-b31f-2651873cf1b2" />
+-        <option name="url" value="https://github.com/Smak80/Fractal-2023-05-104.git" />
++        <option name="accountId" value="ecb7826d-692e-49e0-add3-abcabfc2b948" />
++        <option name="url" value="https://github.com/anvartaziev/Fractal_Team2_Taziev.git" />
+       </UrlAndAccount>
+     </option>
+   </component>
+@@ -79,7 +95,8 @@
+   &quot;keyToString&quot;: {
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;Julia&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+     &quot;last_opened_file_path&quot;: &quot;C:/Smak/Programming/Idea/fractalComposable-2023/src/main/kotlin/drawing&quot;,
+     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+@@ -178,16 +195,44 @@
+       <option name="project" value="LOCAL" />
+       <updated>1700055800048</updated>
+     </task>
+-    <option name="localTasksCounter" value="6" />
++    <task id="LOCAL-00006" summary="Как будто всё">
++      <option name="closed" value="true" />
++      <created>1701703880246</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1701703880246</updated>
++    </task>
++    <task id="LOCAL-00007" summary="Как будто всё">
++      <option name="closed" value="true" />
++      <created>1702046926011</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1702046926011</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Complex.kt" />
+     <MESSAGE value="Фрактал с неверным умножением" />
+     <MESSAGE value="Фрактал раскрашеный" />
+     <MESSAGE value="Выделение мышкой" />
+     <MESSAGE value="Кешированная картинка" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Кешированная картинка" />
++    <MESSAGE value="Как будто всё" />
++    <option name="LAST_COMMIT_MESSAGE" value="Как будто всё" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"20\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/.idea/gradle.xml	(date 1700736026242)
+@@ -5,7 +5,7 @@
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="20" />
++        <option name="gradleJvm" value="openjdk-20" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_20\" default=\"true\" project-jdk-name=\"20\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/.idea/misc.xml	(date 1701252689238)
+@@ -1,7 +1,6 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="20" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 5156bdbd2236b3c665cdb867f3d90ba15315087d)
++++ b/.idea/vcs.xml	(date 1700736026242)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
