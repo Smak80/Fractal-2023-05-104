@@ -1,6 +1,7 @@
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import java.awt.Dimension
+import javax.swing.UIManager
 
 fun main() = application {
     Window(
@@ -14,6 +15,7 @@ fun main() = application {
             isMinimized = false
         ),
     ) {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
         this.window.minimumSize = Dimension(800, 600)
         App()
     }

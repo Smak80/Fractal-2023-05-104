@@ -38,7 +38,6 @@ import javax.swing.UIManager
 @Composable
 @Preview
 fun App(){
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
     var dynamicIterationsCheck by remember { mutableStateOf(false) }
     var isMenuExpanded by remember { mutableStateOf(false) }
     var reBoot by remember { mutableStateOf(false) }
@@ -123,18 +122,18 @@ fun App(){
 
                             IconButton(onClick = {actionStack.pop()}
                             ) { Icon(LineAwesomeIcons.UndoSolid, "Назад") }
-                            IconButton(onClick = {
-
-                                val bi = Cadre.getImageFromPlane(fp.plane!!,1920f,1080f,fp.colorFuncID)
-                                try {
-                                    val file = File("C:/Users/Lev Grekov/OneDrive/Изображения/test.png")
-                                    ImageIO.write(bi, "png", file) // Вы можете выбрать другой формат, если это необходимо
-                                    println("Изображение успешно сохранено")
-                                } catch (e: IOException) {
-                                    println("Ошибка при сохранении изображения: ${e.message}")
-                                }
-                            }
-                            ) { Icon(LineAwesomeIcons.PhotoVideoSolid, "Назад") }
+//                            IconButton(onClick = {
+//
+//                                val bi = Cadre.getImageFromPlane(fp.plane!!,1920f,1080f,fp.colorFuncID)
+//                                try {
+//                                    val file = File("C:/Users/Lev Grekov/OneDrive/Изображения/test.png")
+//                                    ImageIO.write(bi, "png", file) // Вы можете выбрать другой формат, если это необходимо
+//                                    println("Изображение успешно сохранено")
+//                                } catch (e: IOException) {
+//                                    println("Ошибка при сохранении изображения: ${e.message}")
+//                                }
+//                            }
+//                            ) { Icon(LineAwesomeIcons.PhotoVideoSolid, "Назад") }
                             //Для Вызова Окна с Видео
                             Row(
                                 modifier = Modifier
