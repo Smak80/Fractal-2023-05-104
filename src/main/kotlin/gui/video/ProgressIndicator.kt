@@ -38,8 +38,6 @@ fun linearDeterminateIndicator() {
             Text("Start loading")
         }
 
-
-
         if (loading) {
             LinearProgressIndicator(
                 strokeCap = StrokeCap.Round,
@@ -47,8 +45,6 @@ fun linearDeterminateIndicator() {
                 progress = currentProgress ,
             )
         }
-
-
     }
 }
 
