@@ -23,6 +23,8 @@ class Complex(var re: Double = 0.0, var im: Double = 0.0) {
     }
 
     operator fun times(other: Complex) = Complex(re * other.re - im * other.im, re * other.im + im * other.re)
+    operator fun times(other: Double) = Complex(re * other - im * other, re * other + im * other)
+    operator fun div(other: Double) = this * (1/other)
     operator fun timesAssign(other: Complex){
         val r = re * other.re - im * other.im
         im = re * other.im + im * other.re
@@ -45,4 +47,13 @@ class Complex(var re: Double = 0.0, var im: Double = 0.0) {
         }
 
     }
+
+    fun sin(): Complex {
+        return Complex(kotlin.math.sin(re) * kotlin.math.cosh(im), kotlin.math.cos(re) * kotlin.math.sinh(im))
+    }
+
+    fun cos(): Complex {
+        return Complex(kotlin.math.cos(re) * kotlin.math.cosh(im), -kotlin.math.sin(re) * kotlin.math.sinh(im))
+    }
+
 }
