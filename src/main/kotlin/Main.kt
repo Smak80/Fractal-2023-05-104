@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
@@ -18,6 +19,7 @@ import drawing.SelectionRect
 import drawing.convertation.Converter
 import drawing.convertation.Plane
 import math.fractals.Mandelbrot
+import java.awt.FileDialog
 import kotlin.math.*
 
 @Composable
@@ -61,6 +63,21 @@ fun SelectionPanel(
     onSelected: (SelectionRect)->Unit
 ) {
     var rect by remember {mutableStateOf(SelectionRect(Offset.Zero))}
+    val fd = remember {
+        FileDialog(
+            ComposeWindow(),
+            "Открыть файл",
+            FileDialog.LOAD
+        )}
+    var showW2 by remember { mutableStateOf(false) }
+    if (showW2){
+        Window(
+            onCloseRequest = { showW2 = false },
+            title = "Второе окно"
+        ){
+            App()
+        }
+    }
     Canvas(Modifier.fillMaxSize().padding(8.dp).pointerInput(Unit){
         detectDragGestures(
             onDragStart = {
@@ -74,6 +91,9 @@ fun SelectionPanel(
                 rect = SelectionRect(Offset.Zero)
             },
             matcher = PointerMatcher.Primary)
+    }.clickable {
+        //fd.isVisible = true
+        showW2 = true
     }){
         drawRect(Color(0f, 1f, 1f, 0.3f), rect.topLeft, rect.size)
     }
@@ -91,7 +111,6 @@ fun DrawingPanel(
         fp.paint(this)
     }
 }
-
 
 fun main() = application {
     Window(
