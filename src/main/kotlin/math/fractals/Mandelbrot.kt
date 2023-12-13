@@ -1,6 +1,6 @@
 package math.fractals
+
 import math.Complex
-import kotlin.math.sin
 
 object Mandelbrot : AlgebraicFractal {
     var funcNum: FractalFunks = FractalFunks.Classic
