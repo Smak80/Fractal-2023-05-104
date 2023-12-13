@@ -61,7 +61,9 @@ fun saveOpenMenuItems(imageSave: () -> Unit,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
-                        onClick = { isDialogVisible = false },
+                        onClick = {
+                            close()
+                            isDialogVisible = false },
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                     ) { Icon(Icons.Default.Close, "Закрыть") }

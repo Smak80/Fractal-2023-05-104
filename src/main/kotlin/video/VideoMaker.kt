@@ -1,8 +1,6 @@
 package video
 
 import drawing.convertation.Plane
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import math.Complex
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
@@ -12,31 +10,46 @@ import java.awt.image.BufferedImage
 import java.lang.Exception
 import java.util.stream.Collectors
 import kotlin.math.*
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 
 
 @Suppress("NAME_SHADOWING")
 class VideoMaker(private val conf: VideoConfiguration) {
     enum class InterpolationMethod {
-        Linear,
-        CatmullRom
+        CatmullRom,
+        //CatmullRom
     }
 
 
     fun getVideo(method: InterpolationMethod) {
         val images = when (method) {
-            InterpolationMethod.CatmullRom -> getCadresCatmullRom()
-            InterpolationMethod.Linear -> getCadresLinear()
+           // InterpolationMethod.CatmullRom -> getCadresCatmullRom()
+            InterpolationMethod.CatmullRom -> getCadresLinear()
         }
         render(images)
     }
 
     private fun getCadresCatmullRom(): List<BufferedImage> {
-        return listOf()
+        return getData()
+    }
+    private fun getCadresLinear(): List<BufferedImage> {
+        val cadresList: MutableList<BufferedImage> = mutableListOf()
+        val centers = getCenterOfShots(conf.cadres)
+
+        return cadresList
     }
 
-    private fun getCadresLinear(): List<BufferedImage> {
+    fun calculateDistance(p1: Complex, p2: Complex): Double {
+        return sqrt((p2.re - p1.re).pow(2) + (p2.im - p1.im).pow(2))
+    }
+
+    fun calculateZoom(initialPoint1: Complex, finalPoint1: Complex): Double {
+        val initialDistance = calculateDistance(initialPoint1, Complex(0.0, 0.0))
+        val finalDistance = calculateDistance(finalPoint1, Complex(0.0, 0.0))
+
+        return initialDistance / finalDistance
+    }
+
+    private fun getCadresLinear2(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         var currPlane = conf.cadres[0].plane.copy()
@@ -86,7 +99,10 @@ class VideoMaker(private val conf: VideoConfiguration) {
             )
         }
 
+    val aspectRatio
+        get() = conf.width.toDouble() / conf.height
+
+
+
 }
-
-
 
