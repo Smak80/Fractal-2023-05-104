@@ -76,13 +76,15 @@
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;author&quot;: &quot;MBMustafin&quot;
+
   }
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="b27be8d8-b3ce-4928-96fa-f63cf56f4026" />
         <option name="url" value="https://github.com/MBMustafin/Fractal_Team2.git" />
+
       </UrlAndAccount>
     </option>
   </component>
@@ -117,8 +119,9 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.48081535&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Smak\Programming\Idea\fractalComposable-2023\src\main\kotlin\drawing" />
@@ -173,6 +176,13 @@
         <item itemvalue="Kotlin.MainKt" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-20.0.2-azul-20.0.2-8336523bb0d9-ce1e98ff" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -504,6 +514,7 @@
       <updated>1702422260477</updated>
     </task>
     <option name="localTasksCounter" value="41" />
+
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -571,6 +582,7 @@
     <MESSAGE value="Пофиксил Жюлиа" />
     <MESSAGE value="Почистил код" />
     <option name="LAST_COMMIT_MESSAGE" value="Почистил код" />
+
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
