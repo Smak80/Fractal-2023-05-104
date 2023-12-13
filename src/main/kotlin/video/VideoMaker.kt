@@ -1,6 +1,7 @@
 package video
 
 import drawing.convertation.Plane
+import math.CatmullRomInterpolation
 import math.Complex
 import org.jcodec.api.awt.AWTSequenceEncoder
 import org.jcodec.common.io.NIOUtils
@@ -31,26 +32,15 @@ class VideoMaker(private val conf: VideoConfiguration) {
 //    private fun getCadresCatmullRom(): List<BufferedImage> {
 //
 //    }
-    private fun getCadresLinearExp(): List<BufferedImage> {
+    private fun getCadresLinear(): List<BufferedImage> {
+        var cadres = conf.cadres
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
-        val centers = getCenterOfShots(conf.cadres)
-        var currPlane = conf.cadres[0].plane.copy()
+
         for (i in 0 until conf.cadres.size - 1) {
-            val currCenter = centers[i]
-            val zoom = calculateZoom(centers[i],centers[i+1])
-            for (j in 0 until framesPerSegment) {
-                val bi = Cadre.getImageFromPlane(currPlane, conf.width, conf.height, conf.colorScheme)
-                cadresList.add(bi)
-
-
-//                currPlane = Plane(nxmin, nxmax, nymin, nymax, conf.width, conf.height).also {
-//                    println("${it.xMin} ${it.yMin} ${it.xMax} ${it.yMax}")
-//                }
-
-            }
-    }
-
+            val intermediateFrames = VideoMakerHelper.createIntermediateFrames(cadres[i].plane, cadres[i+1].plane, framesPerSegment,conf.width.toInt(),conf.height.toInt())
+            cadresList.addAll(intermediateFrames)
+        }
         return cadresList
     }
 
@@ -65,7 +55,7 @@ class VideoMaker(private val conf: VideoConfiguration) {
         return initialDistance / finalDistance
     }
 
-    private fun getCadresLinear(): List<BufferedImage> {
+    private fun getCadresLinear2(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         var currPlane = conf.cadres[0].plane.copy()

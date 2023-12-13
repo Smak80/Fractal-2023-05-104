@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Адаптировал Динамические итерации Киры">
+    <list default="true" id="156e1906-a271-4d82-9a2e-9e6ebbc1d4d4" name="Changes" comment="Настроил Динамические итерации для Множества Жулиа">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMakerHelper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/drawing/FractalPainter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/gui/JuliaWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -432,7 +432,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702460595615</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Настроил Динамические итерации для Множества Жулиа">
+      <option name="closed" value="true" />
+      <created>1702462259692</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1702462259692</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +485,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Разделил Меню и Фрактал" />
     <MESSAGE value="Сделал Разные Controls в Меню." />
     <MESSAGE value="Добавил Возможность сохранения и Диалоговое Окно" />
     <MESSAGE value="Добавил Кнопку &quot;Открыть&quot; и упорядочил элементы Меню" />
@@ -502,7 +509,8 @@
     <MESSAGE value="Я снова хочу жить !" />
     <MESSAGE value="Всё отменяется..." />
     <MESSAGE value="Адаптировал Динамические итерации Киры" />
-    <option name="LAST_COMMIT_MESSAGE" value="Адаптировал Динамические итерации Киры" />
+    <MESSAGE value="Настроил Динамические итерации для Множества Жулиа" />
+    <option name="LAST_COMMIT_MESSAGE" value="Настроил Динамические итерации для Множества Жулиа" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -520,6 +528,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/video/VideoMaker.kt</url>
+          <line>34</line>
+          <properties class="video.VideoMaker" method="getCadresLinear3">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
