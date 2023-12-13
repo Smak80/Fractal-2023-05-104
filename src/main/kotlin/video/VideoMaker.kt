@@ -31,7 +31,7 @@ class VideoMaker(private val conf: VideoConfiguration) {
 //    private fun getCadresCatmullRom(): List<BufferedImage> {
 //
 //    }
-    private fun getCadresLinear(): List<BufferedImage> {
+    private fun getCadresLinearExp(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         val centers = getCenterOfShots(conf.cadres)
@@ -65,7 +65,7 @@ class VideoMaker(private val conf: VideoConfiguration) {
         return initialDistance / finalDistance
     }
 
-    private fun getCadresLinear2(): List<BufferedImage> {
+    private fun getCadresLinear(): List<BufferedImage> {
         val cadresList: MutableList<BufferedImage> = mutableListOf()
         val framesPerSegment = (conf.duration * conf.fps) / (conf.cadres.size - 1)
         var currPlane = conf.cadres[0].plane.copy()

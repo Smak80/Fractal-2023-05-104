@@ -12,10 +12,7 @@ import math.fractals.AlgebraicFractal
 import math.fractals.Mandelbrot
 import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
-import kotlin.math.abs
-import kotlin.math.floor
-import kotlin.math.log10
-import kotlin.math.pow
+import kotlin.math.*
 
 class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 
@@ -31,9 +28,7 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
             plane?.height = value.toFloat()
         }
 
-
     var colorFuncID: ColorFuncs = ColorFuncs.Zero
-
 
     var img = BufferedImage(
         1,
@@ -41,7 +36,7 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
         BufferedImage.TYPE_INT_ARGB,
     )
     var refresh = true
-    var dinamycIters = false
+    var dynamicIterations = false
 
     fun initPlane(plane: Plane) {
         this.plane = plane
@@ -100,7 +95,6 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
     }
 
     override fun paint(scope: DrawScope) {
-        scoping()
         if (refresh) {
             refresh = false
             img = BufferedImage(
@@ -117,7 +111,7 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
 
     fun getImageFromPlane(img: BufferedImage): BufferedImage {
         scoping()
-        if (dinamycIters) Mandelbrot.maxIterations = otherIters().toInt()
+        if (dynamicIterations) Mandelbrot.maxIterations = otherIters().toInt()
         else Mandelbrot.maxIterations = 200
         plane?.let { plane ->
             val tc = Runtime.getRuntime().availableProcessors()
@@ -138,22 +132,15 @@ class FractalPainter(private val fractal: AlgebraicFractal) : Painter {
         return img
     }
 
-    fun getMagnitude(number: Double): Double =
-        abs(10.0.pow(floor(log10(abs(number)))))
+    private fun getMagnitude(number: Double): Double = abs((ceil(log10(abs(number)))))
 
     fun otherIters(): Double {
         plane?.let { plane ->
-            var number = getMagnitude(((plane.xMax - plane.xMin) * (plane.yMax - plane.yMin)))
-            println(number)
-            val s = 200 / number
-            println(s)
-            if (s <= 10000) return s
-            else return 10000.0
-
+            val number = getMagnitude(((plane.xMax - plane.xMin) * (plane.yMax - plane.yMin)))
+            if(number>0) return 200 * number * 0.7
         }
-        return 1.0
+        return 200.0
     }
-
 }
 
 
