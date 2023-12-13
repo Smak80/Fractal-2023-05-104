@@ -12,7 +12,6 @@ data class Plane(
         get() = width/(xMax-xMin)
     val yDen: Double
         get() = height/(yMax-yMin)
-
 }
 
 

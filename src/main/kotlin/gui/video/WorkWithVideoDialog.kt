@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,9 @@ fun workWithVideoDialog(
     var fps = 24
     var duration = 5
     var vm: VideoMaker
+
+    var currentProgress by remember { mutableStateOf(0f) }
+    var loading by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -156,6 +160,13 @@ fun workWithVideoDialog(
             ) {
                 Text("Очистить")
             }
+        }
+        if (loading) {
+            LinearProgressIndicator(
+                strokeCap = StrokeCap.Round,
+                modifier = Modifier.fillMaxWidth(),
+                progress = currentProgress ,
+            )
         }
         LazyRow(
             modifier = Modifier
